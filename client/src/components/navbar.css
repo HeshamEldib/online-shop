@@ -1,0 +1,65 @@
+.main-navbar {
+  background-color: #131921 !important;
+  color: #fff;
+  height: 60px;
+  padding: 0;
+}
+
+.logo {
+  color: #fff;
+}
+
+/* button country */
+.but-country {
+  width: 90px;
+  cursor: pointer;
+}
+.but-country svg {
+  margin: 13px 7px 0 0;
+  font-size: 15px;
+}
+.but-country span {
+  font-size: 12px;
+  font-weight: 400;
+  color: #ccc;
+  line-height: 14px;
+}
+.but-country span.country {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 15px;
+}
+
+/* search */
+.search {
+  border-radius: 10px;
+  overflow: hidden;
+  height: 40px;
+  flex: 1;
+}
+.search .search-input {
+  border-radius: 0;
+  font-size: 16px;
+}
+.search .but-search {
+  border-radius: 0;
+  background-color: #febd69;
+  width: 45px;
+  border: 0;
+  color: #131921;
+  transition: 0.3s;
+}
+.search .but-search:hover {
+  background-color: #f3a847;
+}
+
+/* nav-right */
+.nav-right {
+  margin-left: 8px;
+}
+.nav-right .right-link,
+.nav-right .right-link > a {
+  color: #fff;
+  font-size: 14px;
+}
