@@ -1,4 +1,9 @@
+:root {
+  --bg-main: #131921;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  font-family: 'Cairo', sans-serif;
+  font-family: "Cairo", sans-serif;
 }

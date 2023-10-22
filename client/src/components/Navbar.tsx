@@ -4,9 +4,9 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCartShopping,
   faLocationDot,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
@@ -49,7 +49,7 @@ function NavLeft() {
 
 function Location() {
   return (
-    <div className="but-country d-flex">
+    <div className="but-country main-link d-flex">
       <FontAwesomeIcon icon={faLocationDot} />
       <span className="d-inline-block">
         <span className="w-100 d-inline-block">Deliver to</span>
@@ -78,38 +78,84 @@ function Search() {
 function NavRight() {
   return (
     <Nav
-      className="me-auto my-2 my-lg-0 nav-right"
+      className="me-auto my-2 my-lg-0 nav-right align-items-end"
       style={{ maxHeight: "100px" }}
       navbarScroll
     >
-      <NavDropdown
-        title="EN"
-        id="navbarScrollingDropdown"
-        className="right-link"
-      >
-        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
-      </NavDropdown>
+      <DropdownLanguage />
 
-      <NavDropdown
-        title="Hello"
-        id="navbarScrollingDropdown"
-        className="right-link"
-      >
-        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
-      </NavDropdown>
+      <DropdownHello />
 
-      <Link to="/" className="nav-link right-link">
-        Returns
+      <Link to="/register" className="nav-link right-link main-link">
+        <span className="d-block">Returns</span>
+        <span>& Orders</span>
       </Link>
-      <Link to="/" className="nav-link right-link">
-        Cart
+
+      <Link to="/cart" className="nav-link right-link cart-link">
+        <div className="cart-icon-container">
+          <FontAwesomeIcon className="cart-icon" icon={faCartShopping} />
+          <span className="cart-count">{0}</span>
+        </div>
+        <div className="cart-text">Cart</div>
       </Link>
     </Nav>
+  );
+}
+
+function DropdownLanguage() {
+  return (
+    <div className="dropdown">
+      <Link to="/language" className="right-link nav-link dropdown-toggle">
+        EN
+      </Link>
+      <ul className="dropdown-menu">
+        <li>
+          <a className="dropdown-item" href="#">
+            Action
+          </a>
+        </li>
+        <li>
+          <a className="dropdown-item" href="#">
+            Another action
+          </a>
+        </li>
+        <li>
+          <a className="dropdown-item" href="#">
+            Something else here
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+function DropdownHello() {
+  return (
+    <div className="dropdown">
+      <Link
+        to="/register"
+        className="right-link nav-link dropdown-toggle main-link"
+      >
+        <span className="d-block">Hello, sign in</span>
+        <span>Account & Lists</span>
+      </Link>
+      <ul className="dropdown-menu">
+        <li>
+          <a className="dropdown-item" href="#">
+            Action
+          </a>
+        </li>
+        <li>
+          <a className="dropdown-item" href="#">
+            Another action
+          </a>
+        </li>
+        <li>
+          <a className="dropdown-item" href="#">
+            Something else here
+          </a>
+        </li>
+      </ul>
+    </div>
   );
 }

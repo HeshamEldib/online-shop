@@ -11,7 +11,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" Component={Home} />
-        {/* <Route path="/" Component={Home} /> */}
+        <Route path="/language" Component={Home} />
+        <Route path="/register" Component={Home} />
+        <Route path="/cart" Component={Home} />
       </Routes>
     </>
   );
