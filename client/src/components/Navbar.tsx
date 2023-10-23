@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { showAndHidden } from "../redux/slices/PopoverSlice";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -47,9 +49,16 @@ function NavLeft() {
   );
 }
 
+let show = false;
+
 function Location() {
+  const dispatch = useDispatch();
+
   return (
-    <div className="but-country main-link d-flex">
+    <div
+      className="but-country main-link d-flex"
+      onClick={() => dispatch(showAndHidden())}
+    >
       <FontAwesomeIcon icon={faLocationDot} />
       <span className="d-inline-block">
         <span className="w-100 d-inline-block">Deliver to</span>
@@ -159,3 +168,5 @@ function DropdownHello() {
     </div>
   );
 }
+
+export { show };

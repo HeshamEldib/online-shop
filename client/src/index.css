@@ -1,7 +1,17 @@
 :root {
   --bg-main: #131921;
+  --main-font-col: #565959;
+  --main-border: 1px solid #D5D9D9;
+  --main-transition: 0.3s;
+}
+
+* {
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
 }
 
 body {
