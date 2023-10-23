@@ -12,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/language" Component={Home} />
+        <Route path="/signin" Component={Home} />
         <Route path="/register" Component={Home} />
         <Route path="/cart" Component={Home} />
       </Routes>

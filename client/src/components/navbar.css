@@ -70,6 +70,77 @@
   font-size: 14px;
 }
 
+/* flyout-buffer-top */
+.flyout-buffer-top {
+  position: absolute;
+  top: -15px;
+  border: 8px solid;
+  border-color: transparent transparent #fff transparent;
+}
+
+/* dropdown-hello */
+.dropdown-hello .content {
+  padding: 10px 20px;
+  width: 420px;
+  left: 50%;
+  transform: translateX(-60%);
+}
+.dropdown-hello .flyout-buffer-top {
+  left: 293px;
+}
+.dropdown-hello .content .al-signin {
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  padding: 0 100px;
+  margin-bottom: 14px;
+}
+.dropdown-hello .content .al-signin .main-button {
+  display: block;
+  width: 100%;
+  margin: auto;
+}
+.dropdown-hello .content .al-signin span {
+  display: block;
+  font-size: 11px;
+  margin: 7px 0 9px;
+  color: #333;
+}
+.dropdown-hello .content .al-signin span a {
+  margin-left: 5px;
+  color: #05a;
+  transition: .2s;
+}
+.dropdown-hello .content .al-signin span a:hover {
+  color: #e47911;
+  text-decoration: underline;
+}
+
+.dropdown-hello .content .al-menu {
+  display: inline-block;
+  width: 50%;
+}
+.dropdown-hello .content .al-menu:last-child {
+  border-left: 1px solid #eee;
+  padding-left: 20px;
+}
+.dropdown-hello .content .al-menu .menu-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.dropdown-hello .content .al-menu .menu-ul a {
+  font-size: 13px;
+  color: #444;
+  font-weight: 500;
+  display: block;
+  transition: 0.2s;
+}
+.dropdown-hello .content .al-menu .menu-ul a:hover {
+  color: #e47911;
+  text-decoration: underline;
+}
+
+
 /* cart link */
 .cart-link {
   display: flex;
@@ -113,4 +184,3 @@
 .dropdown:hover .dropdown-menu {
   display: block;
 }
-

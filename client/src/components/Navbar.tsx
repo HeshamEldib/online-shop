@@ -49,8 +49,6 @@ function NavLeft() {
   );
 }
 
-let show = false;
-
 function Location() {
   const dispatch = useDispatch();
 
@@ -95,7 +93,7 @@ function NavRight() {
 
       <DropdownHello />
 
-      <Link to="/register" className="nav-link right-link main-link">
+      <Link to="/signin" className="nav-link right-link main-link">
         <span className="d-block">Returns</span>
         <span>& Orders</span>
       </Link>
@@ -140,7 +138,7 @@ function DropdownLanguage() {
 
 function DropdownHello() {
   return (
-    <div className="dropdown">
+    <div className="dropdown dropdown-hello">
       <Link
         to="/register"
         className="right-link nav-link dropdown-toggle main-link"
@@ -148,25 +146,48 @@ function DropdownHello() {
         <span className="d-block">Hello, sign in</span>
         <span>Account & Lists</span>
       </Link>
-      <ul className="dropdown-menu">
-        <li>
-          <a className="dropdown-item" href="#">
-            Action
-          </a>
-        </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            Another action
-          </a>
-        </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            Something else here
-          </a>
-        </li>
-      </ul>
+
+      <DropdownMenuHello />
     </div>
   );
 }
 
-export { show };
+function DropdownMenuHello() {
+  const arr1: any[] = ["Create a List", "Find a List or Registry"];
+  return (
+    <div className="dropdown-menu content">
+      <div className="al-signin">
+        <Link to="/signin" className="main-button">
+          Sign in
+        </Link>
+        <span>
+          New customer?
+          <Link to="/register">Start hare</Link>
+        </span>
+      </div>
+      <LinksMenu title="Your Lists" list={arr1} />
+      <LinksMenu title="Your Account" list={arr1} />
+      <div className="flyout-buffer-top"></div>
+    </div>
+  );
+}
+interface LinksMenuProps {
+  title: string;
+  list: any[];
+}
+function LinksMenu({ title, list }: LinksMenuProps) {
+  return (
+    <div className="al-menu">
+      <h4 className="menu-title">{title}</h4>
+      <ul className="menu-ul">
+        {list?.map((link: any) => {
+          return (
+            <li>
+              <Link to="/">{link}</Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
