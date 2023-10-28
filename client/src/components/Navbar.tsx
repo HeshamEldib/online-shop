@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { showAndHidden } from "../redux/slices/PopoverSlice";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
-  faLocationDot,
+  faCircleUser,
+  faHeart,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,16 +19,14 @@ export default function MainNavbar() {
       <Container fluid>
         <NavLeft />
 
+        {/* links */}
+        <NavRight />
+
         {/* search */}
         <Search />
 
-        {/* menu */}
-        {/* <Navbar.Toggle aria-controls="navbarScroll" /> */}
-        {/* <Navbar.Collapse id="navbarScroll">
-        </Navbar.Collapse> */}
-
-        {/* links */}
-        <NavRight />
+        {/* Person Links */}
+        <PersonLinks />
       </Container>
     </Navbar>
   );
@@ -41,27 +37,8 @@ function NavLeft() {
     <div className="d-flex align-items-center nav-left">
       <Link to="/" className="navbar-brand logo">
         Hesham Eldib
+        {/* <img src="../public/logo.svg" alt="" /> */}
       </Link>
-
-      {/* location */}
-      <Location />
-    </div>
-  );
-}
-
-function Location() {
-  const dispatch = useDispatch();
-
-  return (
-    <div
-      className="but-country main-link d-flex"
-      onClick={() => dispatch(showAndHidden())}
-    >
-      <FontAwesomeIcon icon={faLocationDot} />
-      <span className="d-inline-block">
-        <span className="w-100 d-inline-block">Deliver to</span>
-        <span className="country">Egypt</span>
-      </span>
     </div>
   );
 }
@@ -84,110 +61,76 @@ function Search() {
 
 function NavRight() {
   return (
-    <Nav
-      className="me-auto my-2 my-lg-0 nav-right align-items-end"
-      style={{ maxHeight: "100px" }}
-      navbarScroll
-    >
+    <div className="align-items-center links">
+      <Link to="/" className="nav-link right-link main-link">
+        Home
+      </Link>
+      <Link to="/Products" className="nav-link right-link main-link">
+        Products
+      </Link>
+      <Link to="/f&q" className="nav-link right-link main-link">
+        F&Q
+      </Link>
+      {/* Language */}
       <DropdownLanguage />
-
-      <DropdownHello />
-
-      <Link to="/signin" className="nav-link right-link main-link">
-        <span className="d-block">Returns</span>
-        <span>& Orders</span>
-      </Link>
-
-      <Link to="/cart" className="nav-link right-link cart-link">
-        <div className="cart-icon-container">
-          <FontAwesomeIcon className="cart-icon" icon={faCartShopping} />
-          <span className="cart-count">{0}</span>
-        </div>
-        <div className="cart-text">Cart</div>
-      </Link>
-    </Nav>
+    </div>
   );
 }
 
 function DropdownLanguage() {
   return (
-    <div className="dropdown">
-      <Link to="/language" className="right-link nav-link dropdown-toggle">
+    <div className="dropdown p-2">
+      <Link to="/language" className="main-link nav-link dropdown-toggle">
         EN
       </Link>
-      <ul className="dropdown-menu">
-        <li>
-          <a className="dropdown-item" href="#">
-            Action
-          </a>
-        </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            Another action
-          </a>
-        </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            Something else here
-          </a>
-        </li>
-      </ul>
+      <LanguageMenu />
+    </div>
+  );
+}
+function LanguageMenu() {
+  return (
+    <ul className="dropdown-menu">
+      <li>
+        <a className="dropdown-item" href="#">
+          Action
+        </a>
+      </li>
+      <li>
+        <a className="dropdown-item" href="#">
+          Another action
+        </a>
+      </li>
+      <li>
+        <a className="dropdown-item" href="#">
+          Something else here
+        </a>
+      </li>
+    </ul>
+  );
+}
+
+function PersonLinks() {
+  return (
+    <div className="d-flex align-items-center">
+      <PersonLink link="/love" count={0} icon={faHeart} />
+      <PersonLink link="/cart" count={0} icon={faCartShopping} />
+      <PersonLink link="/account" icon={faCircleUser} />
     </div>
   );
 }
 
-function DropdownHello() {
-  return (
-    <div className="dropdown dropdown-hello">
-      <Link
-        to="/register"
-        className="right-link nav-link dropdown-toggle main-link"
-      >
-        <span className="d-block">Hello, sign in</span>
-        <span>Account & Lists</span>
-      </Link>
-
-      <DropdownMenuHello />
-    </div>
-  );
+interface PersonLinkProps {
+  link: string;
+  count?: number;
+  icon: any;
 }
-
-function DropdownMenuHello() {
-  const arr1: any[] = ["Create a List", "Find a List or Registry"];
+function PersonLink({ link, count, icon }: PersonLinkProps) {
   return (
-    <div className="dropdown-menu content">
-      <div className="al-signin">
-        <Link to="/signin" className="main-button">
-          Sign in
-        </Link>
-        <span>
-          New customer?
-          <Link to="/register">Start hare</Link>
-        </span>
+    <Link to={link} className="nav-link main-link person-link">
+      <div className="person-icon-container">
+        <FontAwesomeIcon className="person-icon" icon={icon} />
+        {count == undefined || <span className="person-count">{count}</span>}
       </div>
-      <LinksMenu title="Your Lists" list={arr1} />
-      <LinksMenu title="Your Account" list={arr1} />
-      <div className="flyout-buffer-top"></div>
-    </div>
-  );
-}
-interface LinksMenuProps {
-  title: string;
-  list: any[];
-}
-function LinksMenu({ title, list }: LinksMenuProps) {
-  return (
-    <div className="al-menu">
-      <h4 className="menu-title">{title}</h4>
-      <ul className="menu-ul">
-        {list?.map((link: any) => {
-          return (
-            <li>
-              <Link to="/">{link}</Link>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    </Link>
   );
 }
