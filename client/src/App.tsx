@@ -4,11 +4,13 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 
 import "./App.css";
+import MenuLinks from "./components/MenuLinks";
 
 function App() {
   return (
     <>
       <Navbar />
+      <MenuLinks />
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/language" Component={Home} />

@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBarsStaggered,
   faCartShopping,
   faCircleUser,
   faHeart,
@@ -12,6 +14,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./navbar.css";
+import { showAndHidden } from "../redux/slices/targetMenu";
+import { InputGroup } from "react-bootstrap";
 
 export default function MainNavbar() {
   return (
@@ -20,7 +24,7 @@ export default function MainNavbar() {
         <NavLeft />
 
         {/* links */}
-        <NavRight />
+        <NavLinks />
 
         {/* search */}
         <Search />
@@ -33,11 +37,16 @@ export default function MainNavbar() {
 }
 
 function NavLeft() {
+  const dispatch = useDispatch();
+
   return (
     <div className="d-flex align-items-center nav-left">
+      <button className="but-menu" onClick={() => dispatch(showAndHidden())}>
+        <FontAwesomeIcon icon={faBarsStaggered} />
+      </button>
+
       <Link to="/" className="navbar-brand logo">
-        Hesham Eldib
-        {/* <img src="../public/logo.svg" alt="" /> */}
+        <img src="../public/logo.png" alt="" />
       </Link>
     </div>
   );
@@ -59,9 +68,9 @@ function Search() {
   );
 }
 
-function NavRight() {
+export function NavLinks() {
   return (
-    <div className="align-items-center links">
+    <div className="align-items-center links me-md-1 me-lg-2">
       <Link to="/" className="nav-link right-link main-link">
         Home
       </Link>
@@ -79,7 +88,7 @@ function NavRight() {
 
 function DropdownLanguage() {
   return (
-    <div className="dropdown p-2">
+    <div className="dropdown">
       <Link to="/language" className="main-link nav-link dropdown-toggle">
         EN
       </Link>
@@ -91,6 +100,18 @@ function LanguageMenu() {
   return (
     <ul className="dropdown-menu">
       <li>
+        <Link to="/">
+          <input type="radio" id="html" name="fav_language" value="HTML" />
+          <label htmlFor="html">HTML</label>
+        </Link>
+      </li>
+      <li>
+        <Link to="/">
+          <input type="radio" id="css" name="fav_language" value="css" />
+          <label htmlFor="css">css</label>
+        </Link>
+      </li>
+      <li>
         <a className="dropdown-item" href="#">
           Action
         </a>
@@ -100,28 +121,23 @@ function LanguageMenu() {
           Another action
         </a>
       </li>
-      <li>
-        <a className="dropdown-item" href="#">
-          Something else here
-        </a>
-      </li>
     </ul>
   );
 }
 
 function PersonLinks() {
   return (
-    <div className="d-flex align-items-center">
+    <div className="d-flex align-items-center ms-md-1 ms-lg-2">
       <PersonLink link="/love" count={0} icon={faHeart} />
       <PersonLink link="/cart" count={0} icon={faCartShopping} />
-      <PersonLink link="/account" icon={faCircleUser} />
+      <Account />
     </div>
   );
 }
 
 interface PersonLinkProps {
   link: string;
-  count?: number;
+  count: number;
   icon: any;
 }
 function PersonLink({ link, count, icon }: PersonLinkProps) {
@@ -129,7 +145,17 @@ function PersonLink({ link, count, icon }: PersonLinkProps) {
     <Link to={link} className="nav-link main-link person-link">
       <div className="person-icon-container">
         <FontAwesomeIcon className="person-icon" icon={icon} />
-        {count == undefined || <span className="person-count">{count}</span>}
+        <span className="person-count">{count}</span>
+      </div>
+    </Link>
+  );
+}
+
+export function Account() {
+  return (
+    <Link to="/account" className="nav-link main-link person-link">
+      <div className="person-icon-container">
+        <FontAwesomeIcon className="person-icon" icon={faCircleUser} />
       </div>
     </Link>
   );

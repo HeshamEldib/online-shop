@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import popoverSlice from "./slices/PopoverSlice";
+import targetMenuSlice from "./slices/targetMenu";
 
 export const store = configureStore({
   reducer: {
-    handelPopover: popoverSlice,
+    targetMenu: targetMenuSlice,
   },
 });
 
