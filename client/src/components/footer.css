@@ -1,0 +1,87 @@
+footer {
+  background-color: #232f3e;
+  color: #fff;
+}
+
+footer .back-to-top {
+  margin-bottom: 30px;
+}
+footer .back-to-top button {
+  width: 100%;
+  background-color: #37475a;
+  border: none;
+  font-size: 13px;
+  color: #fff;
+  padding: 10px 0;
+  transition: var(--main-transition);
+}
+footer .back-to-top button:hover {
+  background-color: #485769;
+}
+
+footer .footer-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+footer .footer-link .logo {
+  margin-right: 30px;
+  width: 150px;
+}
+
+footer .footer-end {
+  background-color: #131a22;
+  text-align: center;
+  font-size: 12px;
+  padding: 10px 0 20px;
+  color: #ddd;
+}
+
+/* developer links */
+
+.developer-links {
+  background-color: #131a22;
+  padding: 20px;
+}
+.developer-links .developer-title {
+  font-size: 22px;
+}
+.developer-links ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: center;
+}
+
+.developer-links ul a {
+  color: #fff;
+  transition: var(--main-transition);
+}
+.developer-links ul a.my-website:hover {
+  color: #fb8500;
+}
+.developer-links ul a.linkedin:hover {
+  color: #0077b5;
+}
+.developer-links ul a.github:hover {
+  color: #6e5494;
+}
+
+.developer-links ul svg {
+  font-size: 20px;
+  margin-right: 7px;
+}
+.developer-links ul a.linkedin svg {
+  color: #0077b5;
+}
+.developer-links ul a.github svg {
+  color: #6e5494;
+}
+.developer-links ul img {
+  width: 25px;
+  margin-right: 10px;
+}
+.developer-links ul span {
+  font-size: 16px;
+}

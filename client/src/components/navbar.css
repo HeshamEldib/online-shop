@@ -12,11 +12,7 @@
 }
 
 .logo {
-  color: #fff;
-}
-.logo:focus,
-.logo:hover {
-  color: #fff;
+  width: 100px;
 }
 
 /* menu button */
@@ -114,7 +110,7 @@
   height: 18px;
   border-radius: 50%;
   text-align: center;
-  line-height: 1.1;
+  line-height: 1.4;
   background-color: #f08804;
   z-index: 5;
   color: #fff;

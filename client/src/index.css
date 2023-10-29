@@ -1,7 +1,7 @@
 :root {
   --bg-main: #131921;
   --main-font-col: #565959;
-  --main-border: 1px solid #D5D9D9;
+  --main-border: 1px solid #d5d9d9;
   --main-transition: 0.3s;
 }
 
@@ -20,8 +20,12 @@ ul {
   margin: 0;
 }
 
+img {
+  max-width: 100%;
+}
+
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1.7;
 }
 

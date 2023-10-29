@@ -43,17 +43,16 @@
   background-color: #232f3e;
   color: #fff;
   padding: 10px;
-}
-.menu-links .content .menu-links-top a {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+}
+.menu-links .content .menu-links-top .logo {
+  width: 140px;
 }
 .menu-links .content .menu-links-top a svg {
   font-size: 28px;
 }
-.menu-links .content .menu-links-top h2 {
-  font-size: 22px;
-}
+
 
 .menu-links .content .links {
   display: flex;

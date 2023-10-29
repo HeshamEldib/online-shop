@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -15,7 +15,6 @@ import {
 
 import "./navbar.css";
 import { showAndHidden } from "../redux/slices/targetMenu";
-import { InputGroup } from "react-bootstrap";
 
 export default function MainNavbar() {
   return (
@@ -45,10 +44,15 @@ function NavLeft() {
         <FontAwesomeIcon icon={faBarsStaggered} />
       </button>
 
-      <Link to="/" className="navbar-brand logo">
-        <img src="../public/logo.png" alt="" />
-      </Link>
+      <Logo />
     </div>
+  );
+}
+export function Logo() {
+  return (
+    <Link to="/" className="navbar-brand logo">
+      <img src="../public/logo.png" alt="" />
+    </Link>
   );
 }
 
@@ -81,12 +85,12 @@ export function NavLinks() {
         F&Q
       </Link>
       {/* Language */}
-      <DropdownLanguage />
+      <Language />
     </div>
   );
 }
 
-function DropdownLanguage() {
+export function Language() {
   return (
     <div className="dropdown">
       <Link to="/language" className="main-link nav-link dropdown-toggle">

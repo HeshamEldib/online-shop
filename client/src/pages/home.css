@@ -1,0 +1,83 @@
+
+.home {
+  background-color: #E3E6E6;
+}
+
+/* carousel */
+/* .carousel-home {
+  height: calc(100vh - 60px);
+  
+} */
+.carousel-home .carousel-inner {
+  height: 510px;
+}
+.carousel-home .carousel-item {
+  height: 100%;
+}
+.carousel-home .carousel-item a {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+}
+.carousel-home .carousel-item a::after {
+  content: "";
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(-180deg,rgba(234,237,237,0),#E3E6E6);
+  z-index: 2;
+}
+.carousel-home .carousel-item a img {
+  height: 100%;
+  width: 100%;
+}
+.carousel-home .carousel-indicators {
+  display: none;
+}
+.carousel-home .carousel-control-next,
+.carousel-home .carousel-control-prev {
+  width: 65px;
+  height: 220px;
+}
+.carousel-home .carousel-control-next:hover,
+.carousel-home .carousel-control-prev:hover {
+  border: 2px solid;
+}
+
+
+/* layout */
+.layout {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: -300px;
+  position: relative;
+  z-index: 5;
+}
+.layout .card-layout .card-parent {
+  padding: 10px;
+}
+.layout .card-layout .card {
+  padding: 20px;
+  /* width: 400px; */
+}
+.layout .card-layout .card .card-title {
+  font-size: 19px;
+}
+/* .layout .card-layout .card .card-image {
+  font-size: 19px;
+} */
+.layout .card-layout .card a {
+  font-size: 11px;
+  transition: var(--main-transition);
+}
+.layout .card-layout .card a:hover {
+  color: #C7511F;
+}
+.layout .card-layout .card a span {
+  margin-top: 10px;
+  display: inline-block;
+}
+

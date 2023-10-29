@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { Account, NavLinks } from "./Navbar";
+import { Account, Logo, NavLinks } from "./Navbar";
 import "./menu-links.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -20,8 +20,8 @@ export default function MenuLinks() {
           />
         </button>
         <div className="menu-links-top">
+          <Logo />
           <Account />
-          <h2>Hesham Eldib</h2>
         </div>
         <NavLinks />
       </div>
