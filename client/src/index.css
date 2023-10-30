@@ -3,6 +3,10 @@
   --main-font-col: #565959;
   --main-border: 1px solid #d5d9d9;
   --main-transition: 0.3s;
+  --main-color: #FFD814;
+  --border-color: #FCD200;
+  --hover-color: #F7CA00;
+  --hover-border: #F2C200;
 }
 
 * {

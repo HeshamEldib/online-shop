@@ -134,7 +134,7 @@ function PersonLinks() {
     <div className="d-flex align-items-center ms-md-1 ms-lg-2">
       <PersonLink link="/love" count={0} icon={faHeart} />
       <PersonLink link="/cart" count={0} icon={faCartShopping} />
-      <Account />
+      <ProfileIcon />
     </div>
   );
 }
@@ -155,7 +155,7 @@ function PersonLink({ link, count, icon }: PersonLinkProps) {
   );
 }
 
-export function Account() {
+export function ProfileIcon() {
   return (
     <Link to="/account" className="nav-link main-link person-link">
       <div className="person-icon-container">
