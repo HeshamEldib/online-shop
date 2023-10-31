@@ -1,25 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface TargetMenuSlice {
-  show: string;
+  showLinks: string;
+  showLove: string;
 }
 
 const initialState: TargetMenuSlice = {
-  show: "",
+  showLinks: "",
+  showLove: "",
 };
 
 export const targetMenuSlice = createSlice({
   name: "targetMenu",
   initialState,
   reducers: {
-    showAndHidden: (state) => {
-      state.show === "" ? state.show = "show-menu" : state.show = "";
+    showAndHiddenLinks: (state) => {
+      state.showLinks === "" ? state.showLinks = "show-menu" : state.showLinks = "";
+    },
+    showAndHiddenLove: (state) => {
+      state.showLove === "" ? state.showLove = "show-menu" : state.showLove = "";
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { showAndHidden } = targetMenuSlice.actions;
+export const { showAndHiddenLinks, showAndHiddenLove } = targetMenuSlice.actions;
 
 export default targetMenuSlice.reducer;

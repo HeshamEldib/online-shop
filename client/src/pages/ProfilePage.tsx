@@ -1,4 +1,4 @@
 
 export default function ProfilePage() {
-  return <section className="account-page"></section>;
+  return <section className="profile-page"></section>;
 }

@@ -9,6 +9,8 @@ import Signin from "./pages/Signin";
 import ProfilePage from "./pages/ProfilePage";
 
 import "./App.css";
+import LoveMenu from "./components/LoveMenu";
+import Cart from "./pages/CartPage";
 
 function App() {
   const pathName = useLocation().pathname;
@@ -25,6 +27,7 @@ function App() {
         <>
           <Navbar />
           <MenuLinks />
+          <LoveMenu />
         </>
       )}
 
@@ -33,7 +36,7 @@ function App() {
         <Route path="/language" Component={Home} />
         <Route path="/signin" Component={Signin} />
         <Route path="/register" Component={Register} />
-        <Route path="/cart" Component={Home} />
+        <Route path="/cart" Component={Cart} />
         <Route path="/account" Component={ProfilePage} />
       </Routes>
 

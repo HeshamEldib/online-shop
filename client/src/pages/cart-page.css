@@ -1,0 +1,93 @@
+
+.cart-page {
+  background-color: #EAEDED;
+  padding: 20px;
+}
+
+.cart-page .cart-content {
+  background-color: #fff;
+  padding: 20px;
+}
+.cart-page .cart-content .cart-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+.cart-page .cart-content h1 {
+  font-size: 25px;
+  margin: 0;
+}
+.cart-page .cart-content .target-all-items {
+  margin-bottom: 5px;
+  border: 0;
+  background-color: transparent;
+  font-size: 13px;
+  color: #007185;
+  transition: var(--main-transition);
+}
+.cart-page .cart-content .target-all-items:hover {
+  color: #C7511F;
+  text-decoration: underline;
+}
+
+
+.cart-page .cart-content .product-cart {
+  display: flex;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.cart-page .cart-content .product-cart .image {
+  width: 180px;
+  margin-right: 10px;
+}
+.cart-page .cart-content .product-cart .text {
+  flex: 1;
+}
+.cart-page .cart-content .product-cart .title {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 400;
+}
+.cart-page .cart-content .product-cart .price {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.cart-page .action-buts {
+  display: flex;
+  margin-top: 15px;
+}
+.cart-page .action-buts button {
+  border: 1.2px solid;
+  border-radius: 15px;
+  background-color: transparent;
+  font-size: 13px;
+  padding: 3px 5px;
+  transition: var(--main-transition);
+}
+.cart-page .action-buts .but-delete {
+  color: #dc3545;
+  margin-right: 5px;
+}
+.cart-page .action-buts .but-delete:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+
+.cart-page .action-love {
+  line-height: 2;
+}
+.cart-page .action-love .but-love {
+  border: none;
+  background-color: transparent;
+  font-size: 22px;
+  padding: 3px 5px;
+  transition: var(--main-transition);
+  color: #111;
+  line-height: 1;
+}
+.cart-page .action-love .but-love:hover {
+  color: #F44336;
+}
+

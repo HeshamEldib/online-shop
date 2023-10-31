@@ -12,9 +12,12 @@ import {
   faHeart,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  showAndHiddenLinks,
+  showAndHiddenLove,
+} from "../redux/slices/targetMenu";
 
 import "./navbar.css";
-import { showAndHidden } from "../redux/slices/targetMenu";
 
 export default function MainNavbar() {
   return (
@@ -40,7 +43,10 @@ function NavLeft() {
 
   return (
     <div className="d-flex align-items-center nav-left">
-      <button className="but-menu" onClick={() => dispatch(showAndHidden())}>
+      <button
+        className="but-menu"
+        onClick={() => dispatch(showAndHiddenLinks())}
+      >
         <FontAwesomeIcon icon={faBarsStaggered} />
       </button>
 
@@ -132,26 +138,35 @@ function LanguageMenu() {
 function PersonLinks() {
   return (
     <div className="d-flex align-items-center ms-md-1 ms-lg-2">
-      <PersonLink link="/love" count={0} icon={faHeart} />
-      <PersonLink link="/cart" count={0} icon={faCartShopping} />
+      <LoveLink />
+      <CardLink />
       <ProfileIcon />
     </div>
   );
 }
 
-interface PersonLinkProps {
-  link: string;
-  count: number;
-  icon: any;
-}
-function PersonLink({ link, count, icon }: PersonLinkProps) {
+function CardLink() {
   return (
-    <Link to={link} className="nav-link main-link person-link">
+    <Link to="/cart" className="nav-link main-link person-link">
       <div className="person-icon-container">
-        <FontAwesomeIcon className="person-icon" icon={icon} />
-        <span className="person-count">{count}</span>
+        <FontAwesomeIcon className="person-icon" icon={faCartShopping} />
+        <span className="person-count">{0}</span>
       </div>
     </Link>
+  );
+}
+function LoveLink() {
+  const dispatch = useDispatch();
+  return (
+    <button
+      className="nav-link main-link person-link"
+      onClick={() => dispatch(showAndHiddenLove())}
+    >
+      <div className="person-icon-container">
+        <FontAwesomeIcon className="person-icon" icon={faHeart} />
+        <span className="person-count">{0}</span>
+      </div>
+    </button>
   );
 }
 

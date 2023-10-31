@@ -1,0 +1,62 @@
+
+.love-menu .main-menu {
+  left: inherit;
+  right: -100%;
+}
+.love-menu .main-menu.show-menu {
+  right: 0;
+}
+
+.love-menu .main-menu .content {
+  max-width: 400px;
+  left: calc(100% - 400px);
+}
+
+.love-menu .main-menu .close-menu {
+  right: inherit;
+  left: -35px;
+}
+
+
+/* product love */
+.love-menu .products-love {
+  padding: 10px 0;
+}
+.love-menu .product-love {
+  border-bottom: 1.5px solid #1111114f;
+  padding: 5px 0 5px 5px;
+}
+.love-menu .product-love a {
+  height: 80px;
+  display: flex;
+}
+.love-menu .product-love .image {
+  width: 80px;
+}
+.love-menu .product-love .text {
+  flex: 1;
+  padding: 3px 10px;
+  color: #0F1111;
+}
+.love-menu .product-love .title {
+  font-size: 16px;
+  font-weight: 400;
+}
+.love-menu .product-love .price {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.love-menu .product-love .but-go {
+  font-size: 20px;
+  width: 40px;
+  background-color: transparent;
+  border: 1.2px solid var(--border-color);
+  color: var(--main-color);
+  transition: var(--main-transition);
+}
+.love-menu .product-love:hover .but-go {
+  background-color: var(--main-color);
+  border-color: var(--hover-color);
+  color: #fff;
+}
