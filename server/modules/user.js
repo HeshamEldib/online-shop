@@ -26,6 +26,20 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "uploads/H1.png",
   },
+  cart: {
+    type: [
+      {
+        productId: { type: String },
+        count: {
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
+  },
+  love: {
+    type: [String],
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);
