@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 const httpStatusText = require("../utils/httpStatusText");
 const appError = require("../utils/appError");
 const asyncWrapper = require("../middleware/asyncWrapper");
+const userRoles = require("../utils/userRoles");
 
 const getAllProducts = asyncWrapper(async (req, res, next) => {
   const query = req.query;
@@ -43,7 +44,9 @@ const addProduct = asyncWrapper(async (req, res, next) => {
     const error = appError.create(errors.array(), 400, httpStatusText.FAIL);
     return next(error);
   }
-  const newProduct = new Product(req.body);
+
+  const user = req.currentUser;
+  const newProduct = new Product({ ...req.body, user: user.id });
   await newProduct.save();
 
   res.status(201).json({
@@ -54,7 +57,19 @@ const addProduct = asyncWrapper(async (req, res, next) => {
 
 const updateProduct = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
-  const updatedProduct = await Product.updateOne({ _id: productId }, req.body);
+  const user = req.currentUser;
+  const product = await Product.findOne({ _id: productId });
+
+  if (product.user === user.id) {
+    var updatedProduct = await Product.updateOne({ _id: productId }, req.body);
+  } else {
+    const error = appError.create(
+      "this the user is not creating this product",
+      403,
+      httpStatusText.FAIL
+    );
+    return next(error);
+  }
 
   res.status(201).json({
     status: httpStatusText.SUCCESS,
@@ -64,7 +79,19 @@ const updateProduct = asyncWrapper(async (req, res, next) => {
 
 const deleteProduct = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
-  await Product.deleteOne({ _id: productId });
+  const user = req.currentUser;
+  const product = await Product.findOne({ _id: productId });
+
+  if (product.user === user.id || user.role === userRoles.MANGER) {
+    await Product.deleteOne({ _id: productId });
+  } else {
+    const error = appError.create(
+      "this the user is not creating this product",
+      403,
+      httpStatusText.FAIL
+    );
+    return next(error);
+  }
 
   return res.status(200).json({ status: httpStatusText.SUCCESS, data: null });
 });

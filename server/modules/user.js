@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
   token: {
     type: String,
   },
-  roles: {
+  role: {
     type: String,
     enum: [userRoles.USER, userRoles.ADMIN, userRoles.MANGER],
     default: userRoles.USER,

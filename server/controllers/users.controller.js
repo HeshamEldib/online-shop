@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const User = require("../modules/user");
-const Product = require("../modules/product");
 const asyncWrapper = require("../middleware/asyncWrapper");
 const appError = require("../utils/appError");
 const httpStatusText = require("../utils/httpStatusText");
@@ -15,8 +14,21 @@ const getAllUsers = asyncWrapper(async (req, res, next) => {
   });
 });
 
+const getUser = asyncWrapper(async (req, res, next) => {
+  const userId = req.params.userId;
+  const user = await User.findOne(
+    { _id: userId },
+    { __v: false, password: false }
+  );
+
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
+    data: { user },
+  });
+});
+
 const register = asyncWrapper(async (req, res, next) => {
-  const { userName, email, password, roles } = req.body;
+  const { userName, email, password, role } = req.body;
 
   const oldUser = await User.findOne({ email });
   if (oldUser) {
@@ -34,14 +46,14 @@ const register = asyncWrapper(async (req, res, next) => {
     userName,
     email,
     password: hashPassword,
-    roles,
+    role,
     avatar: req.file.filename,
   });
 
   const token = await generateJWT({
     email: newUser.email,
     id: newUser._id,
-    roles: newUser.roles,
+    role: newUser.role,
   });
   newUser.token = token;
 
@@ -93,204 +105,47 @@ const signin = asyncWrapper(async (req, res, next) => {
   });
 });
 
-// cart
-const addCart = asyncWrapper(async (req, res, next) => {
-  const productId = req.params.productId;
+const updateUser = asyncWrapper(async (req, res, next) => {
+  const userId = req.params.userId;
+  const { userName, role } = req.body;
+  const user = await User.findOne({ _id: userId }, { __v: false });
 
-  const product = await Product.findOne({ _id: productId });
-  if (!product) {
-    const error = appError.create(
-      "Product not found",
-      404,
-      httpStatusText.ERROR
-    );
-    return next(error);
-  }
+  user.userName = userName;
+  user.avatar = req.file.filename;
+  user.role = role;
 
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
-
-  for (const product of user.cart) {
-    if (product.productId === productId) {
-      const error = appError.create(
-        "Product already found",
-        400,
-        httpStatusText.FAIL
-      );
-      return next(error);
-    }
-  }
-
-  user.cart.push({ productId });
   await user.save();
-  res.json({
+  res.status(200).json({
     status: httpStatusText.SUCCESS,
-    data: { cart: user.cart },
+    data: { user },
   });
 });
 
-const updateCountProduct = asyncWrapper(async (req, res, next) => {
-  const { productId, count = 1 } = req.body;
+const deleteUser = asyncWrapper(async (req, res, next) => {
+  const userId = req.params.userId;
+  const { password } = req.body;
+  const user = await User.findOne({ _id: userId }, { __v: false });
 
-  if (count <= 0) {
+  matchedPassword = await bcrypt.compare(password, user.password);
+  if (!matchedPassword) {
     const error = appError.create(
-      "the count cannot be negative or equal to zero",
+      "password is failed",
       500,
-      httpStatusText.FAIL
-    );
-    return next(error);
-  }
-
-  if (!productId) {
-    const error = appError.create(
-      "productId is required",
-      500,
-      httpStatusText.FAIL
-    );
-    return next(error);
-  }
-
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
-
-  let findProductToCart = false;
-  for (const product of user.cart) {
-    if (product.productId === productId) {
-      product.count = count;
-      findProductToCart = true;
-      break;
-    }
-  }
-
-  if (!findProductToCart) {
-    const error = appError.create(
-      "Product not found to cart",
-      404,
       httpStatusText.ERROR
     );
     return next(error);
   }
 
-  await user.save();
-  res.json({
-    status: httpStatusText.SUCCESS,
-    data: { cart: user.cart },
-  });
-});
+  await User.deleteOne({ _id: userId });
 
-const deleteProductToCart = asyncWrapper(async (req, res, next) => {
-  const productId = req.params.productId;
-
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
-
-  let findProductToCart = false;
-  for (let i = 0; i < user.cart.length; i++) {
-    if (user.cart[i].productId === productId) {
-      user.cart.splice(i, 1);
-      findProductToCart = true;
-      break;
-    }
-  }
-  if (!findProductToCart) {
-    const error = appError.create(
-      "Product not found to cart",
-      404,
-      httpStatusText.ERROR
-    );
-    return next(error);
-  }
-
-  await user.save();
-  res.json({
-    status: httpStatusText.SUCCESS,
-    data: { cart: user.cart },
-  });
-});
-
-// love
-const addLove = asyncWrapper(async (req, res, next) => {
-  const productId = req.params.productId;
-
-  const product = await Product.findOne({ _id: productId });
-  if (!product) {
-    const error = appError.create(
-      "Product not found",
-      404,
-      httpStatusText.ERROR
-    );
-    return next(error);
-  }
-
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
-
-  for (const product of user.love) {
-    if (product === productId) {
-      const error = appError.create(
-        "Product already found",
-        400,
-        httpStatusText.FAIL
-      );
-      return next(error);
-    }
-  }
-
-  user.love.push(productId);
-  await user.save();
-  res.json({
-    status: httpStatusText.SUCCESS,
-    data: { love: user.love },
-  });
-});
-
-const deleteProductToLove = asyncWrapper(async (req, res, next) => {
-  const productId = req.params.productId;
-
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
-
-  let findProductToCart = false;
-  for (let i = 0; i < user.love.length; i++) {
-    if (user.love[i] === productId) {
-      user.love.splice(i, 1);
-      findProductToCart = true;
-      break;
-    }
-  }
-  if (!findProductToCart) {
-    const error = appError.create(
-      "Product not found to cart",
-      404,
-      httpStatusText.ERROR
-    );
-    return next(error);
-  }
-
-  await user.save();
-  res.json({
-    status: httpStatusText.SUCCESS,
-    data: { love: user.love },
-  });
+  return res.status(200).json({ status: httpStatusText.SUCCESS, data: null });
 });
 
 module.exports = {
   getAllUsers,
+  getUser,
   register,
   signin,
-  addCart,
-  updateCountProduct,
-  deleteProductToCart,
-  addLove,
-  deleteProductToLove,
+  deleteUser,
+  updateUser,
 };
