@@ -4,7 +4,7 @@ import { RootState } from "../redux/store";
 import { showAndHiddenLove } from "../redux/slices/targetMenu";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { faAnglesRight, faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./love-menu.css";
 
 export default function LoveMenu() {
@@ -48,7 +48,9 @@ function ProductLove() {
           <img src="../public/product.jpg" alt="" />
         </div>
         <div className="text">
-          <h3 className="title">FelixKing Ergonomic Office Chair, Headrest Desk Chair</h3>
+          <h3 className="title">
+            FelixKing Ergonomic Office Chair, Headrest Desk Chair
+          </h3>
           <span className="price">180 $</span>
         </div>
         <button className="but-go">
@@ -56,5 +58,13 @@ function ProductLove() {
         </button>
       </Link>
     </div>
+  );
+}
+
+export function ButLove() {
+  return (
+    <button className="but-love">
+      <FontAwesomeIcon icon={faHeart} />
+    </button>
   );
 }

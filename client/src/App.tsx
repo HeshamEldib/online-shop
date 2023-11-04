@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import "./App.css";
 import LoveMenu from "./components/LoveMenu";
 import Cart from "./pages/CartPage";
+import ProductPage from "./pages/productPage";
 
 function App() {
   const pathName = useLocation().pathname;
@@ -38,6 +39,7 @@ function App() {
         <Route path="/register" Component={Register} />
         <Route path="/cart" Component={Cart} />
         <Route path="/account" Component={ProfilePage} />
+        <Route path="/product" Component={ProductPage} />
       </Routes>
 
       {showNavbar && (
