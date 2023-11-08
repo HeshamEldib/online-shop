@@ -1,0 +1,65 @@
+.product-page {
+  padding: 20px 0;
+}
+
+.product-page .ranking {
+  margin-bottom: 10px;
+  border-bottom: 1px solid;
+  padding-bottom: 7px;
+}
+.product-page .ranking ul {
+  display: flex;
+}
+.product-page .ranking li {
+  margin-right: 10px;
+}
+.product-page .ranking button {
+  font-size: 20px;
+  padding: 1px 11px;
+  line-height: normal;
+  border-radius: 20px;
+  text-transform: capitalize;
+  border: 1.7px solid;
+  color: #111;
+  transition: var(--main-transition);
+}
+.product-page .ranking button:hover,
+.product-page .ranking button.active {
+  background-color: var(--hover-color);
+  border-color: var(--hover-border);
+}
+
+.product-page .products {
+  padding: 0 5px;
+}
+.product-page .products .product-parent {
+  padding: 10px;
+}
+.product-page .products .info {
+  margin-top: 10px;
+}
+.product-page .products .info-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
+}
+
+.product-page .products .title {
+  color: #0f1111;
+  font-size: 14px;
+}
+
+/* price */
+.price {
+  display: flex;
+  color: #111;
+}
+.price .price-currency {
+  font-size: 17px;
+  font-weight: 500;
+}
+.price .price-value {
+  font-size: 23px;
+  font-weight: 500;
+}

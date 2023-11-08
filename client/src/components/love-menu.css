@@ -60,3 +60,16 @@
   border-color: var(--hover-color);
   color: #fff;
 }
+
+/* button love */
+.but-love {
+  border: none;
+  font-size: 27px;
+  background-color: transparent;
+  color: #565959;
+  transition: var(--main-transition);
+}
+.but-love:hover,
+.but-love.active {
+  color: #f44336;
+}

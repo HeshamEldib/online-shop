@@ -7,11 +7,12 @@ import Footer from "./components/Footer";
 import Register from "./pages/Register";
 import Signin from "./pages/Signin";
 import ProfilePage from "./pages/ProfilePage";
-
-import "./App.css";
 import LoveMenu from "./components/LoveMenu";
 import Cart from "./pages/CartPage";
-import ProductPage from "./pages/productPage";
+import ProductPage from "./pages/ProductPage";
+
+import "./App.css";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const pathName = useLocation().pathname;
@@ -33,13 +34,14 @@ function App() {
       )}
 
       <Routes>
-        <Route path="/" Component={Home} />
-        <Route path="/language" Component={Home} />
-        <Route path="/signin" Component={Signin} />
-        <Route path="/register" Component={Register} />
-        <Route path="/cart" Component={Cart} />
-        <Route path="/account" Component={ProfilePage} />
-        <Route path="/product" Component={ProductPage} />
+        <Route path="/" element={<Home />} />
+        <Route path="/language" element={<Home />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/account" element={<ProfilePage />} />
+        <Route path="/products" element={<ProductPage />} />
+        <Route path="/product/:productId" element={<ProductDetails />} />
       </Routes>
 
       {showNavbar && (
