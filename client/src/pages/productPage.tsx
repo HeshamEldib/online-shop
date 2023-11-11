@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../redux/store";
@@ -47,7 +47,9 @@ function Products() {
     <div className="products">
       <div className="row">
         {products?.map((product: any) => {
-          return <ProductItem product={product} key={product._id} />;
+          return (
+            <ProductItem product={product} key={"product-page" + product._id} />
+          );
         })}
       </div>
     </div>
@@ -58,6 +60,17 @@ interface ProductItemProps {
   product: any;
 }
 function ProductItem({ product }: ProductItemProps) {
+  const loveProducts: any[] = useSelector(
+    (state: RootState) => state.groupProducts.products[0]
+  );
+
+  let active: boolean = false;
+  loveProducts?.forEach((e) => {
+    if (e._id === product._id) {
+      active = true;
+    }
+  });
+
   return (
     <div className="col-4 col-md-3 col-xl-2 product-parent">
       <div className="product-item">
@@ -68,7 +81,12 @@ function ProductItem({ product }: ProductItemProps) {
           <div className="info">
             <div className="info-top">
               <Price price={product.price} />
-              <ButLove />
+
+              {active ? (
+                <ButLove productId={product._id} active="active" />
+              ) : (
+                <ButLove productId={product._id} active="" />
+              )}
             </div>
             <h3 className="title">
               {product.title.slice(0, 50) +

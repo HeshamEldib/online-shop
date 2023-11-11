@@ -12,11 +12,11 @@ export const fetchProductById: any = createAsyncThunk(
   );
   
   export interface ProductByIdSlice {
-    product: any[];
+    product: any;
   }
   
   const initialState: ProductByIdSlice = {
-    product: [],
+    product: {},
   };
   
   export const productByIdSlice = createSlice({
@@ -29,7 +29,7 @@ export const fetchProductById: any = createAsyncThunk(
         fetchProductById.fulfilled,
       (state, action: PayloadAction<any>) => {
         // Add user to the state array
-        state.product[0] = action.payload;
+        state.product = action.payload;
       }
       );
     },

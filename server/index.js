@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const httpStatusText = require("./utils/httpStatusText");
 const productsRouters = require("./routers/products.router");
 const usersRouters = require("./routers/users.router");
+const { mainModule } = require("process");
 
 mongoose
   .connect(process.env.MONGO_URL)

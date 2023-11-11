@@ -1,39 +1,16 @@
-import { Link } from "react-router-dom";
+import { ReactNode, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import { Logo } from "../components/Navbar";
+import { URL } from "../constant";
 import "./register.css";
-import { ReactNode } from "react";
+import axios from "axios";
 
 export default function Register() {
   return (
     <section className="register">
       <Logo />
       <RegisterCard title="Create account">
-        <Form>
-          <FormInput
-            type="text"
-            name="fullName"
-            label="Your Name"
-            placeholder="First and last name"
-          />
-          <FormInput
-            type="email"
-            name="email"
-            label="Your Email"
-            placeholder="Your email"
-          />
-          <InputPassword
-            type="password"
-            name="password"
-            label="Password"
-            placeholder="At least 6 characters"
-          />
-          <InputPassword
-            type="password"
-            name="re-password"
-            label="Re-enter Password"
-            placeholder="Re-enter password"
-          />
-        </Form>
+        <Form />
         <Links />
       </RegisterCard>
     </section>
@@ -56,15 +33,167 @@ export function RegisterCard({ title, children }: RegisterCardProps) {
 interface FormProps {
   children: ReactNode;
 }
-export function Form({ children }: FormProps) {
-  return (
-    <form action="">
-      {children}
+export function Form() {
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // const [mobileNumber, setMobileNumber] = useState("");
+  // const [message, setMessage] = useState("");
 
-      <button>Continue</button>
+  // const handleSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   await axios({
+  //     method: 'post',
+  //     url: 'http://localhost:3000/api/users/register',
+  //     data: {
+  //       userName,
+  //       email,
+  //       password,
+  //     }
+  //   });
+  // };
+
+  const handleSubmit = async (e: any) => {
+    // console.log(e);
+    // console.log("userName => ", userName);
+    // console.log("email => ", email);
+    // console.log("password => ", password);
+    e.preventDefault();
+    await fetch(URL + "/api/users/register", {
+      method: "POST",
+      headers: { "Content-Type": "Application/json" },
+      body: JSON.stringify({
+        userName,
+        email,
+        password,
+        role: "ADMIN",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // console.log(data.data.userToken);
+        localStorage.setItem("userToken", data.data.userToken)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // console.log(res);
+    // let resJson = await res.json();
+    // console.log(resJson);
+    // if (res.status === 200) {
+    //   setUserName("");
+    //   setEmail("");
+    //   setPassword("");
+    //   setMessage("User created successfully");
+    // } else {
+    //   setMessage("Some error occured");
+    // }
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
+
+  // console.log(message);
+  // console.log(URL + "/api/users/register");
+
+  // const handleSubmit = (e:any) => {
+  //   console.log(e);
+
+  // }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="userName">Your Email</label>
+      <input
+        type="text"
+        id="userName"
+        name="userName"
+        placeholder="First and last name"
+        required
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+      />
+
+      <label htmlFor="email">Your Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Your email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <label htmlFor="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="At least 6 characters"
+        required
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      {/* <label htmlFor="re-password">Re-enter Password</label>
+      <input
+        type="password"
+        id="re-password"
+        name="re-password"
+        placeholder="Re-enter password"
+        required
+      /> */}
+
+      <button type="submit">Continue</button>
     </form>
   );
 }
+// export function Form({ children }: FormProps) {
+
+//   const [name, setName] = useState("");
+//   const [email, setEmail] = useState("");
+//   const [mobileNumber, setMobileNumber] = useState("");
+//   const [message, setMessage] = useState("");
+
+//   let handleSubmit = async (e: any) => {
+//     e.preventDefault();
+//     try {
+//       let res = await fetch((URL + "/api/users/register"), {
+//         method: "POST",
+//         body: JSON.stringify({
+//           name: name,
+//           email: email,
+//           mobileNumber: mobileNumber,
+//         }),
+//       });
+//       let resJson = await res.json();
+//       if (res.status === 200) {
+//         setName("");
+//         setEmail("");
+//         setMessage("User created successfully");
+//       } else {
+//         setMessage("Some error occured");
+//       }
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+
+//   console.log(URL + "/api/users/register");
+
+//   // const handleSubmit = (e:any) => {
+//   //   console.log(e);
+
+//   // }
+
+//   return (
+//     <form action="" onSubmit={(e) => handleSubmit(e)} method="POST">
+//       {children}
+
+//       <button>Continue</button>
+//     </form>
+//   );
+// }
 
 interface FormInputProps {
   type: string;

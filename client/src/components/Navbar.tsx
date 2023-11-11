@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -18,6 +18,7 @@ import {
 } from "../redux/slices/targetMenu";
 
 import "./navbar.css";
+import { RootState } from "../redux/store";
 
 export default function MainNavbar() {
   return (
@@ -156,6 +157,9 @@ function CardLink() {
   );
 }
 function LoveLink() {
+  const products = useSelector(
+    (state: RootState) => state.groupProducts.products[0]
+  );
   const dispatch = useDispatch();
   return (
     <button
@@ -164,7 +168,7 @@ function LoveLink() {
     >
       <div className="person-icon-container">
         <FontAwesomeIcon className="person-icon" icon={faHeart} />
-        <span className="person-count">{0}</span>
+        <span className="person-count">{products?.length}</span>
       </div>
     </button>
   );

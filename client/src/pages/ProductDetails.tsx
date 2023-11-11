@@ -12,19 +12,13 @@ import { Price } from "./ProductPage";
 library.add(fas, far);
 
 export default function ProductDetails() {
-  const product = useSelector(
-    (state: RootState) =>
-      state.productById.product[0] !== undefined &&
-      state.productById.product[0][0]
-  );
+  const product = useSelector((state: RootState) => state.productById.product);
   const dispatch = useDispatch();
   const { productId } = useParams();
 
   useEffect(() => {
     dispatch(fetchProductById(productId));
   }, []);
-
-  
 
   return (
     <section className="product-details">
@@ -65,7 +59,7 @@ function ProductContent({ product }: ProductImagesProps) {
         <RatingStars rate={product.rating?.rate} />
         <span className="rating-count">{product.rating?.count}</span>
       </div>
-      <Price price={product.price}/>
+      <Price price={product.price} />
     </div>
   );
 }

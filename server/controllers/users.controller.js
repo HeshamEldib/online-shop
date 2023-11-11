@@ -15,9 +15,9 @@ const getAllUsers = asyncWrapper(async (req, res, next) => {
 });
 
 const getUser = asyncWrapper(async (req, res, next) => {
-  const userId = req.params.userId;
+  const userToken = req.params.userToken;
   const user = await User.findOne(
-    { _id: userId },
+    { token: userToken },
     { __v: false, password: false }
   );
 
@@ -47,7 +47,6 @@ const register = asyncWrapper(async (req, res, next) => {
     email,
     password: hashPassword,
     role,
-    avatar: req.file.filename,
   });
 
   const token = await generateJWT({
@@ -58,9 +57,9 @@ const register = asyncWrapper(async (req, res, next) => {
   newUser.token = token;
 
   await newUser.save();
-  res.status(200).json({
+  res.status(201).json({
     status: httpStatusText.SUCCESS,
-    data: { user: newUser },
+    data: { userToken: newUser.token },
   });
 });
 
@@ -106,9 +105,9 @@ const signin = asyncWrapper(async (req, res, next) => {
 });
 
 const updateUser = asyncWrapper(async (req, res, next) => {
-  const userId = req.params.userId;
+  const userToken = req.params.userToken;
   const { userName, role } = req.body;
-  const user = await User.findOne({ _id: userId }, { __v: false });
+  const user = await User.findOne({ token: userToken }, { __v: false });
 
   user.userName = userName;
   user.avatar = req.file.filename;
@@ -122,9 +121,9 @@ const updateUser = asyncWrapper(async (req, res, next) => {
 });
 
 const deleteUser = asyncWrapper(async (req, res, next) => {
-  const userId = req.params.userId;
+  const userToken = req.params.userToken;
   const { password } = req.body;
-  const user = await User.findOne({ _id: userId }, { __v: false });
+  const user = await User.findOne({ token: userToken }, { __v: false });
 
   matchedPassword = await bcrypt.compare(password, user.password);
   if (!matchedPassword) {

@@ -1,4 +1,3 @@
-
 .love-menu .main-menu {
   left: inherit;
   right: -100%;
@@ -17,45 +16,61 @@
   left: -35px;
 }
 
-
 /* product love */
 .love-menu .products-love {
   padding: 10px 0;
 }
 .love-menu .product-love {
   border-bottom: 1.5px solid #1111114f;
-  padding: 5px 0 5px 5px;
+  padding: 7px 0 7px 5px;
 }
-.love-menu .product-love a {
+.love-menu .product-love .product-content {
   height: 80px;
+  align-items: center;
   display: flex;
+}
+
+.love-menu .product-love a {
+  height: 100%;
 }
 .love-menu .product-love .image {
   width: 80px;
 }
+
 .love-menu .product-love .text {
   flex: 1;
   padding: 3px 10px;
-  color: #0F1111;
+  color: #0f1111;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 .love-menu .product-love .title {
   font-size: 16px;
   font-weight: 400;
+  margin-bottom: 0px;
+  width: 100%;
 }
-.love-menu .product-love .price {
-  font-size: 15px;
-  font-weight: 500;
+.love-menu .product-love .price .price-value {
+  font-size: 19px;
+}
+.love-menu .product-love .but-love {
+  margin-right: 15px;
 }
 
 .love-menu .product-love .but-go {
   font-size: 20px;
   width: 40px;
+  height: 100%;
   background-color: transparent;
   border: 1.2px solid var(--border-color);
   color: var(--main-color);
   transition: var(--main-transition);
 }
-.love-menu .product-love:hover .but-go {
+.love-menu .product-love a:hover .but-go,
+.love-menu .product-love a:hover + .text + a .but-go {
   background-color: var(--main-color);
   border-color: var(--hover-color);
   color: #fff;
@@ -68,6 +83,7 @@
   background-color: transparent;
   color: #565959;
   transition: var(--main-transition);
+  line-height: 1;
 }
 .but-love:hover,
 .but-love.active {

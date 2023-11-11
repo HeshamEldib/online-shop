@@ -2,12 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import targetMenuSlice from "./slices/targetMenu";
 import productsSlice from "./slices/productsSlice";
 import productByIdSlice from "./slices/productByIdSlice";
+import userSlice from "./slices/userSlice";
+import groupProductsSlice from "./slices/loveProductsSlice";
 
 export const store = configureStore({
   reducer: {
     targetMenu: targetMenuSlice,
     products: productsSlice,
     productById: productByIdSlice,
+    user: userSlice,
+    groupProducts: groupProductsSlice,
   },
 });
 

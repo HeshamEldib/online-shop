@@ -17,10 +17,11 @@ const addLove = asyncWrapper(async (req, res, next) => {
     return next(error);
   }
 
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
+  const userId = req.currentUser.id;
+  // const authHeader =
+  //   req.headers["Authorization"] || req.headers["authorization"];
+  // const token = authHeader.split(" ")[1];
+  const user = await User.findOne({ _id: userId });
 
   for (const product of user.love) {
     if (product === productId) {
@@ -35,31 +36,36 @@ const addLove = asyncWrapper(async (req, res, next) => {
 
   user.love.push(productId);
   await user.save();
+  // console.log(user.love);
   res.json({
     status: httpStatusText.SUCCESS,
-    data: { love: user.love },
+    data: { product },
   });
 });
 
 const deleteProductToLove = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
+  const product = await Product.findOne({ _id: productId });
 
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
+  const userId = req.currentUser.id;
+  // const authHeader =
+  //   req.headers["Authorization"] || req.headers["authorization"];
+  // const token = authHeader.split(" ")[1];
+  const user = await User.findOne({ _id: userId });
 
-  let findProductToCart = false;
+  console.log(user.love);
+  console.log(productId);
+  let findProductToLove = false;
   for (let i = 0; i < user.love.length; i++) {
     if (user.love[i] === productId) {
       user.love.splice(i, 1);
-      findProductToCart = true;
+      findProductToLove = true;
       break;
     }
   }
-  if (!findProductToCart) {
+  if (!findProductToLove) {
     const error = appError.create(
-      "Product not found to cart",
+      "Product not found to love",
       404,
       httpStatusText.ERROR
     );
@@ -69,11 +75,40 @@ const deleteProductToLove = asyncWrapper(async (req, res, next) => {
   await user.save();
   res.json({
     status: httpStatusText.SUCCESS,
-    data: { love: user.love },
+    data: { product },
+  });
+});
+
+const getGroupProducts = asyncWrapper(async (req, res, next) => {
+  const userId = req.currentUser.id;
+  const user = await User.findOne({ _id: userId }, { __v: false });
+  const groupProducts = user.love;
+  let products = [];
+  for (let i = 0; i < groupProducts.length; i++) {
+    const product = await Product.findOne(
+      { _id: groupProducts[i] },
+      { __v: false }
+    );
+    products.push(product);
+  }
+
+  if (products.isEmpty) {
+    const error = appError.create(
+      "group products is empty",
+      404,
+      httpStatusText.FAIL
+    );
+    return next(error);
+  }
+
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
+    data: { products },
   });
 });
 
 module.exports = {
   addLove,
   deleteProductToLove,
+  getGroupProducts,
 };

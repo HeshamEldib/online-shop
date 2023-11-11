@@ -10,14 +10,14 @@ const router = express.Router();
 router.route("/").get(usersController.getAllUsers);
 
 router
-  .route("/:userId")
+  .route("/:userToken")
   .get(usersController.getUser)
   .patch(upload.single("avatar"), usersController.updateUser)
   .delete(usersController.deleteUser);
 
 router
   .route("/register")
-  .post(upload.single("avatar"), usersController.register);
+  .post(usersController.register);
 
 router.route("/signin").post(usersController.signin);
 
@@ -28,8 +28,13 @@ router
   .post(verifyToken, cartController.addCart)
   .delete(verifyToken, cartController.deleteProductToCart);
 
+
+router
+  .route("/love")
+  .get(verifyToken, loveController.getGroupProducts)
 router
   .route("/love/:productId")
+  .get(verifyToken, loveController.getGroupProducts)
   .post(verifyToken, loveController.addLove)
   .delete(verifyToken, loveController.deleteProductToLove);
 

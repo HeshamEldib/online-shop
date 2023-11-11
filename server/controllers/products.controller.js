@@ -22,7 +22,7 @@ const getAllProducts = asyncWrapper(async (req, res, next) => {
 
 const getProduct = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
-  const product = await Product.find({ _id: productId }, { __v: false });
+  const product = await Product.findOne({ _id: productId }, { __v: false });
   if (!product) {
     const error = appError.create(
       "product not found",
