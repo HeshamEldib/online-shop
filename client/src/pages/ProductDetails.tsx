@@ -8,6 +8,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Price } from "./ProductPage";
+import { fetchAddToCart } from "../redux/slices/cartSlice";
+import { ProductProps } from "../interface";
 
 library.add(fas, far);
 
@@ -36,10 +38,7 @@ export default function ProductDetails() {
   );
 }
 
-interface ProductImagesProps {
-  product: any;
-}
-function ProductImages({ product }: ProductImagesProps) {
+function ProductImages({ product }: ProductProps) {
   return (
     <div className="images">
       <img src="../public/product.jpg" alt="" />
@@ -47,10 +46,8 @@ function ProductImages({ product }: ProductImagesProps) {
   );
 }
 
-interface ProductImagesProps {
-  product: any;
-}
-function ProductContent({ product }: ProductImagesProps) {
+function ProductContent({ product }: ProductProps) {
+  const dispatch = useDispatch();
   return (
     <div className="product-content">
       <h3 className="title">{product.title}</h3>
@@ -60,6 +57,7 @@ function ProductContent({ product }: ProductImagesProps) {
         <span className="rating-count">{product.rating?.count}</span>
       </div>
       <Price price={product.price} />
+      <button onClick={() => dispatch(fetchAddToCart(product._id))}>add to cart</button>
     </div>
   );
 }

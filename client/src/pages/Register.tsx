@@ -3,7 +3,6 @@ import { Link, Navigate } from "react-router-dom";
 import { Logo } from "../components/Navbar";
 import { URL } from "../constant";
 import "./register.css";
-import axios from "axios";
 
 export default function Register() {
   return (
@@ -37,27 +36,8 @@ export function Form() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [mobileNumber, setMobileNumber] = useState("");
-  // const [message, setMessage] = useState("");
-
-  // const handleSubmit = async (e: any) => {
-  //   e.preventDefault();
-  //   await axios({
-  //     method: 'post',
-  //     url: 'http://localhost:3000/api/users/register',
-  //     data: {
-  //       userName,
-  //       email,
-  //       password,
-  //     }
-  //   });
-  // };
 
   const handleSubmit = async (e: any) => {
-    // console.log(e);
-    // console.log("userName => ", userName);
-    // console.log("email => ", email);
-    // console.log("password => ", password);
     e.preventDefault();
     await fetch(URL + "/api/users/register", {
       method: "POST",
@@ -71,35 +51,12 @@ export function Form() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data.data.userToken);
-        localStorage.setItem("userToken", data.data.userToken)
+        localStorage.setItem("userToken", data.data.userToken);
       })
       .catch((err) => {
         console.log(err);
       });
-    // console.log(res);
-    // let resJson = await res.json();
-    // console.log(resJson);
-    // if (res.status === 200) {
-    //   setUserName("");
-    //   setEmail("");
-    //   setPassword("");
-    //   setMessage("User created successfully");
-    // } else {
-    //   setMessage("Some error occured");
-    // }
-    // } catch (err) {
-    //   console.log(err);
-    // }
   };
-
-  // console.log(message);
-  // console.log(URL + "/api/users/register");
-
-  // const handleSubmit = (e:any) => {
-  //   console.log(e);
-
-  // }
 
   return (
     <form onSubmit={handleSubmit}>

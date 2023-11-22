@@ -147,18 +147,23 @@ function PersonLinks() {
 }
 
 function CardLink() {
+  const products = useSelector((state: RootState) =>
+    state.cart.products[0] !== undefined ? state.cart.products[0] : undefined
+  );
+
   return (
     <Link to="/cart" className="nav-link main-link person-link">
       <div className="person-icon-container">
         <FontAwesomeIcon className="person-icon" icon={faCartShopping} />
-        <span className="person-count">{0}</span>
+        <span className="person-count">{products?.length}</span>
       </div>
     </Link>
   );
 }
+
 function LoveLink() {
   const products = useSelector(
-    (state: RootState) => state.groupProducts.products[0]
+    (state: RootState) => state.loveProductsSlice.products[0]
   );
   const dispatch = useDispatch();
   return (

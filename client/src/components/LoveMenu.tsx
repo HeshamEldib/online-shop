@@ -5,7 +5,7 @@ import { showAndHiddenLove } from "../redux/slices/targetMenu";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchUser } from "../redux/slices/userSlice";
 import { Price } from "../pages/ProductPage";
 import {
@@ -14,13 +14,12 @@ import {
   fetchGetLove,
   removeLoveItem,
 } from "../redux/slices/loveProductsSlice";
+import { ProductProps } from "../interface";
+
 import "./love-menu.css";
 
 export default function LoveMenu() {
   const showMenu = useSelector((state: RootState) => state.targetMenu.showLove);
-  const userLove: string[] = useSelector(
-    (state: RootState) => state.user.user.love
-  );
 
   return (
     <div className="love-menu">
@@ -39,20 +38,13 @@ export default function LoveMenu() {
 }
 
 function ProductsLove() {
-  // const userLove: string[] = useSelector(
-  //   (state: RootState) => state.user.user.love
-  // );
   const dispatch = useDispatch();
 
   const products = useSelector(
-    (state: RootState) => state.groupProducts.products[0]
+    (state: RootState) => state.loveProductsSlice.products[0]
   );
 
-  // console.log("userLove => ", userLove);
-  // console.log("products => ", products);
-
   useEffect(() => {
-    // dispatch(fetchUser(localStorage.getItem("userToken")));
     dispatch(fetchGetLove());
   }, []);
   return (
@@ -64,10 +56,7 @@ function ProductsLove() {
   );
 }
 
-interface ProductLoveProps {
-  product: any;
-}
-function ProductLove({ product }: ProductLoveProps) {
+function ProductLove({ product }: ProductProps) {
   return (
     <div className="product-love">
       <div className="product-content">
@@ -103,18 +92,12 @@ export function ButLove({ productId, active }: ButLoveProps) {
     (state: RootState) => state.user.user.love
   );
   const products = useSelector(
-    (state: RootState) => state.groupProducts.products[0]
+    (state: RootState) => state.loveProductsSlice.products[0]
   );
   const dispatch = useDispatch();
-  // const [active, setActive] = useState("");
 
   useEffect(() => {
     dispatch(fetchUser(localStorage.getItem("userToken")));
-    if (userLove?.indexOf(productId) > -1) {
-      // setActive("active");
-    } else {
-      // setActive("");
-    }
   }, []);
 
   const handelClick = async (productId: any) => {
@@ -125,14 +108,8 @@ export function ButLove({ productId, active }: ButLoveProps) {
         }
       }
       dispatch(fetchDeleteLove(productId));
-
-      // setActive("active");
-      // console.log("Active =>", active);
     } else {
       dispatch(fetchAddLove(productId));
-
-      // setActive("");
-      // console.log("Active =>", active);
     }
   };
 

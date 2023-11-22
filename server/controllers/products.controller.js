@@ -4,6 +4,7 @@ const httpStatusText = require("../utils/httpStatusText");
 const appError = require("../utils/appError");
 const asyncWrapper = require("../middleware/asyncWrapper");
 const userRoles = require("../utils/userRoles");
+const { getOneProduct } = require("../middleware/getContent");
 
 const getAllProducts = asyncWrapper(async (req, res, next) => {
   const query = req.query;
@@ -22,15 +23,7 @@ const getAllProducts = asyncWrapper(async (req, res, next) => {
 
 const getProduct = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
-  const product = await Product.findOne({ _id: productId }, { __v: false });
-  if (!product) {
-    const error = appError.create(
-      "product not found",
-      404,
-      httpStatusText.FAIL
-    );
-    return next(error);
-  }
+  const product = await getOneProduct(productId);
 
   res.status(200).json({
     status: httpStatusText.SUCCESS,
@@ -57,8 +50,9 @@ const addProduct = asyncWrapper(async (req, res, next) => {
 
 const updateProduct = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
+  const product = await getOneProduct(productId);
+
   const user = req.currentUser;
-  const product = await Product.findOne({ _id: productId });
 
   if (product.user === user.id) {
     var updatedProduct = await Product.updateOne({ _id: productId }, req.body);
@@ -79,8 +73,8 @@ const updateProduct = asyncWrapper(async (req, res, next) => {
 
 const deleteProduct = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
+  const product = await getOneProduct(productId);
   const user = req.currentUser;
-  const product = await Product.findOne({ _id: productId });
 
   if (product.user === user.id || user.role === userRoles.MANGER) {
     await Product.deleteOne({ _id: productId });

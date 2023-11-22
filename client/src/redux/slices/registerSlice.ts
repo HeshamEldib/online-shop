@@ -1,4 +1,3 @@
-
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { URL } from "../../constant";
 

@@ -29,7 +29,10 @@ const userSchema = mongoose.Schema({
   cart: {
     type: [
       {
-        productId: { type: String },
+        productId: {
+          type: String,
+          unique: true,
+        },
         count: {
           type: Number,
           default: 1,
@@ -39,6 +42,21 @@ const userSchema = mongoose.Schema({
   },
   love: {
     type: [String],
+  },
+  buying: {
+    type: [
+      {
+        productId: {
+          type: String,
+          required: true,
+          unique: true,
+        },
+        count: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
   },
 });
 

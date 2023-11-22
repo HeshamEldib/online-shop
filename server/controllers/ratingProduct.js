@@ -1,14 +1,15 @@
-const Product = require("../modules/product");
 const httpStatusText = require("../utils/httpStatusText");
 const appError = require("../utils/appError");
 const asyncWrapper = require("../middleware/asyncWrapper");
+const { getOneProduct } = require("../middleware/getContent");
 
 const addRating = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
+  const product = await getOneProduct(productId);
+
   const user = req.currentUser;
   const { rating } = req.body;
 
-  const product = await Product.findOne({ _id: productId });
   const arrRating = product.rating.ratings;
   for (let i = 0; i < arrRating.length; i++) {
     if (arrRating[i].user == user.id) {
@@ -39,10 +40,11 @@ const addRating = asyncWrapper(async (req, res, next) => {
 
 const updateRating = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
+  const product = await getOneProduct(productId);
+
   const user = req.currentUser;
   const { newRating } = req.body;
 
-  const product = await Product.findOne({ _id: productId });
   const arrRating = product.rating.ratings;
   for (let i = 0; i < arrRating.length; i++) {
     if (arrRating[i].user === user.id) {

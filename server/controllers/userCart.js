@@ -1,48 +1,64 @@
-const User = require("../modules/user");
-const Product = require("../modules/product");
 const asyncWrapper = require("../middleware/asyncWrapper");
 const appError = require("../utils/appError");
 const httpStatusText = require("../utils/httpStatusText");
+const { getOneProduct, getOneUser } = require("../middleware/getContent");
 
-const addCart = asyncWrapper(async (req, res, next) => {
-  const productId = req.params.productId;
+const getAllFromCart = asyncWrapper(async (req, res, next) => {
+  const userId = req.currentUser.id;
+  const user = await getOneUser(userId);
+  const groupProducts = user.cart;
+  let products = [];
+  for (let i = 0; i < groupProducts.length; i++) {
+    const product = await getOneProduct(groupProducts[i].productId);
+    products.push({ product, count: groupProducts[i].count });
+  }
 
-  const product = await Product.findOne({ _id: productId });
-  if (!product) {
+  if (products.isEmpty) {
     const error = appError.create(
-      "Product not found",
+      "group products is empty",
       404,
-      httpStatusText.ERROR
+      httpStatusText.FAIL
     );
     return next(error);
   }
 
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
+    data: { products },
+  });
+});
 
+const addCart = asyncWrapper(async (req, res, next) => {
+  const productId = req.params.productId;
+  const product = await getOneProduct(productId);
+
+  const userId = req.currentUser.id;
+  const user = await getOneUser(userId);
+
+  let find = false;
+  let count = 1;
   for (const product of user.cart) {
     if (product.productId === productId) {
-      const error = appError.create(
-        "Product already found",
-        400,
-        httpStatusText.FAIL
-      );
-      return next(error);
+      product.count += 1;
+      count = product.count;
+      find = true;
+      break;
     }
   }
 
-  user.cart.push({ productId });
+  if (!find) {
+    user.cart.push({ productId });
+  }
   await user.save();
   res.json({
     status: httpStatusText.SUCCESS,
-    data: { cart: user.cart },
+    data: { product, count },
   });
 });
 
 const updateCountProduct = asyncWrapper(async (req, res, next) => {
-  const { productId, count = 1 } = req.body;
+  const productId = req.params.productId;
+  const { count = 1 } = req.body;
 
   if (count <= 0) {
     const error = appError.create(
@@ -53,19 +69,10 @@ const updateCountProduct = asyncWrapper(async (req, res, next) => {
     return next(error);
   }
 
-  if (!productId) {
-    const error = appError.create(
-      "productId is required",
-      500,
-      httpStatusText.FAIL
-    );
-    return next(error);
-  }
+  const product = await getOneProduct(productId);
 
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
+  const userId = req.currentUser.id;
+  const user = await getOneUser(userId);
 
   let findProductToCart = false;
   for (const product of user.cart) {
@@ -88,17 +95,16 @@ const updateCountProduct = asyncWrapper(async (req, res, next) => {
   await user.save();
   res.json({
     status: httpStatusText.SUCCESS,
-    data: { cart: user.cart },
+    data: { product, count },
   });
 });
 
 const deleteProductToCart = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
+  const product = await getOneProduct(productId);
 
-  const authHeader =
-    req.headers["Authorization"] || req.headers["authorization"];
-  const token = authHeader.split(" ")[1];
-  const user = await User.findOne({ token });
+  const userId = req.currentUser.id;
+  const user = await getOneUser(userId);
 
   let findProductToCart = false;
   for (let i = 0; i < user.cart.length; i++) {
@@ -120,11 +126,12 @@ const deleteProductToCart = asyncWrapper(async (req, res, next) => {
   await user.save();
   res.json({
     status: httpStatusText.SUCCESS,
-    data: { cart: user.cart },
+    data: { product },
   });
 });
 
 module.exports = {
+  getAllFromCart,
   addCart,
   updateCountProduct,
   deleteProductToCart,

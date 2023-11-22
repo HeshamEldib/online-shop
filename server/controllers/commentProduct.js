@@ -1,24 +1,15 @@
-const Product = require("../modules/product");
 const httpStatusText = require("../utils/httpStatusText");
 const appError = require("../utils/appError");
 const asyncWrapper = require("../middleware/asyncWrapper");
 const userRoles = require("../utils/userRoles");
+const { getOneProduct } = require("../middleware/getContent");
 
 const addCommentProduct = asyncWrapper(async (req, res, next) => {
-  console.log("currentUser => ", req.currentUser);
   const productId = req.params.productId;
+  const product = await getOneProduct(productId);
+
   const user = req.currentUser;
   const { content } = req.body;
-
-  const product = await Product.findOne({ _id: productId });
-  if (!product) {
-    const error = appError.create(
-      "Product not found",
-      404,
-      httpStatusText.ERROR
-    );
-    return next(error);
-  }
 
   product.comment.push({ user: user.id, content });
   await product.save();
@@ -35,15 +26,7 @@ const updateCommentProduct = asyncWrapper(async (req, res, next) => {
   const user = req.currentUser;
   const { content } = req.body;
 
-  const product = await Product.findOne({ _id: productId });
-  if (!product) {
-    const error = appError.create(
-      "Product not found",
-      404,
-      httpStatusText.ERROR
-    );
-    return next(error);
-  }
+  const product = await getOneProduct(productId);
 
   let findComment = false;
   for (const comment of product.comment) {
@@ -84,7 +67,7 @@ const deleteCommentProduct = asyncWrapper(async (req, res, next) => {
   const commentId = req.params.commentId;
   const user = req.currentUser;
 
-  const product = await Product.findOne({ _id: productId });
+  const product = await getOneProduct(productId);
 
   for (let i = 0; i < product.comment.length; i++) {
     if (`${product.comment[i]._id}` === commentId) {

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { RootState } from "../redux/store";
 import { fetchProducts } from "../redux/slices/productsSlice";
 import { ButLove } from "../components/LoveMenu";
+import { ProductProps } from "../interface";
 
 import "./product-page.css";
 
@@ -56,12 +57,9 @@ function Products() {
   );
 }
 
-interface ProductItemProps {
-  product: any;
-}
-function ProductItem({ product }: ProductItemProps) {
+function ProductItem({ product }: ProductProps) {
   const loveProducts: any[] = useSelector(
-    (state: RootState) => state.groupProducts.products[0]
+    (state: RootState) => state.loveProductsSlice.products[0]
   );
 
   let active: boolean = false;

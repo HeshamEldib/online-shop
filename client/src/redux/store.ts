@@ -3,7 +3,9 @@ import targetMenuSlice from "./slices/targetMenu";
 import productsSlice from "./slices/productsSlice";
 import productByIdSlice from "./slices/productByIdSlice";
 import userSlice from "./slices/userSlice";
-import groupProductsSlice from "./slices/loveProductsSlice";
+import loveProductsSlice from "./slices/loveProductsSlice";
+import cartSlice from "./slices/cartSlice";
+import buyingSlice from "./slices/buyingSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +13,9 @@ export const store = configureStore({
     products: productsSlice,
     productById: productByIdSlice,
     user: userSlice,
-    groupProducts: groupProductsSlice,
+    loveProductsSlice: loveProductsSlice,
+    cart: cartSlice,
+    buying: buyingSlice,
   },
 });
 

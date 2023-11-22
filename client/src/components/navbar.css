@@ -82,7 +82,7 @@
 }
 
 /* language */
-.dropdown:hover .dropdown-menu {
+.navbar .links .dropdown:hover .dropdown-menu {
   display: block;
 }
 
