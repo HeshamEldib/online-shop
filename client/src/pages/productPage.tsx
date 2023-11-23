@@ -20,14 +20,30 @@ export default function ProductPage() {
 }
 
 function Bar() {
+  const dispatch = useDispatch();
+
+  // const products = useSelector(
+  //   (state: RootState) => state.products.products
+  // );
+  // console.log(products);
+
+  const handelCategory = (e:any) => {
+    let buttons = e.target.parentElement.parentElement.querySelectorAll("button.active")
+    buttons.forEach((but:any) => {
+      but.classList.remove("active");
+    });
+    e.target.classList.add("active")
+    dispatch(fetchProducts({category: e.target.dataset.category}));
+  }
+
   return (
-    <div className="ranking">
+    <div className="category">
       <ul>
         <li>
-          <button>all</button>
+          <button className="active" onClick={(e) => handelCategory(e)} data-category="all">all</button>
         </li>
         <li>
-          <button>all</button>
+          <button onClick={(e) => handelCategory(e)} data-category="electronics">electronics</button>
         </li>
       </ul>
     </div>
@@ -36,10 +52,10 @@ function Bar() {
 
 function Products() {
   const products = useSelector(
-    (state: RootState) => state.products.products[0]
+    (state: RootState) => state.products.products
   );
   const dispatch = useDispatch();
-
++
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);

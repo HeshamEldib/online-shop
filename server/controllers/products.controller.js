@@ -8,12 +8,17 @@ const { getOneProduct } = require("../middleware/getContent");
 
 const getAllProducts = asyncWrapper(async (req, res, next) => {
   const query = req.query;
-  const limit = query.limit || 10;
+  const limit = query.limit || 20;
   const page = query.page || 1;
   const skip = (page - 1) * limit;
-  const products = await Product.find({}, { __v: false })
-    .limit(limit)
-    .skip(skip);
+  const category = query.category || "all";
+
+  const products =
+    category === "all"
+      ? await Product.find({}, { __v: false }).limit(limit).skip(skip)
+      : await Product.find({ category: category }, { __v: false })
+          .limit(limit)
+          .skip(skip);
 
   res.status(200).json({
     status: httpStatusText.SUCCESS,

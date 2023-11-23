@@ -10,6 +10,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { Price } from "./ProductPage";
 import { fetchAddToCart } from "../redux/slices/cartSlice";
 import { ProductProps } from "../interface";
+import { ButLove } from "../components/LoveMenu";
 
 library.add(fas, far);
 
@@ -48,6 +49,17 @@ function ProductImages({ product }: ProductProps) {
 
 function ProductContent({ product }: ProductProps) {
   const dispatch = useDispatch();
+  const loveProducts: any[] = useSelector(
+    (state: RootState) => state.loveProductsSlice.products[0]
+  );
+
+  let active: boolean = false;
+  loveProducts?.forEach((e) => {
+    if (e._id === product._id) {
+      active = true;
+    }
+  });
+
   return (
     <div className="product-content">
       <h3 className="title">{product.title}</h3>
@@ -57,6 +69,11 @@ function ProductContent({ product }: ProductProps) {
         <span className="rating-count">{product.rating?.count}</span>
       </div>
       <Price price={product.price} />
+      {active ? (
+        <ButLove productId={product._id} active="active" />
+      ) : (
+        <ButLove productId={product._id} active="" />
+      )}
       <button onClick={() => dispatch(fetchAddToCart(product._id))}>add to cart</button>
     </div>
   );

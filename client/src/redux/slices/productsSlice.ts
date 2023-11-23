@@ -3,8 +3,12 @@ import { URL } from "../../constant";
 
 export const fetchProducts: any = createAsyncThunk(
   "productsSlice/fetchProducts",
-  async () => {
-    const res = await fetch(`${URL}/api/products/`);
+  async (dataInfo: any = {}) => {
+    const res = await fetch(
+      `${URL}/api/products/?page=${dataInfo.page || 1}&limit=${
+        dataInfo.limit || 20
+      }&category=${dataInfo.category || "all"}`
+    );
     const data = await res.json();
     return data.data.products;
   }
@@ -27,8 +31,7 @@ export const productsSlice = createSlice({
     builder.addCase(
       fetchProducts.fulfilled,
       (state, action: PayloadAction<any>) => {
-        // Add user to the state array
-        state.products.push(action.payload);
+        state.products = action.payload;
       }
     );
   },

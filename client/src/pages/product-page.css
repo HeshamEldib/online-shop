@@ -2,18 +2,18 @@
   padding: 20px 0;
 }
 
-.product-page .ranking {
+.product-page .category {
   margin-bottom: 10px;
   border-bottom: 1px solid;
   padding-bottom: 7px;
 }
-.product-page .ranking ul {
+.product-page .category ul {
   display: flex;
 }
-.product-page .ranking li {
+.product-page .category li {
   margin-right: 10px;
 }
-.product-page .ranking button {
+.product-page .category button {
   font-size: 20px;
   padding: 1px 11px;
   line-height: normal;
@@ -23,8 +23,8 @@
   color: #111;
   transition: var(--main-transition);
 }
-.product-page .ranking button:hover,
-.product-page .ranking button.active {
+.product-page .category button:hover,
+.product-page .category button.active {
   background-color: var(--hover-color);
   border-color: var(--hover-border);
 }
