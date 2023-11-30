@@ -5,21 +5,25 @@ export const fetchProducts: any = createAsyncThunk(
   "productsSlice/fetchProducts",
   async (dataInfo: any = {}) => {
     const res = await fetch(
-      `${URL}/api/products/?page=${dataInfo.page || 1}&limit=${
-        dataInfo.limit || 20
-      }&category=${dataInfo.category || "all"}`
+      `${URL}/api/products/?page=${dataInfo.page || 1}&category=${
+        dataInfo.category || "all"
+      }`
     );
     const data = await res.json();
-    return data.data.products;
+    return data.data;
   }
 );
 
 export interface ProductsSlice {
   products: any[];
+  totalPages: number;
+  currentPage: number;
 }
 
 const initialState: ProductsSlice = {
   products: [],
+  totalPages: 1,
+  currentPage: 1,
 };
 
 export const productsSlice = createSlice({
@@ -27,11 +31,12 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(
       fetchProducts.fulfilled,
       (state, action: PayloadAction<any>) => {
-        state.products = action.payload;
+        state.products = action.payload.products;
+        state.totalPages = action.payload.totalPages;
+        state.currentPage = action.payload.currentPage;
       }
     );
   },

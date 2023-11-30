@@ -1,19 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../redux/store";
 import { fetchProducts } from "../redux/slices/productsSlice";
 import { ButLove } from "../components/LoveMenu";
 import { ProductProps } from "../interface";
+import { Pagination as PaginationBoot } from "react-bootstrap";
 
 import "./product-page.css";
+import { categoryList } from "../constant";
 
 export default function ProductPage() {
+  const totalPages: number = useSelector(
+    (state: RootState) => state.products.totalPages
+  );
   return (
     <search className="product-page">
       <div className="container">
         <Bar />
         <Products />
+        {totalPages > 1 && <Pagination />}
       </div>
     </search>
   );
@@ -22,40 +28,45 @@ export default function ProductPage() {
 function Bar() {
   const dispatch = useDispatch();
 
-  // const products = useSelector(
-  //   (state: RootState) => state.products.products
-  // );
-  // console.log(products);
-
-  const handelCategory = (e:any) => {
-    let buttons = e.target.parentElement.parentElement.querySelectorAll("button.active")
-    buttons.forEach((but:any) => {
+  const handelCategory = (e: any) => {
+    let buttons =
+      e.target.parentElement.parentElement.querySelectorAll("button.active");
+    buttons.forEach((but: any) => {
       but.classList.remove("active");
     });
-    e.target.classList.add("active")
-    dispatch(fetchProducts({category: e.target.dataset.category}));
-  }
+    e.target.classList.add("active");
+    dispatch(fetchProducts({ category: e.target.dataset.category }));
+  };
 
   return (
     <div className="category">
       <ul>
         <li>
-          <button className="active" onClick={(e) => handelCategory(e)} data-category="all">all</button>
+          <button
+            className="active"
+            onClick={(e) => handelCategory(e)}
+            data-category="all"
+          >
+            all
+          </button>
         </li>
-        <li>
-          <button onClick={(e) => handelCategory(e)} data-category="electronics">electronics</button>
-        </li>
+        {categoryList.map((item: string) => {
+          return (
+            <li key={item}>
+              <button onClick={(e) => handelCategory(e)} data-category={item}>
+                {item}
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 }
 
 function Products() {
-  const products = useSelector(
-    (state: RootState) => state.products.products
-  );
+  const products = useSelector((state: RootState) => state.products.products);
   const dispatch = useDispatch();
-+
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
@@ -110,6 +121,59 @@ function ProductItem({ product }: ProductProps) {
         </Link>
       </div>
     </div>
+  );
+}
+
+function Pagination() {
+  const dispatch = useDispatch();
+
+  const totalPages: number = useSelector(
+    (state: RootState) => state.products.totalPages
+  );
+  const currentPage: number = useSelector(
+    (state: RootState) => state.products.currentPage
+  );
+
+  const handelProductsPage = (page: number) => {
+    dispatch(fetchProducts({ page }));
+  };
+
+  const arrayOfTotalPages: number[] = Array.from(
+    Array(totalPages).keys(),
+    (_, i) => i + 1
+  );
+
+  return (
+    <PaginationBoot>
+      <PaginationBoot.First
+        disabled={currentPage === 1}
+        onClick={() => handelProductsPage(1)}
+      />
+      <PaginationBoot.Prev
+        disabled={currentPage === 1}
+        onClick={() => handelProductsPage(currentPage - 1)}
+      />
+      {arrayOfTotalPages.map((e: number) => {
+        return (
+          <PaginationBoot.Item
+            key={e}
+            active={currentPage === e}
+            onClick={() => handelProductsPage(e)}
+          >
+            {e}
+          </PaginationBoot.Item>
+        );
+      })}
+
+      <PaginationBoot.Next
+        disabled={currentPage === totalPages}
+        onClick={() => handelProductsPage(currentPage + 1)}
+      />
+      <PaginationBoot.Last
+        disabled={currentPage === totalPages}
+        onClick={() => handelProductsPage(totalPages)}
+      />
+    </PaginationBoot>
   );
 }
 
