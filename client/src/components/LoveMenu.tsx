@@ -1,11 +1,11 @@
-import MainMenu, { ContentMenu, HeaderMenu } from "./MainMenu";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import MainMenu, { ContentMenu, HeaderMenu } from "./MainMenu";
 import { RootState } from "../redux/store";
 import { showAndHiddenLove } from "../redux/slices/targetMenu";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
 import { fetchUser } from "../redux/slices/userSlice";
 import { Price } from "../pages/ProductPage";
 import {
@@ -118,7 +118,11 @@ export function ButLove({ productId, active }: ButLoveProps) {
       className={`but-love ${active}`}
       onClick={() => handelClick(productId)}
     >
-      <FontAwesomeIcon icon={faHeart} />
+      {active !== "" ? (
+        <FontAwesomeIcon icon="fa-solid fa-heart" />
+      ) : (
+        <FontAwesomeIcon icon="fa-regular fa-heart" />
+      )}
     </button>
   );
 }

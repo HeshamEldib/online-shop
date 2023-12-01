@@ -25,6 +25,7 @@ const getAllProducts = asyncWrapper(async (req, res, next) => {
     category === "all"
       ? await Product.countDocuments()
       : await Product.countDocuments({ category });
+
   res.status(200).json({
     status: httpStatusText.SUCCESS,
     data: {

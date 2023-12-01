@@ -44,7 +44,8 @@ router
 
 router
   .route("/:productId/rating")
-  .post(verifyToken, ratingController.addRating)
-  .patch(verifyToken, ratingController.updateRating);
+  .get(verifyToken, ratingController.getRating)
+  .post(verifyToken, ratingController.addAndUpdateRating)
+  // .patch(verifyToken, ratingController.updateRating);
 
 module.exports = router;

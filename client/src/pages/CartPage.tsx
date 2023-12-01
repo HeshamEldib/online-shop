@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faLeaf } from "@fortawesome/free-solid-svg-icons";
 import { ButLove } from "../components/LoveMenu";
 import { Price } from "./ProductPage";
-import { ProductIdProps, ProductProps } from "../interface";
+import { ProductIdProps } from "../interface";
 import {
   fetchCountProduct,
   fetchDeleteFromCart,
   fetchGetAllFromCart,
 } from "../redux/slices/cartSlice";
-import { Dropdown, DropdownButton, Form } from "react-bootstrap";
-import "./cart-page.css";
 import {
   fetchAddAllBuying,
   fetchAddBuying,
@@ -20,6 +16,8 @@ import {
   fetchDeleteBuying,
   fetchGetAllBuying,
 } from "../redux/slices/buyingSlice";
+import { Dropdown, DropdownButton, Form } from "react-bootstrap";
+import "./cart-page.css";
 
 export default function Cart() {
   return (
@@ -320,13 +318,3 @@ function PriceTargetProducts() {
     </div>
   );
 }
-
-// function ActionLove() {
-//   return (
-//     <div className="action-love">
-//       <button className="but-love">
-//         <FontAwesomeIcon icon={faHeart} />
-//       </button>
-//     </div>
-//   );
-// }

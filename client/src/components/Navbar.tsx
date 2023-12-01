@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
@@ -16,9 +17,10 @@ import {
   showAndHiddenLinks,
   showAndHiddenLove,
 } from "../redux/slices/targetMenu";
+import { RootState } from "../redux/store";
+import { fetchGetAllFromCart } from "../redux/slices/cartSlice";
 
 import "./navbar.css";
-import { RootState } from "../redux/store";
 
 export default function MainNavbar() {
   return (
@@ -150,7 +152,11 @@ function CardLink() {
   const products = useSelector((state: RootState) =>
     state.cart.products[0] !== undefined ? state.cart.products[0] : undefined
   );
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchGetAllFromCart());
+  }, []);
   return (
     <Link to="/cart" className="nav-link main-link person-link">
       <div className="person-icon-container">

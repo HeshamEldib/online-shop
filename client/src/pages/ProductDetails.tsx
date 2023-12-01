@@ -1,16 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../redux/store";
 import { fetchProductById } from "../redux/slices/productByIdSlice";
+import { fetchAddToCart } from "../redux/slices/cartSlice";
+import {
+  fetchAddAndUpdateRatings,
+  fetchGetRatings,
+} from "../redux/slices/ratingsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Price } from "./ProductPage";
-import { fetchAddToCart } from "../redux/slices/cartSlice";
 import { ProductProps } from "../interface";
 import { ButLove } from "../components/LoveMenu";
+
+import "./product-details.css";
 
 library.add(fas, far);
 
@@ -74,7 +80,12 @@ function ProductContent({ product }: ProductProps) {
       ) : (
         <ButLove productId={product._id} active="" />
       )}
-      <button onClick={() => dispatch(fetchAddToCart(product._id))}>add to cart</button>
+      <button onClick={() => dispatch(fetchAddToCart(product._id))}>
+        add to cart
+      </button>
+
+      <Ratings />
+      <Comments />
     </div>
   );
 }
@@ -123,4 +134,54 @@ function RatingStars({ rate }: RatingStarsProps) {
       })}
     </div>
   );
+}
+
+function Ratings() {
+  const rating: number = useSelector((state: RootState) => state.rating.rating);
+  const dispatch = useDispatch();
+  const { productId } = useParams();
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+  };
+
+  const submitRating = (rating: number) => {
+    dispatch(fetchAddAndUpdateRatings({ productId, rating }));
+  };
+
+  useEffect(() => {
+    dispatch(fetchGetRatings(productId));
+  }, []);
+
+  const arr = [1, 2, 3, 4, 5];
+  return (
+    <div className="add-ratings">
+      <form onSubmit={(e) => handleSubmit(e)}>
+        {arr.map((num: number) => {
+          return num <= rating ? (
+            <button
+              key={num}
+              onClick={() => submitRating(num)}
+              data-count={num}
+              className="active"
+            >
+              <FontAwesomeIcon icon="fa-solid fa-star" />
+            </button>
+          ) : (
+            <button
+              key={num}
+              onClick={() => submitRating(num)}
+              data-count={num}
+            >
+              <FontAwesomeIcon icon="fa-regular fa-star" />
+            </button>
+          );
+        })}
+      </form>
+    </div>
+  );
+}
+
+function Comments() {
+  return <div className="comments"></div>;
 }

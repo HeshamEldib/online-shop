@@ -17,7 +17,7 @@ export default function ProductPage() {
   return (
     <search className="product-page">
       <div className="container">
-        <Bar />
+        <Category />
         <Products />
         {totalPages > 1 && <Pagination />}
       </div>
@@ -25,7 +25,7 @@ export default function ProductPage() {
   );
 }
 
-function Bar() {
+function Category() {
   const dispatch = useDispatch();
 
   const handelCategory = (e: any) => {
