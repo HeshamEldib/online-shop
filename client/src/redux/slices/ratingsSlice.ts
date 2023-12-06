@@ -15,7 +15,7 @@ export const fetchGetRatings: any = createAsyncThunk(
 );
 
 export const fetchAddAndUpdateRatings: any = createAsyncThunk(
-  "ratingsSlice/fetchAddRatings",
+  "ratingsSlice/fetchAddAndUpdateRatings",
   async (newData: any) => {
     const res = await fetch(
       `${URL}/api/products/${newData.productId}/rating`,
@@ -35,11 +35,11 @@ export const fetchAddAndUpdateRatings: any = createAsyncThunk(
   }
 );
 
-export interface CartSlice {
+export interface RatingsSlice {
   rating: number;
 }
 
-const initialState: CartSlice = {
+const initialState: RatingsSlice = {
   rating: 0,
 };
 

@@ -7,6 +7,8 @@ import loveProductsSlice from "./slices/loveProductsSlice";
 import cartSlice from "./slices/cartSlice";
 import buyingSlice from "./slices/buyingSlice";
 import ratingsSlice from "./slices/ratingsSlice";
+import commentsSlice from "./slices/commentsSlice";
+// import getUser from "./slices/getUser";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +20,8 @@ export const store = configureStore({
     cart: cartSlice,
     buying: buyingSlice,
     rating: ratingsSlice,
+    comment: commentsSlice,
+    // getUser: getUser
   },
 });
 

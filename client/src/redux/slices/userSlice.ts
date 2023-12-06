@@ -6,6 +6,7 @@ export const fetchUser: any = createAsyncThunk(
   async (userToken: string) => {
     const res = await fetch(`${URL}/api/users/${userToken}`);
     const data = await res.json();
+    // console.log("userToken => ", userToken);
     return data.data.user;
   }
 );
@@ -18,17 +19,18 @@ const initialState: UserSlice = {
   user: {},
 };
 
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Img1QGdtYWlsLmNvbSIsImlkIjoiNjU0ZGYyY2Q4OTM0ZGQ3NWMwZDU0MmM0Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjk5NjA3MjQ1fQ.qnpbgtjGBoJv_inE4jzbcQ6ZwmZDL-AwPcELd8RHIrE
 export const userSlice = createSlice({
   name: "userSlice",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(
       fetchUser.fulfilled,
       (state, action: PayloadAction<any>) => {
-        // Add user to the state array
         state.user = { ...action.payload };
+        // console.log("payload => ", action.payload);
+        
       }
     );
   },

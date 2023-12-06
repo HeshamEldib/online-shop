@@ -8,22 +8,24 @@ const addCommentProduct = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
   const product = await getOneProduct(productId);
 
-  const user = req.currentUser;
+  const authorization = req.headers.authorization || req.headers.Authorization;
+  const token = authorization.split(" ")[1];
   const { content } = req.body;
 
-  product.comment.push({ user: user.id, content });
+  product.comment.push({ author: token, content });
   await product.save();
 
   return res.status(200).json({
     status: httpStatusText.SUCCESS,
-    data: { content: product.comment },
+    data: { content: { author: token, content } },
   });
 });
 
 const updateCommentProduct = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
   const commentId = req.params.commentId;
-  const user = req.currentUser;
+  const authorization = req.headers.authorization || req.headers.Authorization;
+  const token = authorization.split(" ")[1];
   const { content } = req.body;
 
   const product = await getOneProduct(productId);
@@ -31,7 +33,7 @@ const updateCommentProduct = asyncWrapper(async (req, res, next) => {
   let findComment = false;
   for (const comment of product.comment) {
     if (`${comment._id}` === commentId) {
-      if (comment.user === user.id) {
+      if (comment.author === token) {
         comment.content = content;
         findComment = true;
         break;
@@ -66,13 +68,15 @@ const deleteCommentProduct = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
   const commentId = req.params.commentId;
   const user = req.currentUser;
+  const authorization = req.headers.authorization || req.headers.Authorization;
+  const token = authorization.split(" ")[1];
 
   const product = await getOneProduct(productId);
 
   for (let i = 0; i < product.comment.length; i++) {
     if (`${product.comment[i]._id}` === commentId) {
       if (
-        product.comment[i].user === user.id ||
+        product.comment[i].author === token ||
         user.role === userRoles.MANGER
       ) {
         product.comment.splice(i, 1);

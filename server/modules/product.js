@@ -26,7 +26,7 @@ const productSchema = mongoose.Schema({
     count: { type: Number, default: 0 },
     ratings: [{ user: String, rating: Number }],
   },
-  comment: [{ user: String, content: String }],
+  comment: [{ author: String, content: String }],
   author: { type: String },
 });
 

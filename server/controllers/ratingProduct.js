@@ -5,28 +5,27 @@ const { getOneProduct } = require("../middleware/getContent");
 
 const getRating = asyncWrapper(async (req, res, next) => {
   const productId = req.params.productId;
-  console.log("productId => ", productId);
   const product = await getOneProduct(productId);
 
   const user = req.currentUser;
 
   const arrRating = product.rating.ratings;
-  let findRating = false;
+  // let findRating = false;
   let rating = 0;
   for (let i = 0; i < arrRating.length; i++) {
     if (arrRating[i].user == user.id) {
       rating = arrRating[i].rating;
-      findRating = true;
+      // findRating = true;
     }
   }
-  if (!findRating) {
-    const error = appError.create(
-      "this user has not rated it",
-      404,
-      httpStatusText.FAIL
-    );
-    return next(error);
-  }
+  // if (!findRating) {
+  //   const error = appError.create(
+  //     "this user has not rated it",
+  //     404,
+  //     httpStatusText.FAIL
+  //   );
+  //   return next(error);
+  // }
 
   return res.status(200).json({
     status: httpStatusText.SUCCESS,
