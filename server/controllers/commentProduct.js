@@ -12,7 +12,10 @@ const addCommentProduct = asyncWrapper(async (req, res, next) => {
   const token = authorization.split(" ")[1];
   const { content } = req.body;
 
-  product.comment.push({ author: token, content });
+  const d = new Date();
+  const date = `${d.getFullYear()} / ${d.getMonth() + 1} / ${d.getDate()}`;
+
+  product.comment.push({ author: token, content, date });
   await product.save();
 
   return res.status(200).json({
@@ -29,12 +32,15 @@ const updateCommentProduct = asyncWrapper(async (req, res, next) => {
   const { content } = req.body;
 
   const product = await getOneProduct(productId);
+  const d = new Date();
+  const newDate = `${d.getFullYear()} / ${d.getMonth() + 1} / ${d.getDate()}`;
 
   let findComment = false;
   for (const comment of product.comment) {
     if (`${comment._id}` === commentId) {
       if (comment.author === token) {
         comment.content = content;
+        comment.date = newDate;
         findComment = true;
         break;
       } else {

@@ -21,6 +21,7 @@ import { RootState } from "../redux/store";
 import { fetchGetAllFromCart } from "../redux/slices/cartSlice";
 
 import "./navbar.css";
+import { URL } from "../constant";
 
 export default function MainNavbar() {
   return (
@@ -186,10 +187,12 @@ function LoveLink() {
 }
 
 export function ProfileIcon() {
+  const user: any = useSelector((state: RootState) => state.user.user);
   return (
     <Link to="/account" className="nav-link main-link person-link">
       <div className="person-icon-container">
-        <FontAwesomeIcon className="person-icon" icon={faCircleUser} />
+      {user?.avatar ? <img src={URL + "/" + user?.avatar} className="main-avatar" alt="" /> :
+        <FontAwesomeIcon className="person-icon" icon={faCircleUser} />}
       </div>
     </Link>
   );

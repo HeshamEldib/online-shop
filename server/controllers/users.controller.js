@@ -28,7 +28,7 @@ const getUser = asyncWrapper(async (req, res, next) => {
 });
 
 const register = asyncWrapper(async (req, res, next) => {
-  const { userName, email, password, role } = req.body;
+  const { userName, email, password, role, mobile, address } = req.body;
 
   const oldUser = await User.findOne({ email });
   if (oldUser) {
@@ -47,6 +47,8 @@ const register = asyncWrapper(async (req, res, next) => {
     email,
     password: hashPassword,
     role,
+    mobile,
+    address,
   });
 
   const token = await generateJWT({
@@ -106,12 +108,14 @@ const signin = asyncWrapper(async (req, res, next) => {
 
 const updateUser = asyncWrapper(async (req, res, next) => {
   const userToken = req.params.userToken;
-  const { userName, role } = req.body;
+  const { userName, role, mobile, address } = req.body;
   const user = await User.findOne({ token: userToken }, { __v: false });
 
   user.userName = userName;
-  user.avatar = req.file.filename;
+  user.mobile = mobile;
+  user.address = address;
   user.role = role;
+  req.file !== undefined && (user.avatar = `uploads/${req.file.filename}`);
 
   await user.save();
   res.status(200).json({

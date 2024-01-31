@@ -1,0 +1,133 @@
+.profile-page {
+  padding-top: var(--padding-section);
+  padding-bottom: var(--padding-section);
+  background-color: #f9f9fa;
+}
+@media (min-width: 678px) {
+  .profile-page {
+    height: calc(100vh - 100px);
+  }
+}
+@media (min-width: 768px) {
+  .profile-page {
+    height: calc(100vh - 60px);
+  }
+}
+
+.profile-page .profile-card {
+  display: flex;
+  border-radius: 15px;
+  -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+  box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+  overflow: hidden;
+  width: 550px;
+  margin: auto;
+}
+@media (max-width: 678px) {
+  .profile-page .profile-card {
+    flex-direction: column;
+    width: 400px;
+  }
+}
+@media (max-width: 567px) {
+  .profile-page .profile-card {
+    max-width: 100%;
+  }
+}
+
+.profile-page .content-left {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#f29263),
+    to(#ee5a6f)
+  );
+  background: linear-gradient(to right, #ee5a6f, #f29263);
+}
+@media (max-width: 678px) {
+  .profile-page .content-left {
+    width: 100%;
+  }
+}
+.profile-page .content-left .avatar {
+  width: 90px;
+  height: 85px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+}
+.profile-page .content-left .avatar input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  opacity: 0;
+  cursor: pointer;
+}
+.profile-page .content-left .avatar img {
+  height: 100%;
+}
+.profile-page .content-left .avatar span {
+  width: 100%;
+  height: 25px;
+  position: absolute;
+  background-color: #78909c9c;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+  font-size: 16px;
+  color: #ffffffed;
+}
+
+.profile-page .content-left .full-name {
+  width: 100%;
+  text-align: center;
+}
+
+
+/* information Personalize data */
+.profile-page .content-right {
+  width: 70%;
+  padding: 20px;
+}
+@media (max-width: 678px) {
+  .profile-page .content-right {
+    width: 100%;
+  }
+}
+.profile-page .content-right li {
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+.profile-page .content-right span {
+  display: block;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.profile-page .content-right .content {
+  font-size: 13px;
+  font-style: italic;
+  color: #919aa3;
+  padding-left: 7px;
+}
+
+.profile-page .content-right .alteration-profile {
+  text-align: end;
+}
+.profile-page .content-right .alteration-profile a {
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-size: 19px;
+}

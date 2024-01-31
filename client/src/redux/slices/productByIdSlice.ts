@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, combineReducers, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { URL } from "../../constant";
 
 export const fetchProductById: any = createAsyncThunk(
@@ -36,5 +36,8 @@ export const productByIdSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 // export const { showAndHiddenLinks, showAndHiddenLove } = productsSlice.actions;
-
+// export const rootReducer = combineReducers({
+//   product: productByIdSlice.reducer,
+//   act: fetchProductById,
+// });
 export default productByIdSlice.reducer;

@@ -1,5 +1,16 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  configureStore,
+  createAsyncThunk,
+  createSlice,
+  createStore,
+} from "@reduxjs/toolkit";
 import { Authorization, URL } from "../../constant";
+import productByIdSlice, {
+  fetchProductById,
+  // rootReducer,
+} from "./productByIdSlice";
+import { useDispatch } from "react-redux";
 
 export const fetchAddComment: any = createAsyncThunk(
   "commentsSlice/fetchAddComment",
@@ -73,6 +84,10 @@ export interface CommentSlice {
 // });
 // console.log("Initial state: ", store.getState());
 
+// const store = createStore(rootReducer)
+// // store.dispatch({aci: "6527db1e68eb6b7143ad6c02"})
+// console.log("store => ", store.getState());
+
 const initialState: CommentSlice = {
   comments: [],
 };
@@ -80,7 +95,11 @@ const initialState: CommentSlice = {
 export const commentsSlice = createSlice({
   name: "commentsSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    a: (state, action) => {
+      state.comments = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(
       fetchAddComment.fulfilled,
@@ -104,4 +123,5 @@ export const commentsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
+export const { a } = commentsSlice.actions;
 export default commentsSlice.reducer;

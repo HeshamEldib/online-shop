@@ -1,26 +1,182 @@
 .product-details {
-  padding: 30px 0;
+  padding-top: var(--padding-section);
+  padding-bottom: var(--padding-section);
 }
 
+/* image */
+.product-details .images {
+  position: sticky;
+  top: 15px;
+}
+.product-details .images img {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 2px;
+}
+
+/* product info */
+.product-details .product-content {
+  padding-left: 20px;
+}
+.product-details .title {
+  font-size: 22px;
+  margin-left: -20px;
+}
+
+.product-details .ratings {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+.product-details .ratings .rating-rate {
+  margin-right: 7px;
+}
+.product-details .ratings .rating-stars {
+  color: var(--main-color);
+}
+.product-details .ratings .rating-count {
+  margin-left: 7px;
+}
+
+/* price */
+.product-details .price {
+  margin: 8px 10px;
+}
+
+/* buttons */
+.product-details .buttons {
+  display: flex;
+  align-items: center;
+}
+.product-details .buttons .main-button {
+  margin-right: 15px;
+}
+
+/* about */
+.product-details .about {
+  border-top: 1px solid;
+  margin-top: 22px;
+  padding-top: 13px;
+}
+.product-details .about h5 {
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+.product-details .about p {
+  font-size: 14px;
+  padding-left: 20px;
+  margin: 0;
+}
 
 /* add ratings */
 .add-ratings {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid;
+  position: relative;
 }
-
+.add-ratings::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 1px;
+  background-color: #111;
+}
+.add-ratings h6 {
+  font-size: 14px;
+  margin: 0;
+}
+.add-ratings form {
+  margin-left: 12px;
+}
+.add-ratings button {
+  border: none;
+  background-color: transparent;
+}
 .add-ratings button:hover,
 .add-ratings button.active {
   color: var(--main-color);
+  border: none;
+  background-color: transparent;
+}
+
+/* bottom-content */
+.product-details .bottom-content {
+  margin-top: 45px;
+  padding-top: 25px;
 }
 
 /* comments */
 .comments {
-  margin-top: 20px;
+  margin-top: 30px;
   padding-top: 20px;
   border-top: 1px solid;
 }
-.comments .view-comment .avatar {
-  width: 50px;
+/* add-comment */
+.comments .add-comment form {
+  display: flex;
+  align-items: flex-end;
+}
+.comments .add-comment textarea {
+  width: 400px;
+  max-width: 100%;
+  height: 90px;
+  resize: none;
+  border-radius: 5px;
+  font-size: 17px;
+  padding: 0 5px;
+  outline: none;
+}
+.comments .add-comment button {
+  font-size: 15px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-left: 10px;
+}
+
+/* view-comments */
+.comments .view-comments {
+  margin-top: 40px;
+  border-top: 1px dashed;
+  padding-top: 15px;
+}
+.comments .view-comment {
+  margin-bottom: 40px;
+}
+.comments .view-comment .user-info {
+  display: flex;
+  align-items: center;
+}
+.comments .view-comment .info {
+  margin-left: 14px;
+}
+.comments .view-comment h5 {
+  margin: 0;
+  font-size: 20px;
+  color: #555;
+}
+
+.comments .view-comment p.date {
+  font-size: 13px;
+  color: #565959d9;
+  margin-bottom: 0;
+  font-style: oblique;
+}
+.comments .view-comment p.content {
+  padding-left: 5px;
+  font-size: 15px;
+  color: var(--main-font-col);
+  margin-bottom: 10px;
+}
+.comments .view-comment button.delete {
+  background-color: #dd3333;
+  border-color: #dd3333;
+  color: #fff;
+}
+.comments .view-comment button.update {
+  background-color: #3085d6;
+  border-color: #3085d6;
+  color: #fff;
+  margin-left: 10px;
 }

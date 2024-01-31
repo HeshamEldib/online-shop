@@ -21,7 +21,6 @@ export const store = configureStore({
     buying: buyingSlice,
     rating: ratingsSlice,
     comment: commentsSlice,
-    // getUser: getUser
   },
 });
 

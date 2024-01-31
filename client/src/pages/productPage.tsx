@@ -97,7 +97,7 @@ function ProductItem({ product }: ProductProps) {
   });
 
   return (
-    <div className="col-4 col-md-3 col-xl-2 product-parent">
+    <div className="col-6 col-sm-4 col-md-3 col-xl-2 product-parent">
       <div className="product-item">
         <Link to={"/product/" + product._id}>
           <div className="image">
@@ -144,7 +144,7 @@ function Pagination() {
   );
 
   return (
-    <PaginationBoot>
+    <PaginationBoot className="justify-content-center">
       <PaginationBoot.First
         disabled={currentPage === 1}
         onClick={() => handelProductsPage(1)}

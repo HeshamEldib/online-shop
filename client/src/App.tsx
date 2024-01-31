@@ -13,6 +13,7 @@ import ProductPage from "./pages/ProductPage";
 
 import "./App.css";
 import ProductDetails from "./pages/ProductDetails";
+import AlterationProfile from "./pages/AlterationProfile";
 
 function App() {
   const pathName = useLocation().pathname;
@@ -42,9 +43,10 @@ function App() {
         <Route path="/account" element={<ProfilePage />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/product/:productId" element={<ProductDetails />} />
+        <Route path="/alteration-profile" element={<AlterationProfile />} />
       </Routes>
 
-      {showNavbar && (
+      {(showNavbar && pathName !== "/alteration-profile" && pathName !== "/account") && (
         <>
           <Footer />
         </>

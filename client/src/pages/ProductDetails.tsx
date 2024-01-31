@@ -8,21 +8,20 @@ import {
   fetchAddAndUpdateRatings,
   fetchGetRatings,
 } from "../redux/slices/ratingsSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
-import { Price } from "./ProductPage";
-import { ProductProps } from "../interface";
-import { ButLove } from "../components/LoveMenu";
-import { fetchUser } from "../redux/slices/userSlice";
-import { URL, UserToken } from "../constant";
-import { fetchGetUser } from "../redux/slices/getUser";
 import {
+  a,
   fetchAddComment,
   fetchDeleteComment,
   fetchUpdateComment,
 } from "../redux/slices/commentsSlice";
+import { Price } from "./ProductPage";
+import { ProductProps } from "../interface";
+import { ButLove } from "../components/LoveMenu";
+import { URL, UserToken } from "../constant";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
 import Swal from "sweetalert2";
 
 import "./product-details.css";
@@ -41,11 +40,12 @@ export default function ProductDetails() {
   return (
     <section className="product-details">
       <div className="container">
-        <div className="row">
-          <div className="col-5">
+        <div className="row justify-content-around">
+          <div className="col-sm-5 col-lg-4 col-xl-3 text-center">
             <ProductImages product={product} />
           </div>
-          <div className="col-7">
+
+          <div className="col-sm-6 col-lg-7 col-xl-8 mt-4 mt-sm-0">
             <ProductContent product={product} />
           </div>
         </div>
@@ -81,17 +81,27 @@ function ProductContent({ product }: ProductProps) {
       <div className="ratings">
         <span className="rating-rate">{product.rating?.rate}</span>
         <RatingStars rate={product.rating?.rate} />
-        <span className="rating-count">{product.rating?.count}</span>
+        <span className="rating-count">{product.rating?.count} ratings</span>
       </div>
       <Price price={product.price} />
-      {active ? (
-        <ButLove productId={product._id} active="active" />
-      ) : (
-        <ButLove productId={product._id} active="" />
-      )}
-      <button onClick={() => dispatch(fetchAddToCart(product._id))}>
-        add to cart
-      </button>
+      <div className="buttons">
+        <button
+          className="main-button"
+          onClick={() => dispatch(fetchAddToCart(product._id))}
+        >
+          add to cart
+        </button>
+        {active ? (
+          <ButLove productId={product._id} active="active" />
+        ) : (
+          <ButLove productId={product._id} active="" />
+        )}
+      </div>
+
+      <div className="about">
+        <h5>About this item</h5>
+        <p>{product.description}</p>
+      </div>
 
       <Ratings />
       <Comments />
@@ -165,6 +175,7 @@ function Ratings() {
   const arr = [1, 2, 3, 4, 5];
   return (
     <div className="add-ratings">
+      <h6>my rating:</h6>
       <form onSubmit={(e) => handleSubmit(e)}>
         {arr.map((num: number) => {
           return num <= rating ? (
@@ -220,8 +231,8 @@ function AddComment() {
           required
           onChange={(e) => setContent(e.target.value)}
         ></textarea>
-        <button onClick={() => submitComment()}>
-          Upload
+        <button className="main-button" onClick={() => submitComment()}>
+          
           <FontAwesomeIcon icon="fa-solid fa-paper-plane" />
         </button>
       </form>
@@ -310,7 +321,7 @@ function ViewComment({ comment }: ViewCommentProps) {
     <div className="view-comment">
       <div className="user-info">
         <div className="avatar">
-          <img src={URL + "/" + user?.avatar} alt="" />
+          <img src={URL + "/" + user?.avatar} className="main-avatar" alt="" />
         </div>
         <div className="info">
           <h5>{user?.userName}</h5>
@@ -318,7 +329,7 @@ function ViewComment({ comment }: ViewCommentProps) {
       </div>
 
       {update ? (
-        <div className="update-comment">
+        <div className="update-comment add-comment my-1">
           <form onSubmit={(e) => handleSubmit(e)}>
             <textarea
               name="add-comment"
@@ -327,22 +338,22 @@ function ViewComment({ comment }: ViewCommentProps) {
               value={content}
               onChange={(e) => setContent(e.target.value)}
             ></textarea>
-            <button onClick={() => submitComment()}>
-              Update
+            <button className="main-button" onClick={() => submitComment()}>
               <FontAwesomeIcon icon="fa-solid fa-paper-plane" />
             </button>
           </form>
         </div>
       ) : (
         <div className="content-comment">
-          <p>{comment.content}</p>
+          <p className="date">done write comment on: {comment.date}</p>
+          <p className="content">{comment.content}</p>
         </div>
       )}
 
       {userCreated && (
         <div className="comment-action">
-          <button onClick={() => deleteComment()}>Delete</button>
-          <button onClick={() => updateComment()}>Update</button>
+          <button className="main-button delete" onClick={() => deleteComment()}>Delete</button>
+          <button className="main-button update" onClick={() => updateComment()}>Update</button>
         </div>
       )}
     </div>
