@@ -4,7 +4,7 @@ import { Authorization, URL } from "../../constant";
 export const fetchGetAllBuying: any = createAsyncThunk(
   "buyingSlice/fetchGetAllBuying",
   async () => {
-    const res = await fetch(`${URL}/api/users/buying/0`, {
+    const res = await fetch(`${URL}api/users/buying/0`, {
       headers: {
         Authorization,
       },
@@ -17,7 +17,7 @@ export const fetchGetAllBuying: any = createAsyncThunk(
 export const fetchAddBuying: any = createAsyncThunk(
   "buyingSlice/fetchAddBuying",
   async (newData: any) => {
-    const res = await fetch(`${URL}/api/users/buying/${newData.productId}`, {
+    const res = await fetch(`${URL}api/users/buying/${newData.productId}`, {
       method: "POST",
       headers: {
         "Content-Type": "Application/json",
@@ -35,7 +35,7 @@ export const fetchAddBuying: any = createAsyncThunk(
 export const fetchDeleteBuying: any = createAsyncThunk(
   "buyingSlice/fetchDeleteBuying",
   async (productId: string) => {
-    const res = await fetch(`${URL}/api/users/buying/${productId}`, {
+    const res = await fetch(`${URL}api/users/buying/${productId}`, {
       method: "DELETE",
       headers: {
         Authorization,
@@ -49,7 +49,7 @@ export const fetchDeleteBuying: any = createAsyncThunk(
 export const fetchAddAllBuying: any = createAsyncThunk(
   "buyingSlice/fetchAddAllBuying",
   async () => {
-    const res = await fetch(`${URL}/api/users/buying/allItem/0`, {
+    const res = await fetch(`${URL}api/users/buying/allItem/0`, {
       method: "POST",
       headers: {
         "Content-Type": "Application/json",
@@ -64,7 +64,7 @@ export const fetchAddAllBuying: any = createAsyncThunk(
 export const fetchDeleteAllBuying: any = createAsyncThunk(
   "buyingSlice/fetchDeleteAllBuying",
   async () => {
-    const res = await fetch(`${URL}/api/users/buying/allItem/0`, {
+    const res = await fetch(`${URL}api/users/buying/allItem/0`, {
       method: "DELETE",
       headers: {
         Authorization,

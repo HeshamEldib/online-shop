@@ -8,7 +8,7 @@ import { ProductProps } from "../interface";
 import { Pagination as PaginationBoot } from "react-bootstrap";
 
 import "./product-page.css";
-import { categoryList } from "../constant";
+import { URL, categoryList } from "../constant";
 
 export default function ProductPage() {
   const totalPages: number = useSelector(
@@ -101,7 +101,7 @@ function ProductItem({ product }: ProductProps) {
       <div className="product-item">
         <Link to={"/product/" + product._id}>
           <div className="image">
-            <img src="../public/product.jpg" alt="" />
+            <img src={URL + product.image} alt="" />
           </div>
           <div className="info">
             <div className="info-top">

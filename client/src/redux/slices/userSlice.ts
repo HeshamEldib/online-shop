@@ -4,7 +4,7 @@ import { URL, Authorization } from "../../constant";
 export const fetchUser: any = createAsyncThunk(
   "userSlice/fetchUser",
   async (userToken: string) => {
-    const res = await fetch(`${URL}/api/users/${userToken}`);
+    const res = await fetch(`${URL}api/users/${userToken}`);
     const data = await res.json();
     return data.data.user;
   }
@@ -17,20 +17,17 @@ export const fetchUpdateUser: any = createAsyncThunk(
 
     newData.userName !== undefined &&
       formData.append("userName", newData.userName);
-    newData.mobile !== undefined &&
-      formData.append("mobile", newData.mobile);
+    newData.mobile !== undefined && formData.append("mobile", newData.mobile);
     newData.address !== undefined &&
       formData.append("address", newData.address);
 
     formData.append("avatar", newData.avatar);
 
-    const res = await fetch(`${URL}/api/users/${newData.userToken}`, {
+    const res = await fetch(`${URL}api/users/${newData.userToken}`, {
       method: "PATCH",
       body: formData,
     });
-    console.log("avatar =>", newData.avatar);
     const data = await res.json();
-    console.log("data => ", data);
     return data.data.user;
   }
 );
@@ -43,7 +40,6 @@ const initialState: UserSlice = {
   user: {},
 };
 
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Img1QGdtYWlsLmNvbSIsImlkIjoiNjU0ZGYyY2Q4OTM0ZGQ3NWMwZDU0MmM0Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjk5NjA3MjQ1fQ.qnpbgtjGBoJv_inE4jzbcQ6ZwmZDL-AwPcELd8RHIrE
 export const userSlice = createSlice({
   name: "userSlice",
   initialState,
@@ -53,14 +49,12 @@ export const userSlice = createSlice({
       fetchUser.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.user = { ...action.payload };
-        // console.log("payload => ", action.payload);
       }
     );
     builder.addCase(
       fetchUpdateUser.fulfilled,
       (state, action: PayloadAction<any>) => {
         state.user = { ...action.payload };
-        console.log("payload => ", action.payload);
       }
     );
   },

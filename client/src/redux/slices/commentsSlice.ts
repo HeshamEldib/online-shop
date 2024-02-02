@@ -16,7 +16,7 @@ export const fetchAddComment: any = createAsyncThunk(
   "commentsSlice/fetchAddComment",
   async (newData: any) => {
     const res = await fetch(
-      `${URL}/api/products/${newData.productId}/comment`,
+      `${URL}api/products/${newData.productId}/comment`,
       {
         method: "POST",
         headers: {
@@ -37,7 +37,7 @@ export const fetchUpdateComment: any = createAsyncThunk(
   "commentsSlice/fetchUpdateComment",
   async (newData: any) => {
     const res = await fetch(
-      `${URL}/api/products/${newData.productId}/comment/${newData.commentId}`,
+      `${URL}api/products/${newData.productId}/comment/${newData.commentId}`,
       {
         method: "PATCH",
         headers: {
@@ -58,7 +58,7 @@ export const fetchDeleteComment: any = createAsyncThunk(
   "commentsSlice/fetchDeleteComment",
   async (newData: any) => {
     const res = await fetch(
-      `${URL}/api/products/${newData.productId}/comment/${newData.commentId}`,
+      `${URL}api/products/${newData.productId}/comment/${newData.commentId}`,
       {
         method: "DELETE",
         headers: {
@@ -74,19 +74,6 @@ export const fetchDeleteComment: any = createAsyncThunk(
 export interface CommentSlice {
   comments: any[];
 }
-
-// const comments: any[] = useSelector(
-//   (state: RootState) => state.productById.product.comment
-// );
-// const store = configureStore({
-//   reducer: {
-//   }
-// });
-// console.log("Initial state: ", store.getState());
-
-// const store = createStore(rootReducer)
-// // store.dispatch({aci: "6527db1e68eb6b7143ad6c02"})
-// console.log("store => ", store.getState());
 
 const initialState: CommentSlice = {
   comments: [],

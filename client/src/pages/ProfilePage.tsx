@@ -44,7 +44,7 @@ function ContentLeft() {
           }
         />
 
-        <img src={URL + "/" + user?.avatar} alt="" />
+        <img src={URL + user?.avatar} alt="" />
         <span>
           <FontAwesomeIcon icon={faCamera} />
         </span>

@@ -25,6 +25,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import Swal from "sweetalert2";
 
 import "./product-details.css";
+import { Method } from "axios";
 
 library.add(fas, far);
 
@@ -57,7 +58,7 @@ export default function ProductDetails() {
 function ProductImages({ product }: ProductProps) {
   return (
     <div className="images">
-      <img src="../public/product.jpg" alt="" />
+      <img src={URL + product?.image} alt="" />
     </div>
   );
 }
@@ -231,10 +232,7 @@ function AddComment() {
           required
           onChange={(e) => setContent(e.target.value)}
         ></textarea>
-        <button className="main-button" onClick={() => submitComment()}>
-          
-          <FontAwesomeIcon icon="fa-solid fa-paper-plane" />
-        </button>
+        <UploadButton uploadMethod={submitComment} />
       </form>
     </div>
   );
@@ -265,7 +263,7 @@ function ViewComment({ comment }: ViewCommentProps) {
 
   useEffect(() => {
     const user = async () => {
-      const res = await fetch(`${URL}/api/users/${comment.author}`);
+      const res = await fetch(`${URL}api/users/${comment.author}`);
       const data = await res.json();
       setUser(data.data.user);
     };
@@ -321,7 +319,7 @@ function ViewComment({ comment }: ViewCommentProps) {
     <div className="view-comment">
       <div className="user-info">
         <div className="avatar">
-          <img src={URL + "/" + user?.avatar} className="main-avatar" alt="" />
+          <img src={URL + user?.avatar} className="main-avatar" alt="" />
         </div>
         <div className="info">
           <h5>{user?.userName}</h5>
@@ -338,9 +336,7 @@ function ViewComment({ comment }: ViewCommentProps) {
               value={content}
               onChange={(e) => setContent(e.target.value)}
             ></textarea>
-            <button className="main-button" onClick={() => submitComment()}>
-              <FontAwesomeIcon icon="fa-solid fa-paper-plane" />
-            </button>
+            <UploadButton uploadMethod={submitComment} />
           </form>
         </div>
       ) : (
@@ -352,10 +348,32 @@ function ViewComment({ comment }: ViewCommentProps) {
 
       {userCreated && (
         <div className="comment-action">
-          <button className="main-button delete" onClick={() => deleteComment()}>Delete</button>
-          <button className="main-button update" onClick={() => updateComment()}>Update</button>
+          <button
+            className="main-button delete"
+            onClick={() => deleteComment()}
+          >
+            Delete
+          </button>
+          <button
+            className="main-button update"
+            onClick={() => updateComment()}
+          >
+            Update
+          </button>
         </div>
       )}
     </div>
+  );
+}
+
+// Update Button
+interface UploadButtonProps {
+  uploadMethod(): any;
+}
+export function UploadButton({ uploadMethod }: UploadButtonProps) {
+  return (
+    <button className="main-button" onClick={() => uploadMethod()}>
+      <FontAwesomeIcon icon="fa-solid fa-paper-plane" />
+    </button>
   );
 }

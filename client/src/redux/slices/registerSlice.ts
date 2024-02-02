@@ -4,7 +4,7 @@ import { URL } from "../../constant";
 export const fetchRegister: any = createAsyncThunk(
   "registerSlice/fetchRegister",
   async () => {
-    const res = await fetch(`${URL}/api/products/`);
+    const res = await fetch(`${URL}api/products/`);
     const data = await res.json();
     return data.data.products;
   }

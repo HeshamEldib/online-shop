@@ -1,5 +1,15 @@
 .product-page {
-  padding: 20px 0;
+  padding-top: var(--padding-section);
+  padding-bottom: var(--padding-section);
+}
+
+.product-page .image {
+  height: 200px;
+  display: flex;
+  align-items: center;
+}
+.product-page .image img {
+  max-height: 200px;
 }
 
 .product-page .category {

@@ -5,7 +5,7 @@ export const fetchProducts: any = createAsyncThunk(
   "productsSlice/fetchProducts",
   async (dataInfo: any = {}) => {
     const res = await fetch(
-      `${URL}/api/products/?page=${dataInfo.page || 1}&category=${
+      `${URL}api/products/?page=${dataInfo.page || 1}&category=${
         dataInfo.category || "all"
       }`
     );

@@ -4,7 +4,7 @@ import { Authorization, URL } from "../../constant";
 export const fetchGetLove: any = createAsyncThunk(
   "loveProductsSlice/fetchGetLove",
   async () => {
-    const res = await fetch(`${URL}/api/users/love/0`, {
+    const res = await fetch(`${URL}api/users/love/0`, {
       headers: {
         Authorization,
       },
@@ -17,7 +17,7 @@ export const fetchGetLove: any = createAsyncThunk(
 export const fetchAddLove: any = createAsyncThunk(
   "loveProductsSlice/fetchAddLove",
   async (productId: string) => {
-    const res = await fetch(`${URL}/api/users/love/${productId}`, {
+    const res = await fetch(`${URL}api/users/love/${productId}`, {
       method: "POST",
       headers: {
         Authorization,
@@ -31,7 +31,7 @@ export const fetchAddLove: any = createAsyncThunk(
 export const fetchDeleteLove: any = createAsyncThunk(
   "loveProductsSlice/fetchDeleteLove",
   async (productId: string) => {
-    const res = await fetch(`${URL}/api/users/love/${productId}`, {
+    const res = await fetch(`${URL}api/users/love/${productId}`, {
       method: "DELETE",
       headers: {
         Authorization,

@@ -4,7 +4,7 @@ import { URL } from "../../constant";
 export const fetchProductById: any = createAsyncThunk(
   "productByIdSlice/fetchProductById",
   async (productId: string) => {
-    const res = await fetch(`${URL}/api/products/${productId}`);
+    const res = await fetch(`${URL}api/products/${productId}`);
     const data = await res.json();
     return data.data.product;
   }

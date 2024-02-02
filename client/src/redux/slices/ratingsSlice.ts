@@ -4,7 +4,7 @@ import { Authorization, URL } from "../../constant";
 export const fetchGetRatings: any = createAsyncThunk(
   "ratingsSlice/fetchGetRatings",
   async (productId: string) => {
-    const res = await fetch(`${URL}/api/products/${productId}/rating`, {
+    const res = await fetch(`${URL}api/products/${productId}/rating`, {
       headers: {
         Authorization,
       },
@@ -18,7 +18,7 @@ export const fetchAddAndUpdateRatings: any = createAsyncThunk(
   "ratingsSlice/fetchAddAndUpdateRatings",
   async (newData: any) => {
     const res = await fetch(
-      `${URL}/api/products/${newData.productId}/rating`,
+      `${URL}api/products/${newData.productId}/rating`,
       {
         method: "POST",
         headers: {

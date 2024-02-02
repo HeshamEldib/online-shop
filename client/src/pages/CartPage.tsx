@@ -18,15 +18,19 @@ import {
 } from "../redux/slices/buyingSlice";
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import "./cart-page.css";
+import { URL } from "../constant";
+import { UploadButton } from "./ProductDetails";
 
 export default function Cart() {
   return (
     <section className="cart-page">
-      <div className="row">
-        <div className="col-8">
+      <div className="row flex-column-reverse flex-md-row">
+        <div className="col-md-8">
           <CartContent />
         </div>
-        <div className="col-4"></div>
+        <div className="col-md-4 mb-3">
+          <ProceedToCheckout />
+        </div>
       </div>
     </section>
   );
@@ -66,7 +70,11 @@ function CartContentHeader() {
     <div className="cart-header">
       <h1>Shopping Cart</h1>
       <button className="target-all-items" onClick={() => targetAllItems()}>
-        Deselect all items
+        {productsCart?.length === productsBuying?.length ? (
+          <>Deselect all items</>
+        ) : (
+          <>Select all items</>
+        )}
       </button>
     </div>
   );
@@ -106,7 +114,7 @@ function ProductCart({ product, count }: ProductCartProps) {
     <div className="product-cart">
       <Buying product={product} count={count} />
       <div className="image">
-        <img src="../public/product.jpg" alt="" />
+        <img src={URL + product.image} alt="" />
       </div>
       <div className="text">
         <h2 className="title">{product.title}</h2>
@@ -129,6 +137,7 @@ function Buying({ product, count }: ProductCartProps) {
     dispatch(fetchGetAllBuying());
   }, []);
 
+  // the product is find or no
   let find: boolean = false;
   productsBuying?.forEach((item: any) => {
     if (product._id === item.product._id) {
@@ -176,12 +185,12 @@ function ActionButs({ product, count }: ProductCartProps) {
   return (
     <div className="action-buts">
       <QuantityProduct productId={product._id} count={count} />
-      <DeleteFromCart productId={product._id} />
       {active ? (
         <ButLove productId={product._id} active="active" />
       ) : (
         <ButLove productId={product._id} active="" />
       )}
+      <DeleteFromCart productId={product._id} />
     </div>
   );
 }
@@ -214,12 +223,12 @@ function QuantityProduct({ productId, count }: ProductIdCartProps) {
     e.preventDefault();
   };
 
-  const arr: number[] = [1, 2, 3, 4, 5];
-  function handleSelect(productId: string, value: number) {
+  const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const handleSelect: any = (productId: string, value: number): void => {
     dispatch(fetchCountProduct({ productId, value }));
 
     updateCount || setUpdateCount(true);
-  }
+  };
 
   return (
     <div className="action-quantity">
@@ -229,6 +238,7 @@ function QuantityProduct({ productId, count }: ProductIdCartProps) {
             align="end"
             title={`Qty ${count}`}
             id="dropdown-menu-align-end"
+            className="but-quantity"
           >
             {arr.map((num: number) => {
               return (
@@ -247,10 +257,9 @@ function QuantityProduct({ productId, count }: ProductIdCartProps) {
                 </Dropdown.Item>
               );
             })}
-            <Dropdown.Divider />
             <Dropdown.Item
               as="button"
-              className="but-count-product"
+              className="but-count-product add-more"
               onClick={() => setUpdateCount(false)}
             >
               10 +
@@ -259,7 +268,7 @@ function QuantityProduct({ productId, count }: ProductIdCartProps) {
         )}
 
         {updateCount || (
-          <div className="enterCount d-flex">
+          <div className="enter-count d-flex">
             <input
               type="number"
               min={1}
@@ -268,9 +277,9 @@ function QuantityProduct({ productId, count }: ProductIdCartProps) {
               defaultValue={count}
               onChange={(e) => setCountValue(+e.target.value)}
             />
-            <button onClick={() => handleSelect(productId, countValue)}>
-              update
-            </button>
+            <UploadButton
+              uploadMethod={() => handleSelect(productId, countValue)}
+            />
           </div>
         )}
       </form>
@@ -315,6 +324,22 @@ function PriceTargetProducts() {
           <Price price={calcPrice().price} />
         </div>
       )}
+    </div>
+  );
+}
+
+function ProceedToCheckout() {
+  const checkOutCart = () => {
+    console.log("Check out OnlineShop Cart");
+  };
+
+  return (
+    <div className="proceed-to-checkout">
+      <PriceTargetProducts />
+
+      <button className="main-button" onClick={() => checkOutCart()}>
+        Check out OnlineShop Cart
+      </button>
     </div>
   );
 }

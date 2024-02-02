@@ -39,7 +39,7 @@ export function Form() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    await fetch(URL + "/api/users/register", {
+    await fetch(URL + "api/users/register", {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify({
@@ -115,7 +115,7 @@ export function Form() {
 //   let handleSubmit = async (e: any) => {
 //     e.preventDefault();
 //     try {
-//       let res = await fetch((URL + "/api/users/register"), {
+//       let res = await fetch((URL + "api/users/register"), {
 //         method: "POST",
 //         body: JSON.stringify({
 //           name: name,
@@ -136,7 +136,7 @@ export function Form() {
 //     }
 //   };
 
-//   console.log(URL + "/api/users/register");
+//   console.log(URL + "api/users/register");
 
 //   // const handleSubmit = (e:any) => {
 //   //   console.log(e);

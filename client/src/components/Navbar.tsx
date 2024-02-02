@@ -191,7 +191,7 @@ export function ProfileIcon() {
   return (
     <Link to="/account" className="nav-link main-link person-link">
       <div className="person-icon-container">
-      {user?.avatar ? <img src={URL + "/" + user?.avatar} className="main-avatar" alt="" /> :
+      {user?.avatar ? <img src={URL + user?.avatar} className="main-avatar" alt="" /> :
         <FontAwesomeIcon className="person-icon" icon={faCircleUser} />}
       </div>
     </Link>

@@ -16,7 +16,9 @@ export default function AlterationProfile() {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    dispatch(fetchUpdateUser({ userToken: UserToken, userName, mobile, address }));
+    dispatch(
+      fetchUpdateUser({ userToken: UserToken, userName, mobile, address })
+    );
     location.href = "/account";
   };
 
