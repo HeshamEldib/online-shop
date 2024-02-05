@@ -17,6 +17,7 @@ import {
 import { ProductProps } from "../interface";
 
 import "./love-menu.css";
+import { URL } from "../constant";
 
 export default function LoveMenu() {
   const showMenu = useSelector((state: RootState) => state.targetMenu.showLove);
@@ -62,7 +63,7 @@ function ProductLove({ product }: ProductProps) {
       <div className="product-content">
         <Link to={"/product/" + product._id}>
           <div className="image">
-            <img src="../public/product.jpg" alt="" />
+            <img src={URL + product.image} alt="" />
           </div>
         </Link>
         <div className="text">

@@ -35,6 +35,7 @@ function Category() {
       but.classList.remove("active");
     });
     e.target.classList.add("active");
+
     dispatch(fetchProducts({ category: e.target.dataset.category }));
   };
 

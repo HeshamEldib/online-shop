@@ -32,6 +32,7 @@ export default function MainMenu({
           actionTwo && dispatch(actionTwo());
         }}
       ></div>
+      <ClosedMenu action={action} />
     </div>
   );
 }
@@ -40,13 +41,8 @@ interface ContentMenuProps {
   children: ReactNode;
   action: any;
 }
-export function ContentMenu({ children, action }: ContentMenuProps) {
-  return (
-    <div className="content">
-      <ClosedMenu action={action} />
-      {children}
-    </div>
-  );
+export function ContentMenu({ children }: ContentMenuProps) {
+  return <div className="content">{children}</div>;
 }
 
 export function HeaderMenu() {

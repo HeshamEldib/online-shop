@@ -6,6 +6,7 @@
   min-height: 100vh;
   z-index: 101;
   transition: 0.15s;
+  display: inline-flex;
 }
 .main-menu.show-menu {
   left: 0;
@@ -21,8 +22,9 @@
   z-index: 102;
 }
 .main-menu .close-menu {
-  position: absolute;
+  margin: 10px 20px 0;
   z-index: 103;
+  height: fit-content;
   background-color: transparent;
   border: none;
   color: #fff;

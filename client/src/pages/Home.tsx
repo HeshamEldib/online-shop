@@ -17,17 +17,22 @@ function ControlledCarousel() {
     <Carousel className="carousel-home">
       <Carousel.Item>
         <Link to="/">
-          <img src="../public/home-2.jpg" alt="" />
+          <img src="../public/home-1.jpg" alt="" />
         </Link>
       </Carousel.Item>
       <Carousel.Item>
         <Link to="/">
-          <img src="../public/home-2.jpg" alt="" />
+          <img src="../public/home-2.jpeg" alt="" />
         </Link>
       </Carousel.Item>
       <Carousel.Item>
         <Link to="/">
-          <img src="../public/home-2.jpg" alt="" />
+          <img src="../public/home-3.jpg" alt="" />
+        </Link>
+      </Carousel.Item>
+      <Carousel.Item>
+        <Link to="/">
+          <img src="../public/home-4.jpg" alt="" />
         </Link>
       </Carousel.Item>
     </Carousel>

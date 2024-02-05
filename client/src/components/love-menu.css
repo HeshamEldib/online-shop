@@ -1,6 +1,7 @@
 .love-menu .main-menu {
   left: inherit;
   right: -100%;
+  flex-direction: row-reverse;
 }
 .love-menu .main-menu.show-menu {
   right: 0;
@@ -8,7 +9,6 @@
 
 .love-menu .main-menu .content {
   max-width: 400px;
-  left: calc(100% - 400px);
 }
 
 .love-menu .main-menu .close-menu {
@@ -17,15 +17,12 @@
 }
 
 /* product love */
-.love-menu .products-love {
-  padding: 10px 0;
-}
 .love-menu .product-love {
   border-bottom: 1.5px solid #1111114f;
-  padding: 7px 0 7px 5px;
+  padding: 10px 0 7px 5px;
 }
 .love-menu .product-love .product-content {
-  height: 80px;
+  height: 90px;
   align-items: center;
   display: flex;
 }
@@ -35,6 +32,11 @@
 }
 .love-menu .product-love .image {
   width: 80px;
+  height: 90px;
+  text-align: center;
+}
+.love-menu .product-love .image img {
+  max-height: 100%;
 }
 
 .love-menu .product-love .text {
