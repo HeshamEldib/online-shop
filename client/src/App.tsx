@@ -10,10 +10,15 @@ import ProfilePage from "./pages/ProfilePage";
 import LoveMenu from "./components/LoveMenu";
 import Cart from "./pages/CartPage";
 import ProductPage from "./pages/ProductPage";
-
-import "./App.css";
 import ProductDetails from "./pages/ProductDetails";
 import AlterationProfile from "./pages/AlterationProfile";
+import SearchProduct from "./pages/SearchProduct";
+import AddProduct from "./pages/AddProduct";
+
+import "./App.css";
+import MyProducts from "./pages/MyProducts";
+import UpdateProduct from "./pages/UpdateProduct";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   const pathName = useLocation().pathname;
@@ -36,21 +41,33 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/language" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/account" element={<ProfilePage />} />
-        <Route path="/products" element={<ProductPage />} />
+        <Route path="/products/*" element={<ProductPage />} />
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="/alteration-profile" element={<AlterationProfile />} />
+        <Route
+          path="/search-product/:searchProduct"
+          element={<SearchProduct />}
+        />
+        <Route path="/my-products" element={<MyProducts />} />
+        <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/update-product/:productId" element={<UpdateProduct />} />
+
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
 
-      {(showNavbar && pathName !== "/alteration-profile" && pathName !== "/account") && (
-        <>
-          <Footer />
-        </>
-      )}
+      {showNavbar &&
+        pathName !== "/alteration-profile" &&
+        pathName !== "/account" &&
+        pathName !== "/add-product" &&
+        pathName !== "/update-product/*" && (
+          <>
+            <Footer />
+          </>
+        )}
     </>
   );
 }

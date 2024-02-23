@@ -1,5 +1,4 @@
 const httpStatusText = require("../utils/httpStatusText");
-const appError = require("../utils/appError");
 const asyncWrapper = require("../middleware/asyncWrapper");
 const { getOneProduct } = require("../middleware/getContent");
 
@@ -10,22 +9,12 @@ const getRating = asyncWrapper(async (req, res, next) => {
   const user = req.currentUser;
 
   const arrRating = product.rating.ratings;
-  // let findRating = false;
   let rating = 0;
   for (let i = 0; i < arrRating.length; i++) {
     if (arrRating[i].user == user.id) {
       rating = arrRating[i].rating;
-      // findRating = true;
     }
   }
-  // if (!findRating) {
-  //   const error = appError.create(
-  //     "this user has not rated it",
-  //     404,
-  //     httpStatusText.FAIL
-  //   );
-  //   return next(error);
-  // }
 
   return res.status(200).json({
     status: httpStatusText.SUCCESS,

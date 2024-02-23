@@ -1,10 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Authorization, URL } from "../../constant";
+import { Authorization, MainURL } from "../../constant";
 
 export const fetchGetAllFromCart: any = createAsyncThunk(
   "cartSlice/fetchGetAllFromCart",
   async () => {
-    const res = await fetch(`${URL}api/users/cart/0`, {
+    const res = await fetch(`${MainURL}api/users/cart/0`, {
       headers: {
         Authorization,
       },
@@ -17,7 +17,7 @@ export const fetchGetAllFromCart: any = createAsyncThunk(
 export const fetchAddToCart: any = createAsyncThunk(
   "cartSlice/fetchAddToCart",
   async (productId: string) => {
-    const res = await fetch(`${URL}api/users/cart/${productId}`, {
+    const res = await fetch(`${MainURL}api/users/cart/${productId}`, {
       method: "POST",
       headers: {
         Authorization,
@@ -31,7 +31,7 @@ export const fetchAddToCart: any = createAsyncThunk(
 export const fetchDeleteFromCart: any = createAsyncThunk(
   "cartSlice/fetchDeleteFromCart",
   async (productId: string) => {
-    const res = await fetch(`${URL}api/users/cart/${productId}`, {
+    const res = await fetch(`${MainURL}api/users/cart/${productId}`, {
       method: "DELETE",
       headers: {
         Authorization,
@@ -45,7 +45,7 @@ export const fetchDeleteFromCart: any = createAsyncThunk(
 export const fetchCountProduct: any = createAsyncThunk(
   "cartSlice/fetchCountProduct",
   async (newData: any) => {
-    const res = await fetch(`${URL}api/users/cart/${newData.productId}`, {
+    const res = await fetch(`${MainURL}api/users/cart/${newData.productId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "Application/json",
@@ -94,6 +94,7 @@ export const cartSlice = createSlice({
         find || state.products[0]?.push(action.payload);
       }
     );
+
     builder.addCase(
       fetchDeleteFromCart.fulfilled,
       (state, action: PayloadAction<any>) => {
@@ -117,8 +118,5 @@ export const cartSlice = createSlice({
     );
   },
 });
-
-// Action creators are generated for each case reducer function
-// export const { removeItemFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

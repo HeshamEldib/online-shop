@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const userRoles = require("../utils/userRoles");
+const product = require("./product");
 
 const userSchema = mongoose.Schema({
   userName: {
@@ -65,6 +66,9 @@ const userSchema = mongoose.Schema({
   address: {
     type: String,
     required: true,
+  },
+  products: {
+    type: [String],
   },
 });
 

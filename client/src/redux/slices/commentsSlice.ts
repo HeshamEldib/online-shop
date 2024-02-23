@@ -1,22 +1,11 @@
-import {
-  PayloadAction,
-  configureStore,
-  createAsyncThunk,
-  createSlice,
-  createStore,
-} from "@reduxjs/toolkit";
-import { Authorization, URL } from "../../constant";
-import productByIdSlice, {
-  fetchProductById,
-  // rootReducer,
-} from "./productByIdSlice";
-import { useDispatch } from "react-redux";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Authorization, MainURL } from "../../constant";
 
 export const fetchAddComment: any = createAsyncThunk(
   "commentsSlice/fetchAddComment",
   async (newData: any) => {
     const res = await fetch(
-      `${URL}api/products/${newData.productId}/comment`,
+      `${MainURL}api/products/${newData.productId}/comment`,
       {
         method: "POST",
         headers: {
@@ -37,7 +26,7 @@ export const fetchUpdateComment: any = createAsyncThunk(
   "commentsSlice/fetchUpdateComment",
   async (newData: any) => {
     const res = await fetch(
-      `${URL}api/products/${newData.productId}/comment/${newData.commentId}`,
+      `${MainURL}api/products/${newData.productId}/comment/${newData.commentId}`,
       {
         method: "PATCH",
         headers: {
@@ -58,7 +47,7 @@ export const fetchDeleteComment: any = createAsyncThunk(
   "commentsSlice/fetchDeleteComment",
   async (newData: any) => {
     const res = await fetch(
-      `${URL}api/products/${newData.productId}/comment/${newData.commentId}`,
+      `${MainURL}api/products/${newData.productId}/comment/${newData.commentId}`,
       {
         method: "DELETE",
         headers: {

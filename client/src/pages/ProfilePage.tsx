@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { fetchUpdateUser, fetchUser } from "../redux/slices/userSlice";
+import { fetchUpdateUser } from "../redux/slices/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import "./profile-page.css";
-import { URL, UserToken } from "../constant";
+import { MainURL, UserToken } from "../constant";
 
 export default function ProfilePage() {
   return (
@@ -44,7 +43,7 @@ function ContentLeft() {
           }
         />
 
-        <img src={URL + user?.avatar} alt="" />
+        <img src={MainURL + user?.avatar} alt="" />
         <span>
           <FontAwesomeIcon icon={faCamera} />
         </span>

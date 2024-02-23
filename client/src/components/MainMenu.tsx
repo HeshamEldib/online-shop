@@ -1,10 +1,8 @@
 import { ReactNode } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { ProfileIcon, Logo, NavLinks } from "./Navbar";
+import { useDispatch } from "react-redux";
+import { ProfileIcon, Logo } from "./Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-// import { showAndHidden } from "../redux/slices/targetMenu";
 import "./main-menu.css";
 
 interface MainMenuProps {
@@ -19,7 +17,6 @@ export default function MainMenu({
   actionTwo,
   children,
 }: MainMenuProps) {
-  // const showMenu = useSelector((state: RootState) => state.targetMenu.show);
   const dispatch = useDispatch();
 
   return (

@@ -169,14 +169,3 @@
   color: var(--main-font-col);
   margin-bottom: 10px;
 }
-.comments .view-comment button.delete {
-  background-color: #dd3333;
-  border-color: #dd3333;
-  color: #fff;
-}
-.comments .view-comment button.update {
-  background-color: #3085d6;
-  border-color: #3085d6;
-  color: #fff;
-  margin-left: 10px;
-}

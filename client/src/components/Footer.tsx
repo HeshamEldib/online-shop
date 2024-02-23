@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Language, Logo } from "./Navbar";
+import { Logo } from "./Navbar";
 import "./footer.css";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
@@ -29,7 +29,6 @@ function FooterLink() {
   return (
     <div className="footer-link">
       <Logo />
-      <Language />
     </div>
   );
 }

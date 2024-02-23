@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { Pagination as PaginationBoot } from "react-bootstrap";
 import { RootState } from "../redux/store";
 import { fetchProducts } from "../redux/slices/productsSlice";
 import { ButLove } from "../components/LoveMenu";
-import { ProductProps } from "../interface";
-import { Pagination as PaginationBoot } from "react-bootstrap";
+import { ChildrenProps } from "../interface";
+import { MainURL, categoryList } from "../constant";
 
 import "./product-page.css";
-import { URL, categoryList } from "../constant";
 
 export default function ProductPage() {
   const totalPages: number = useSelector(
@@ -27,6 +27,24 @@ export default function ProductPage() {
 
 function Category() {
   const dispatch = useDispatch();
+
+  // handel button active to pass from home
+  const categoryFromURL = useParams()["*"];
+  const handelButAuto = () => {
+    document.querySelectorAll(".category button").forEach((but: any) => {
+      but.classList.remove("active");
+      if (
+        but.dataset.category === categoryFromURL ||
+        (but.dataset.category === "all" && categoryFromURL === "")
+      ) {
+        but.classList.add("active");
+      }
+    });
+  };
+
+  useEffect(() => {
+    handelButAuto();
+  }, []);
 
   const handelCategory = (e: any) => {
     let buttons =
@@ -65,11 +83,13 @@ function Category() {
   );
 }
 
-function Products() {
+export function Products() {
   const products = useSelector((state: RootState) => state.products.products);
   const dispatch = useDispatch();
+
+  const categoryFromURL = useParams()["*"];
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts({ category: categoryFromURL }));
   }, []);
 
   return (
@@ -77,7 +97,19 @@ function Products() {
       <div className="row">
         {products?.map((product: any) => {
           return (
-            <ProductItem product={product} key={"product-page" + product._id} />
+            <ProductItem key={"product-page" + product._id}>
+              <Link to={"/product/" + product._id}>
+                <ProductImage image={product.image} />
+                <ProductItemInfo>
+                  <ProductInfoTop>
+                    <Price price={product.price} />
+                    <ButLove productId={product._id} />
+                  </ProductInfoTop>
+
+                  <ProductTitle title={product.title} />
+                </ProductItemInfo>
+              </Link>
+            </ProductItem>
           );
         })}
       </div>
@@ -85,43 +117,41 @@ function Products() {
   );
 }
 
-function ProductItem({ product }: ProductProps) {
-  const loveProducts: any[] = useSelector(
-    (state: RootState) => state.loveProductsSlice.products[0]
-  );
-
-  let active: boolean = false;
-  loveProducts?.forEach((e) => {
-    if (e._id === product._id) {
-      active = true;
-    }
-  });
-
+export function ProductItem({ children }: ChildrenProps) {
   return (
     <div className="col-6 col-sm-4 col-md-3 col-xl-2 product-parent">
-      <div className="product-item">
-        <Link to={"/product/" + product._id}>
-          <div className="image">
-            <img src={URL + product.image} alt="" />
-          </div>
-          <div className="info">
-            <div className="info-top">
-              <Price price={product.price} />
-
-              {active ? (
-                <ButLove productId={product._id} active="active" />
-              ) : (
-                <ButLove productId={product._id} active="" />
-              )}
-            </div>
-            <h3 className="title">
-              {product.title.slice(0, 50) +
-                (product.title.slice(0, 50).length >= 50 ? "..." : "")}
-            </h3>
-          </div>
-        </Link>
-      </div>
+      <div className="product-item">{children}</div>
     </div>
+  );
+}
+
+interface ProductImageProps {
+  image: string;
+}
+export function ProductImage({ image }: ProductImageProps) {
+  return (
+    <div className="image">
+      <img src={MainURL + image} alt="" />
+    </div>
+  );
+}
+
+export function ProductItemInfo({ children }: ChildrenProps) {
+  return <div className="info">{children}</div>;
+}
+
+export function ProductInfoTop({ children }: ChildrenProps) {
+  return <div className="info-top">{children}</div>;
+}
+
+interface ProductTitleProps {
+  title: string;
+}
+export function ProductTitle({ title }: ProductTitleProps) {
+  return (
+    <h3 className="title">
+      {title.slice(0, 50) + (title.slice(0, 50).length >= 50 ? "..." : "")}
+    </h3>
   );
 }
 
@@ -178,6 +208,7 @@ function Pagination() {
   );
 }
 
+// price
 interface PriceProps {
   price: number;
 }

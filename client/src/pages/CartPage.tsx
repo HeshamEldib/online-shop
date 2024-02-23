@@ -18,7 +18,7 @@ import {
 } from "../redux/slices/buyingSlice";
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import "./cart-page.css";
-import { URL } from "../constant";
+import { MainURL } from "../constant";
 import { UploadButton } from "./ProductDetails";
 
 export default function Cart() {
@@ -114,7 +114,7 @@ function ProductCart({ product, count }: ProductCartProps) {
     <div className="product-cart">
       <Buying product={product} count={count} />
       <div className="image">
-        <img src={URL + product.image} alt="" />
+        <img src={MainURL + product.image} alt="" />
       </div>
       <div className="text">
         <h2 className="title">{product.title}</h2>
@@ -137,7 +137,6 @@ function Buying({ product, count }: ProductCartProps) {
     dispatch(fetchGetAllBuying());
   }, []);
 
-  // the product is find or no
   let find: boolean = false;
   productsBuying?.forEach((item: any) => {
     if (product._id === item.product._id) {
@@ -171,25 +170,10 @@ function Buying({ product, count }: ProductCartProps) {
 }
 
 function ActionButs({ product, count }: ProductCartProps) {
-  const loveProducts: any[] = useSelector(
-    (state: RootState) => state.loveProductsSlice.products[0]
-  );
-
-  let active: boolean = false;
-  loveProducts?.forEach((e) => {
-    if (e._id === product._id) {
-      active = true;
-    }
-  });
-
   return (
     <div className="action-buts">
       <QuantityProduct productId={product._id} count={count} />
-      {active ? (
-        <ButLove productId={product._id} active="active" />
-      ) : (
-        <ButLove productId={product._id} active="" />
-      )}
+      <ButLove productId={product._id} />
       <DeleteFromCart productId={product._id} />
     </div>
   );
@@ -278,7 +262,7 @@ function QuantityProduct({ productId, count }: ProductIdCartProps) {
               onChange={(e) => setCountValue(+e.target.value)}
             />
             <UploadButton
-              uploadMethod={() => handleSelect(productId, countValue)}
+              buttonAction={() => handleSelect(productId, countValue)}
             />
           </div>
         )}

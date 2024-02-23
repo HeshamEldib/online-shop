@@ -1,9 +1,6 @@
 const Product = require("../modules/product");
-const { validationResult } = require("express-validator");
 const httpStatusText = require("../utils/httpStatusText");
-const appError = require("../utils/appError");
 const asyncWrapper = require("../middleware/asyncWrapper");
-const userRoles = require("../utils/userRoles");
 const { getOneProduct } = require("../middleware/getContent");
 
 const getAllProducts = asyncWrapper(async (req, res, next) => {
@@ -46,69 +43,19 @@ const getProduct = asyncWrapper(async (req, res, next) => {
   });
 });
 
-const addProduct = asyncWrapper(async (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const error = appError.create(errors.array(), 400, httpStatusText.FAIL);
-    return next(error);
-  }
+const getSearchProduct = asyncWrapper(async (req, res, next) => {
+  const searchProduct = req.params.searchProduct;
+  const products = await Product.aggregate().search({ title: searchProduct });
 
-  const user = req.currentUser;
-  const newProduct = new Product({ ...req.body, user: user.id });
-  await newProduct.save();
-
-  res.status(201).json({
-    status: httpStatusText.SUCCESS,
-    data: { newProduct },
-  });
-});
-
-const updateProduct = asyncWrapper(async (req, res, next) => {
-  const productId = req.params.productId;
-  const product = await getOneProduct(productId);
-
-  const user = req.currentUser;
-
-  if (product.user === user.id) {
-    var updatedProduct = await Product.updateOne({ _id: productId }, req.body);
-  } else {
-    const error = appError.create(
-      "this the user is not creating this product",
-      403,
-      httpStatusText.FAIL
-    );
-    return next(error);
-  }
-
-  res.status(201).json({
-    status: httpStatusText.SUCCESS,
-    data: { product: updatedProduct },
-  });
-});
-
-const deleteProduct = asyncWrapper(async (req, res, next) => {
-  const productId = req.params.productId;
-  const product = await getOneProduct(productId);
-  const user = req.currentUser;
-
-  if (product.user === user.id || user.role === userRoles.MANGER) {
-    await Product.deleteOne({ _id: productId });
-  } else {
-    const error = appError.create(
-      "this the user is not creating this product",
-      403,
-      httpStatusText.FAIL
-    );
-    return next(error);
-  }
-
-  return res.status(200).json({ status: httpStatusText.SUCCESS, data: null });
+  console.log(products);
+  // res.status(200).json({
+  //   status: httpStatusText.SUCCESS,
+  //   data: { product },
+  // });
 });
 
 module.exports = {
   getAllProducts,
   getProduct,
-  addProduct,
-  updateProduct,
-  deleteProduct,
+  getSearchProduct,
 };

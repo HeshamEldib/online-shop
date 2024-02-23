@@ -9,15 +9,14 @@ import {
   fetchGetRatings,
 } from "../redux/slices/ratingsSlice";
 import {
-  a,
   fetchAddComment,
   fetchDeleteComment,
   fetchUpdateComment,
 } from "../redux/slices/commentsSlice";
 import { Price } from "./ProductPage";
-import { ProductProps } from "../interface";
+import { ButtonActionProps, CommentProps, ProductProps } from "../interface";
 import { ButLove } from "../components/LoveMenu";
-import { URL, UserToken } from "../constant";
+import { MainURL, UserToken } from "../constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -25,7 +24,6 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import Swal from "sweetalert2";
 
 import "./product-details.css";
-import { Method } from "axios";
 
 library.add(fas, far);
 
@@ -58,23 +56,13 @@ export default function ProductDetails() {
 function ProductImages({ product }: ProductProps) {
   return (
     <div className="images">
-      <img src={URL + product?.image} alt="" />
+      <img src={MainURL + product?.image} alt="" />
     </div>
   );
 }
 
 function ProductContent({ product }: ProductProps) {
   const dispatch = useDispatch();
-  const loveProducts: any[] = useSelector(
-    (state: RootState) => state.loveProductsSlice.products[0]
-  );
-
-  let active: boolean = false;
-  loveProducts?.forEach((e) => {
-    if (e._id === product._id) {
-      active = true;
-    }
-  });
 
   return (
     <div className="product-content">
@@ -92,11 +80,7 @@ function ProductContent({ product }: ProductProps) {
         >
           add to cart
         </button>
-        {active ? (
-          <ButLove productId={product._id} active="active" />
-        ) : (
-          <ButLove productId={product._id} active="" />
-        )}
+        <ButLove productId={product._id} />
       </div>
 
       <div className="about">
@@ -114,24 +98,34 @@ interface RatingStarsProps {
   rate: number;
 }
 function RatingStars({ rate }: RatingStarsProps) {
-  const num: number = (rate - Math.floor(rate)) * 10;
-  let arr: string[] = ["false", "false", "false", "false", "false"];
-  for (let i: number = 0; i < arr.length; i++) {
+  // The number before the sign
+  const numBeforeSign: number = Math.floor(rate);
+  // The number after the sign
+  const numAfterSign: number = (rate - numBeforeSign) * 10;
+  // array of start
+  let arrStart: string[] = ["false", "false", "false", "false", "false"];
+  // the start is done
+  for (let i: number = 0; i < arrStart.length; i++) {
     if (i <= rate - 1) {
-      arr[i] = "true";
+      arrStart[i] = "true";
     }
   }
-  if (num < 3) {
-    arr[Math.floor(rate)] = "false";
-  } else if (num >= 3 && num <= 8) {
-    arr[Math.floor(rate)] = "half";
-  } else if (num > 8) {
-    arr[Math.floor(rate)] = "true";
+
+  // the half start
+  if (numBeforeSign < 5) {
+    if (numAfterSign < 3) {
+      arrStart[numBeforeSign] = "false";
+    } else if (numAfterSign >= 3 && numAfterSign <= 8) {
+      arrStart[numBeforeSign] = "half";
+    } else if (numAfterSign > 8) {
+      arrStart[numBeforeSign] = "true";
+    }
   }
 
+  
   return (
     <div className="rating-stars">
-      {arr.map((star, index) => {
+      {arrStart.map((star, index) => {
         if (star === "false") {
           return (
             <span key={index}>
@@ -203,6 +197,8 @@ function Ratings() {
   );
 }
 
+
+// comments
 function Comments() {
   return (
     <div className="comments">
@@ -232,7 +228,7 @@ function AddComment() {
           required
           onChange={(e) => setContent(e.target.value)}
         ></textarea>
-        <UploadButton uploadMethod={submitComment} />
+        <UploadButton buttonAction={submitComment} />
       </form>
     </div>
   );
@@ -252,28 +248,125 @@ function ViewComments() {
   );
 }
 
-interface ViewCommentProps {
-  comment: any;
-}
-function ViewComment({ comment }: ViewCommentProps) {
+function ViewComment({ comment }: CommentProps) {
   const dispatch = useDispatch();
   const { productId } = useParams();
-  const [user, setUser] = useState({ avatar: "", userName: "" });
   const [userCreated, setUserCreated] = useState(false);
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    const user = async () => {
-      const res = await fetch(`${URL}api/users/${comment.author}`);
-      const data = await res.json();
-      setUser(data.data.user);
-    };
-    user();
-
     if (comment.author === UserToken) {
       setUserCreated(true);
     }
   }, []);
 
+  return (
+    <div className="view-comment">
+      <CommentAuthor comment={comment} />
+
+      {update ? (
+        <UpdateComment comment={comment} setUpdate={() => setUpdate(false)} />
+      ) : (
+        <CommentContent comment={comment} />
+      )}
+
+      {userCreated && (
+        <div className="comment-action">
+          <ButDelete
+            buttonAction={() =>
+              dispatch(
+                fetchDeleteComment({ productId, commentId: comment._id })
+              )
+            }
+          />
+          <ButUpdate buttonAction={() => setUpdate(true)} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CommentAuthor({ comment }: CommentProps) {
+  const [user, setUser] = useState({ avatar: "", userName: "" });
+
+  useEffect(() => {
+    const user = async () => {
+      const res = await fetch(`${MainURL}api/users/${comment.author}`);
+      const data = await res.json();
+      setUser(data.data.user);
+    };
+    user();
+  }, []);
+  return (
+    <div className="user-info">
+      <div className="avatar">
+        <img src={MainURL + user?.avatar} className="main-avatar" alt="" />
+      </div>
+      <div className="info">
+        <h5>{user?.userName}</h5>
+      </div>
+    </div>
+  );
+}
+
+interface UpdateCommentProps {
+  comment: any;
+  setUpdate(): any;
+}
+function UpdateComment({ comment, setUpdate }: UpdateCommentProps) {
+  const dispatch = useDispatch();
+  const { productId } = useParams();
+
+  const [content, setContent] = useState(comment.content);
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+  };
+  const submitComment = async () => {
+    dispatch(
+      fetchUpdateComment({
+        productId,
+        commentId: comment._id,
+        newComment: content,
+      })
+    );
+    setUpdate();
+  };
+
+  return (
+    <div className="update-comment add-comment my-1">
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <textarea
+          name="add-comment"
+          placeholder="Enter the comment"
+          required
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        ></textarea>
+        <UploadButton buttonAction={submitComment} />
+      </form>
+    </div>
+  );
+}
+function CommentContent({ comment }: CommentProps) {
+  return (
+    <div className="content-comment">
+      <p className="date">done write comment on: {comment.date}</p>
+      <p className="content">{comment.content}</p>
+    </div>
+  );
+}
+
+// update button
+export function ButUpdate({ buttonAction }: ButtonActionProps) {
+  return (
+    <button className="main-button update" onClick={() => buttonAction()}>
+      Update
+    </button>
+  );
+}
+
+// delete button
+export function ButDelete({ buttonAction }: ButtonActionProps) {
   const deleteComment = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -290,89 +383,22 @@ function ViewComment({ comment }: ViewCommentProps) {
           text: "Your file has been deleted.",
           icon: "success",
         });
-        dispatch(fetchDeleteComment({ productId, commentId: comment._id }));
+        buttonAction();
       }
     });
   };
 
-  const [update, setUpdate] = useState(false);
-  const updateComment = () => {
-    setUpdate(true);
-  };
-
-  const [content, setContent] = useState(comment.content);
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-  };
-  const submitComment = async () => {
-    dispatch(
-      fetchUpdateComment({
-        productId,
-        commentId: comment._id,
-        newComment: content,
-      })
-    );
-    setUpdate(false);
-  };
-
   return (
-    <div className="view-comment">
-      <div className="user-info">
-        <div className="avatar">
-          <img src={URL + user?.avatar} className="main-avatar" alt="" />
-        </div>
-        <div className="info">
-          <h5>{user?.userName}</h5>
-        </div>
-      </div>
-
-      {update ? (
-        <div className="update-comment add-comment my-1">
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <textarea
-              name="add-comment"
-              placeholder="Enter the comment"
-              required
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            ></textarea>
-            <UploadButton uploadMethod={submitComment} />
-          </form>
-        </div>
-      ) : (
-        <div className="content-comment">
-          <p className="date">done write comment on: {comment.date}</p>
-          <p className="content">{comment.content}</p>
-        </div>
-      )}
-
-      {userCreated && (
-        <div className="comment-action">
-          <button
-            className="main-button delete"
-            onClick={() => deleteComment()}
-          >
-            Delete
-          </button>
-          <button
-            className="main-button update"
-            onClick={() => updateComment()}
-          >
-            Update
-          </button>
-        </div>
-      )}
-    </div>
+    <button className="main-button delete" onClick={() => deleteComment()}>
+      Delete
+    </button>
   );
 }
 
-// Update Button
-interface UploadButtonProps {
-  uploadMethod(): any;
-}
-export function UploadButton({ uploadMethod }: UploadButtonProps) {
+// Upload Button
+export function UploadButton({ buttonAction }: ButtonActionProps) {
   return (
-    <button className="main-button" onClick={() => uploadMethod()}>
+    <button className="main-button" onClick={() => buttonAction()}>
       <FontAwesomeIcon icon="fa-solid fa-paper-plane" />
     </button>
   );

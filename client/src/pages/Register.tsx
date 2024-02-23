@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Logo } from "../components/Navbar";
-import { URL } from "../constant";
+import { MainURL } from "../constant";
 import "./register.css";
 
 export default function Register() {
@@ -29,9 +29,9 @@ export function RegisterCard({ title, children }: RegisterCardProps) {
   );
 }
 
-interface FormProps {
-  children: ReactNode;
-}
+// interface FormProps {
+//   children: ReactNode;
+// }
 export function Form() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ export function Form() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    await fetch(URL + "api/users/register", {
+    await fetch(MainURL + "api/users/register", {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify({
@@ -115,7 +115,7 @@ export function Form() {
 //   let handleSubmit = async (e: any) => {
 //     e.preventDefault();
 //     try {
-//       let res = await fetch((URL + "api/users/register"), {
+//       let res = await fetch((MainURL + "api/users/register"), {
 //         method: "POST",
 //         body: JSON.stringify({
 //           name: name,
@@ -136,7 +136,7 @@ export function Form() {
 //     }
 //   };
 
-//   console.log(URL + "api/users/register");
+//   console.log(MainURL + "api/users/register");
 
 //   // const handleSubmit = (e:any) => {
 //   //   console.log(e);

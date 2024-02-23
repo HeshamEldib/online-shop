@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
@@ -19,9 +19,10 @@ import {
 } from "../redux/slices/targetMenu";
 import { RootState } from "../redux/store";
 import { fetchGetAllFromCart } from "../redux/slices/cartSlice";
+import { Authorization, MainURL, UserToken } from "../constant";
 
 import "./navbar.css";
-import { URL } from "../constant";
+import { fetchUser } from "../redux/slices/userSlice";
 
 export default function MainNavbar() {
   return (
@@ -58,6 +59,7 @@ function NavLeft() {
     </div>
   );
 }
+
 export function Logo() {
   return (
     <Link to="/" className="navbar-brand logo">
@@ -67,15 +69,23 @@ export function Logo() {
 }
 
 function Search() {
+  const [searchProduct, setSearchProduct] = useState("");
+
+  const handelSearch = (e: any) => {
+    e.preventDefault();
+    location.href = "/search-product/" + searchProduct;
+  };
+
   return (
-    <Form className="d-flex search">
+    <Form className="d-flex search" onSubmit={(e: any) => handelSearch(e)}>
       <Form.Control
         type="search"
         placeholder="Search"
         className="search-input"
         aria-label="Search"
+        onChange={(e: any) => setSearchProduct(e.target.value)}
       />
-      <Button variant="outline-success" className="but-search">
+      <Button type="submit" variant="outline-success" className="but-search">
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </Button>
     </Form>
@@ -83,59 +93,45 @@ function Search() {
 }
 
 export function NavLinks() {
+  const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUser(UserToken));
+  }, []);
+
   return (
     <div className="align-items-center links me-md-1 me-lg-2">
-      <Link to="/" className="nav-link right-link main-link">
-        Home
-      </Link>
-      <Link to="/Products" className="nav-link right-link main-link">
-        Products
-      </Link>
-      <Link to="/f&q" className="nav-link right-link main-link">
-        F&Q
-      </Link>
-      {/* Language */}
-      <Language />
+      <NavLink title="Home" pathName="" />
+      <NavLink title="Products" pathName="Products" />
+      {user?.role !== "USER" && (
+        <>
+          <NavLink title="Add Product" pathName="add-product" />
+          <NavLink title="My Products" pathName="my-products" />
+        </>
+      )}
     </div>
   );
 }
-
-export function Language() {
-  return (
-    <div className="dropdown">
-      <Link to="/language" className="main-link nav-link dropdown-toggle">
-        EN
-      </Link>
-      <LanguageMenu />
-    </div>
-  );
+interface NavLinkProps {
+  title: string;
+  pathName: string;
 }
-function LanguageMenu() {
+export function NavLink({ title, pathName }: NavLinkProps) {
+  const [active, setActive] = useState("");
+  useEffect(() => {
+    if (location.href.slice(22) === pathName) {
+      setActive("active");
+    } else {
+      setActive("");
+    }
+  }, [location.href]);
   return (
-    <ul className="dropdown-menu">
-      <li>
-        <Link to="/">
-          <input type="radio" id="html" name="fav_language" value="HTML" />
-          <label htmlFor="html">HTML</label>
-        </Link>
-      </li>
-      <li>
-        <Link to="/">
-          <input type="radio" id="css" name="fav_language" value="css" />
-          <label htmlFor="css">css</label>
-        </Link>
-      </li>
-      <li>
-        <a className="dropdown-item" href="#">
-          Action
-        </a>
-      </li>
-      <li>
-        <a className="dropdown-item" href="#">
-          Another action
-        </a>
-      </li>
-    </ul>
+    <Link
+      to={"/" + pathName}
+      className={`nav-link right-link main-link ${active}`}
+    >
+      {title}
+    </Link>
   );
 }
 
@@ -170,7 +166,7 @@ function CardLink() {
 
 function LoveLink() {
   const products = useSelector(
-    (state: RootState) => state.loveProductsSlice.products[0]
+    (state: RootState) => state.loveProductsSlice.products
   );
   const dispatch = useDispatch();
   return (
@@ -191,8 +187,11 @@ export function ProfileIcon() {
   return (
     <Link to="/account" className="nav-link main-link person-link">
       <div className="person-icon-container">
-      {user?.avatar ? <img src={URL + user?.avatar} className="main-avatar" alt="" /> :
-        <FontAwesomeIcon className="person-icon" icon={faCircleUser} />}
+        {user?.avatar ? (
+          <img src={MainURL + user?.avatar} className="main-avatar" alt="" />
+        ) : (
+          <FontAwesomeIcon className="person-icon" icon={faCircleUser} />
+        )}
       </div>
     </Link>
   );

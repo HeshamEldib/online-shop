@@ -1,10 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { URL, Authorization } from "../../constant";
+import { MainURL } from "../../constant";
 
 export const fetchUser: any = createAsyncThunk(
   "userSlice/fetchUser",
   async (userToken: string) => {
-    const res = await fetch(`${URL}api/users/${userToken}`);
+    const res = await fetch(`${MainURL}api/users/${userToken}`);
     const data = await res.json();
     return data.data.user;
   }
@@ -23,7 +23,7 @@ export const fetchUpdateUser: any = createAsyncThunk(
 
     formData.append("avatar", newData.avatar);
 
-    const res = await fetch(`${URL}api/users/${newData.userToken}`, {
+    const res = await fetch(`${MainURL}api/users/${newData.userToken}`, {
       method: "PATCH",
       body: formData,
     });
@@ -59,8 +59,5 @@ export const userSlice = createSlice({
     );
   },
 });
-
-// Action creators are generated for each case reducer function
-// export const { showAndHiddenLinks, showAndHiddenLove } = productsSlice.actions;
 
 export default userSlice.reducer;

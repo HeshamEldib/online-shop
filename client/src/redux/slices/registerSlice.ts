@@ -1,10 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { URL } from "../../constant";
+import { MainURL } from "../../constant";
 
 export const fetchRegister: any = createAsyncThunk(
   "registerSlice/fetchRegister",
   async () => {
-    const res = await fetch(`${URL}api/products/`);
+    const res = await fetch(`${MainURL}api/products/`);
     const data = await res.json();
     return data.data.products;
   }
@@ -33,8 +33,5 @@ export const registerSlice = createSlice({
     );
   },
 });
-
-// Action creators are generated for each case reducer function
-// export const { showAndHiddenLinks, showAndHiddenLove } = productsSlice.actions;
 
 export default registerSlice.reducer;

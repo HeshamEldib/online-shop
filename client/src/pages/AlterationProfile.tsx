@@ -23,57 +23,40 @@ export default function AlterationProfile() {
   };
 
   return (
-    <section className="alteration-profile-page">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="FullName">FullName</label>
-        <input
-          type="text"
-          id="FullName"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-        />
+    <section className="alteration-profile-page main-form">
+      <div className="container">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="FullName">FullName</label>
+          <input
+            type="text"
+            id="FullName"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
 
-        <label htmlFor="Mobile">Mobile</label>
-        <input
-          type="number"
-          id="Mobile"
-          value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
-        />
+          <label htmlFor="Mobile">Mobile</label>
+          <input
+            type="number"
+            id="Mobile"
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
+          />
 
-        <label htmlFor="Address">Address</label>
-        <input
-          type="text"
-          id="Address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
+          <label htmlFor="Address">Address</label>
+          <input
+            type="text"
+            id="Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
 
-        <div className="submit">
-          <button className="main-button" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
+          <div className="submit">
+            <button className="main-button" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
-  );
-}
-
-interface PersonInfoProps {
-  label: string;
-  value: string | number;
-}
-function PersonInfo({ label, value }: PersonInfoProps) {
-  const [userInfo, setUserInfo] = useState(value);
-  return (
-    <>
-      <label htmlFor={label}>{label}</label>
-      <input
-        type="text"
-        id={label}
-        value={userInfo}
-        onChange={(e) => setUserInfo(e.target.value)}
-      />
-    </>
   );
 }

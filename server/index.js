@@ -6,6 +6,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const httpStatusText = require("./utils/httpStatusText");
 const productsRouters = require("./routers/products.router");
+const myProductsRouters = require("./routers/myProductsRouters");
 const usersRouters = require("./routers/users.router");
 const { mainModule } = require("process");
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/products", productsRouters);
+app.use("/api/myProducts", myProductsRouters);
 app.use("/api/users", usersRouters);
 app.all("*", (req, res, next) => {
   return res.status(404).json({

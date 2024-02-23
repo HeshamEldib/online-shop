@@ -111,10 +111,11 @@ const updateUser = asyncWrapper(async (req, res, next) => {
   const { userName, role, mobile, address } = req.body;
   const user = await User.findOne({ token: userToken }, { __v: false });
 
-  user.userName = userName;
-  user.mobile = mobile;
-  user.address = address;
-  user.role = role;
+  userName !== undefined && (user.userName = userName);
+  mobile !== undefined && (user.mobile = mobile);
+  address !== undefined && (user.address = address);
+  role !== undefined && (user.role = role);
+
   req.file !== undefined && (user.avatar = `uploads/${req.file.filename}`);
 
   await user.save();

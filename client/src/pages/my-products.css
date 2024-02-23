@@ -1,0 +1,29 @@
+.my-products {
+  padding-top: var(--padding-section);
+  padding-bottom: var(--padding-section);
+}
+.my-products .product-item {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid;
+  padding-bottom: 10px;
+}
+.my-products .but-controllers-product {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+/* not fond products */
+.my-products .not-fond-products {
+  margin: 20px auto;
+  text-align: center;
+}
+.my-products .not-fond-products h4 {
+  margin-bottom: 20px;
+}
+.my-products .not-fond-products a {
+  padding: 10px 20px;
+}

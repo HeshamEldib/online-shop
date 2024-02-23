@@ -97,7 +97,6 @@ const addAllBuying = asyncWrapper(async (req, res, next) => {
   cart.forEach((itemCart) => {
     let find = false;
     buying.forEach((itemBuying) => {
-      console.log("id => ", itemBuying);
       if (itemCart.productId === itemBuying.productId) {
         if (itemCart.count !== itemBuying.count) {
           itemBuying.count = itemCart.count;

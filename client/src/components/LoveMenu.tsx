@@ -5,19 +5,17 @@ import { RootState } from "../redux/store";
 import { showAndHiddenLove } from "../redux/slices/targetMenu";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAnglesRight, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { fetchUser } from "../redux/slices/userSlice";
+import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { Price } from "../pages/ProductPage";
 import {
   fetchAddLove,
   fetchDeleteLove,
   fetchGetLove,
-  removeLoveItem,
 } from "../redux/slices/loveProductsSlice";
-import { ProductProps } from "../interface";
+import { ProductIdProps, ProductProps } from "../interface";
+import { MainURL } from "../constant";
 
 import "./love-menu.css";
-import { URL } from "../constant";
 
 export default function LoveMenu() {
   const showMenu = useSelector((state: RootState) => state.targetMenu.showLove);
@@ -42,7 +40,7 @@ function ProductsLove() {
   const dispatch = useDispatch();
 
   const products = useSelector(
-    (state: RootState) => state.loveProductsSlice.products[0]
+    (state: RootState) => state.loveProductsSlice.products
   );
 
   useEffect(() => {
@@ -63,7 +61,7 @@ function ProductLove({ product }: ProductProps) {
       <div className="product-content">
         <Link to={"/product/" + product._id}>
           <div className="image">
-            <img src={URL + product.image} alt="" />
+            <img src={MainURL + product.image} alt="" />
           </div>
         </Link>
         <div className="text">
@@ -72,7 +70,7 @@ function ProductLove({ product }: ProductProps) {
               (product.title.slice(0, 50).length >= 50 ? "..." : "")}
           </h3>
           <Price price={product.price} />
-          <ButLove productId={product._id} active="active" />
+          <ButLoveContent productId={product._id} active="active" />
         </div>
         <Link to={`/product/${product._id}`}>
           <button className="but-go">
@@ -84,33 +82,28 @@ function ProductLove({ product }: ProductProps) {
   );
 }
 
-interface ButLoveProps {
+interface ButLoveContentProps {
   productId: string;
   active: string;
 }
-export function ButLove({ productId, active }: ButLoveProps) {
-  const userLove: string[] = useSelector(
-    (state: RootState) => state.user.user.love
-  );
+function ButLoveContent({ productId, active }: ButLoveContentProps) {
   const products = useSelector(
-    (state: RootState) => state.loveProductsSlice.products[0]
+    (state: RootState) => state.loveProductsSlice.products
   );
+
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchUser(localStorage.getItem("userToken")));
-  }, []);
-
-  const handelClick = async (productId: any) => {
-    if (userLove?.indexOf(productId) > -1) {
-      for (let i = 0; i < products.length; i++) {
-        if (products[i]._id === productId) {
-          dispatch(removeLoveItem(i));
-        }
+  const handelClick = (productId: any) => {
+    let findProduct: Boolean = false;
+    products?.forEach((product: any) => {
+      if (product._id === productId) {
+        findProduct = true;
+        return dispatch(fetchDeleteLove(productId));
       }
-      dispatch(fetchDeleteLove(productId));
-    } else {
-      dispatch(fetchAddLove(productId));
+    });
+
+    if (!findProduct) {
+      return dispatch(fetchAddLove(productId));
     }
   };
 
@@ -125,5 +118,28 @@ export function ButLove({ productId, active }: ButLoveProps) {
         <FontAwesomeIcon icon="fa-regular fa-heart" />
       )}
     </button>
+  );
+}
+
+export function ButLove({ productId }: ProductIdProps) {
+  const loveProducts: any[] = useSelector(
+    (state: RootState) => state.loveProductsSlice.products
+  );
+
+  let active: boolean = false;
+  loveProducts?.forEach((e) => {
+    if (e._id === productId) {
+      active = true;
+    }
+  });
+
+  return (
+    <>
+      {active ? (
+        <ButLoveContent productId={productId} active="active" />
+      ) : (
+        <ButLoveContent productId={productId} active="" />
+      )}
+    </>
   );
 }

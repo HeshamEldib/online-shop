@@ -8,7 +8,7 @@ import cartSlice from "./slices/cartSlice";
 import buyingSlice from "./slices/buyingSlice";
 import ratingsSlice from "./slices/ratingsSlice";
 import commentsSlice from "./slices/commentsSlice";
-// import getUser from "./slices/getUser";
+import myProductsSlice from "./slices/myProductsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +21,7 @@ export const store = configureStore({
     buying: buyingSlice,
     rating: ratingsSlice,
     comment: commentsSlice,
+    myProducts: myProductsSlice,
   },
 });
 
