@@ -14,6 +14,13 @@ export default function ProductPage() {
   const totalPages: number = useSelector(
     (state: RootState) => state.products.totalPages
   );
+
+  const dispatch = useDispatch();
+  const categoryFromURL = useParams()["*"];
+  useEffect(() => {
+    dispatch(fetchProducts({ category: categoryFromURL }));
+  }, []);
+
   return (
     <search className="product-page">
       <div className="container">
@@ -85,12 +92,12 @@ function Category() {
 
 export function Products() {
   const products = useSelector((state: RootState) => state.products.products);
-  const dispatch = useDispatch();
 
-  const categoryFromURL = useParams()["*"];
-  useEffect(() => {
-    dispatch(fetchProducts({ category: categoryFromURL }));
-  }, []);
+  // const dispatch = useDispatch();
+  // const categoryFromURL = useParams()["*"];
+  // useEffect(() => {
+  //   dispatch(fetchProducts({ category: categoryFromURL }));
+  // }, []);
 
   return (
     <div className="products">

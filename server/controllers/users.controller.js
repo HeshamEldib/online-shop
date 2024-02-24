@@ -114,7 +114,7 @@ const updateUser = asyncWrapper(async (req, res, next) => {
   userName !== undefined && (user.userName = userName);
   mobile !== undefined && (user.mobile = mobile);
   address !== undefined && (user.address = address);
-  role !== undefined && (user.role = role);
+  // role !== undefined && (user.role = role);
 
   req.file !== undefined && (user.avatar = `uploads/${req.file.filename}`);
 

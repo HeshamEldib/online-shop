@@ -49,7 +49,7 @@ function App() {
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="/alteration-profile" element={<AlterationProfile />} />
         <Route
-          path="/search-product/:searchProduct"
+          path="/search-product/:searchQuery"
           element={<SearchProduct />}
         />
         <Route path="/my-products" element={<MyProducts />} />

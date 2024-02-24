@@ -13,7 +13,7 @@ import {
   fetchGetLove,
 } from "../redux/slices/loveProductsSlice";
 import { ProductIdProps, ProductProps } from "../interface";
-import { MainURL } from "../constant";
+import { MainURL, UserToken } from "../constant";
 
 import "./love-menu.css";
 
@@ -44,7 +44,9 @@ function ProductsLove() {
   );
 
   useEffect(() => {
-    dispatch(fetchGetLove());
+    if (!UserToken) {
+      dispatch(fetchGetLove());
+    }
   }, []);
   return (
     <div className="products-love">
@@ -94,16 +96,20 @@ function ButLoveContent({ productId, active }: ButLoveContentProps) {
   const dispatch = useDispatch();
 
   const handelClick = (productId: any) => {
-    let findProduct: Boolean = false;
-    products?.forEach((product: any) => {
-      if (product._id === productId) {
-        findProduct = true;
-        return dispatch(fetchDeleteLove(productId));
-      }
-    });
+    if (UserToken) {
+      location.href = "/signin";
+    } else {
+      let findProduct: Boolean = false;
+      products?.forEach((product: any) => {
+        if (product._id === productId) {
+          findProduct = true;
+          return dispatch(fetchDeleteLove(productId));
+        }
+      });
 
-    if (!findProduct) {
-      return dispatch(fetchAddLove(productId));
+      if (!findProduct) {
+        return dispatch(fetchAddLove(productId));
+      }
     }
   };
 

@@ -17,14 +17,20 @@ export const fetchProducts: any = createAsyncThunk(
 // search
 export const fetchSearchProduct: any = createAsyncThunk(
   "productsSlice/fetchSearchProduct",
-  async (searchProduct: string) => {
-    const res = await fetch(
-      `${MainURL}api/products/search/${searchProduct}`
-    );
+  async (searchQuery: string) => {
+    const res = await fetch(`${MainURL}api/products/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+        // Authorization,
+      },
+      body: JSON.stringify({
+        query: searchQuery,
+      }),
+    });
     const data = await res.json();
     console.log(data);
     return data.data;
-    
   }
 );
 
@@ -53,7 +59,6 @@ export const productsSlice = createSlice({
         state.currentPage = action.payload.currentPage;
       }
     );
-
 
     builder.addCase(
       fetchSearchProduct.fulfilled,

@@ -27,7 +27,7 @@
   height: fit-content;
   background-color: transparent;
   border: none;
-  color: #fff;
+  color: var(--color-white);
   font-size: 25px;
   top: 20px;
   right: -34px;
@@ -41,11 +41,11 @@
   overflow-x: visible;
   max-width: 300px;
   width: calc(100% - 50px);
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 .main-menu .content .main-menu-top {
   background-color: #232f3e;
-  color: #fff;
+  color: var(--color-white);
   padding: 10px;
   display: flex;
   justify-content: space-between;

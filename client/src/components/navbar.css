@@ -1,6 +1,6 @@
 .main-navbar {
   background-color: var(--bg-main) !important;
-  color: #fff;
+  color: var(--color-white);
   height: 60px;
   padding: 0;
 }
@@ -25,7 +25,7 @@
   .but-menu {
     display: block;
     background: transparent;
-    color: #fff;
+    color: var(--color-white);
     border: none;
     margin-right: 10px;
   }
@@ -45,14 +45,14 @@
 /* main link */
 .main-link {
   font-size: 16px;
-  color: #fff;
+  color: var(--color-white);
   padding: 10px;
   position: relative;
   transition: var(--main-transition);
 }
-.main-link.active::after, 
+.main-link.active::after,
 .main-link:hover::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 8px;
   left: 50%;
@@ -115,7 +115,7 @@
   position: absolute;
   top: -15px;
   border: 8px solid;
-  border-color: transparent transparent #fff transparent;
+  border-color: transparent transparent var(--color-white) transparent;
 }
 
 /* person link */
@@ -124,7 +124,7 @@
 }
 .person-icon-container .person-icon {
   font-size: 21px;
-  color: #fff;
+  color: var(--color-white);
 }
 .person-icon-container .person-count {
   position: absolute;
@@ -137,7 +137,7 @@
   line-height: 1.4;
   background-color: #f08804;
   z-index: 5;
-  color: #fff;
+  color: var(--color-white);
   font-size: 14px;
   font-weight: 700;
 }

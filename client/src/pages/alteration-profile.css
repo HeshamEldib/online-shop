@@ -17,7 +17,7 @@
   width: 500px;
   margin: auto;
   padding: 20px 25px;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 .alteration-profile-page form label {
   display: block;

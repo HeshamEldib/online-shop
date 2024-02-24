@@ -14,7 +14,7 @@
 }
 
 .cart-page .cart-content {
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 20px 20px 30px;
 }
 @media (max-width: 576px) {
@@ -150,7 +150,7 @@
 .cart-page .action-buts .but-delete:hover {
   background-color: #dc3545;
   border-color: #dc3545;
-  color: #fff;
+  color: var(--color-white);
 }
 .cart-page .action-buts .but-love:hover {
   color: #f44336;
@@ -187,7 +187,7 @@
 }
 .action-quantity .but-count-product.checked {
   background-color: #0a58ca;
-  color: #fff;
+  color: var(--color-white);
 }
 .action-quantity .add-more {
   border-top: 1px solid;
@@ -218,7 +218,7 @@
 }
 
 .proceed-to-checkout {
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 20px 20px 30px;
   font-size: 19px;
   position: sticky;

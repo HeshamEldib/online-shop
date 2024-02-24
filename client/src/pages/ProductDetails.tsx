@@ -14,7 +14,12 @@ import {
   fetchUpdateComment,
 } from "../redux/slices/commentsSlice";
 import { Price } from "./ProductPage";
-import { ButtonActionProps, CommentProps, ProductProps } from "../interface";
+import {
+  ButtonActionProps,
+  CommentProps,
+  ProductIdProps,
+  ProductProps,
+} from "../interface";
 import { ButLove } from "../components/LoveMenu";
 import { MainURL, UserToken } from "../constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -74,12 +79,7 @@ function ProductContent({ product }: ProductProps) {
       </div>
       <Price price={product.price} />
       <div className="buttons">
-        <button
-          className="main-button"
-          onClick={() => dispatch(fetchAddToCart(product._id))}
-        >
-          add to cart
-        </button>
+        <AddCart productId={product._id} />
         <ButLove productId={product._id} />
       </div>
 
@@ -91,6 +91,24 @@ function ProductContent({ product }: ProductProps) {
       <Ratings />
       <Comments />
     </div>
+  );
+}
+
+// add cart
+function AddCart({ productId }: ProductIdProps) {
+  const dispatch = useDispatch();
+
+  const addCartMethod = () => {
+    if (UserToken) {
+      location.href = "/signin";
+    } else {
+      dispatch(fetchAddToCart(productId));
+    }
+  };
+  return (
+    <button className="main-button" onClick={addCartMethod}>
+      add to cart
+    </button>
   );
 }
 
@@ -122,7 +140,6 @@ function RatingStars({ rate }: RatingStarsProps) {
     }
   }
 
-  
   return (
     <div className="rating-stars">
       {arrStart.map((star, index) => {
@@ -160,7 +177,11 @@ function Ratings() {
   };
 
   const submitRating = (rating: number) => {
-    dispatch(fetchAddAndUpdateRatings({ productId, rating }));
+    if (UserToken) {
+      location.href = "/signin";
+    } else {
+      dispatch(fetchAddAndUpdateRatings({ productId, rating }));
+    }
   };
 
   useEffect(() => {
@@ -168,6 +189,7 @@ function Ratings() {
   }, []);
 
   const arr = [1, 2, 3, 4, 5];
+
   return (
     <div className="add-ratings">
       <h6>my rating:</h6>
@@ -197,7 +219,6 @@ function Ratings() {
   );
 }
 
-
 // comments
 function Comments() {
   return (
@@ -216,7 +237,11 @@ function AddComment() {
     e.preventDefault();
   };
   const submitComment = async () => {
-    dispatch(fetchAddComment({ productId, comment: content }));
+    if (UserToken) {
+      location.href = "/signin";
+    } else {
+      dispatch(fetchAddComment({ productId, comment: content }));
+    }
   };
 
   return (

@@ -26,29 +26,48 @@ function ContentLeft() {
 
   return (
     <div className="content-left">
-      <div className="avatar">
-        <input
-          type="file"
-          name="avatar"
-          accept="image/*"
-          onChange={(e: any) =>
-            dispatch(
+      <div className="info">
+        <div className="avatar">
+          <input
+            type="file"
+            name="avatar"
+            accept="image/*"
+            onChange={(e: any) =>
               dispatch(
-                fetchUpdateUser({
-                  userToken: UserToken,
-                  avatar: e.target.files[0],
-                })
+                dispatch(
+                  fetchUpdateUser({
+                    userToken: UserToken,
+                    avatar: e.target.files[0],
+                  })
+                )
               )
-            )
-          }
-        />
+            }
+          />
 
-        <img src={MainURL + user?.avatar} alt="" />
-        <span>
-          <FontAwesomeIcon icon={faCamera} />
-        </span>
+          <img src={MainURL + user?.avatar} alt="" />
+          <span>
+            <FontAwesomeIcon icon={faCamera} />
+          </span>
+        </div>
+        <div className="full-name">{user?.userName}</div>
       </div>
-      <div className="full-name">{user?.userName}</div>
+
+      <SignOut />
+    </div>
+  );
+}
+
+// sin out
+function SignOut() {
+  const signOutMethod = () => {
+    localStorage.removeItem("userToken");
+    location.href = "/";
+  };
+  return (
+    <div className="sin-out">
+      <button className="main-button" onClick={signOutMethod}>
+        Sign Out
+      </button>
     </div>
   );
 }

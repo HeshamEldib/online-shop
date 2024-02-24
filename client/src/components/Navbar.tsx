@@ -103,7 +103,7 @@ export function NavLinks() {
     <div className="align-items-center links me-md-1 me-lg-2">
       <NavLink title="Home" pathName="" />
       <NavLink title="Products" pathName="Products" />
-      {user?.role !== "USER" && (
+      {user?.role !== "USER" && !UserToken && (
         <>
           <NavLink title="Add Product" pathName="add-product" />
           <NavLink title="My Products" pathName="my-products" />
@@ -152,13 +152,18 @@ function CardLink() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchGetAllFromCart());
+    if (!UserToken) {
+      dispatch(fetchGetAllFromCart());
+    }
   }, []);
   return (
-    <Link to="/cart" className="nav-link main-link person-link">
+    <Link
+      to={UserToken ? "/register" : "/cart"}
+      className="nav-link main-link person-link"
+    >
       <div className="person-icon-container">
         <FontAwesomeIcon className="person-icon" icon={faCartShopping} />
-        <span className="person-count">{products?.length}</span>
+        <span className="person-count">{products?.length || 0}</span>
       </div>
     </Link>
   );
@@ -169,6 +174,7 @@ function LoveLink() {
     (state: RootState) => state.loveProductsSlice.products
   );
   const dispatch = useDispatch();
+
   return (
     <button
       className="nav-link main-link person-link"
@@ -183,16 +189,35 @@ function LoveLink() {
 }
 
 export function ProfileIcon() {
+  // console.log(UserToken);
+
   const user: any = useSelector((state: RootState) => state.user.user);
   return (
-    <Link to="/account" className="nav-link main-link person-link">
-      <div className="person-icon-container">
-        {user?.avatar ? (
-          <img src={MainURL + user?.avatar} className="main-avatar" alt="" />
-        ) : (
-          <FontAwesomeIcon className="person-icon" icon={faCircleUser} />
-        )}
-      </div>
-    </Link>
+    <>
+      {UserToken ? (
+        <>
+          <Link to="/signin" className="nav-link main-link person-link">
+            sign in
+          </Link>
+          <Link to="/register" className="nav-link main-link person-link">
+            log in
+          </Link>
+        </>
+      ) : (
+        <Link to="/account" className="nav-link main-link person-link">
+          <div className="person-icon-container">
+            {user?.avatar ? (
+              <img
+                src={MainURL + user?.avatar}
+                className="main-avatar"
+                alt=""
+              />
+            ) : (
+              <FontAwesomeIcon className="person-icon" icon={faCircleUser} />
+            )}
+          </div>
+        </Link>
+      )}
+    </>
   );
 }

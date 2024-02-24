@@ -1,7 +1,7 @@
 .profile-page {
   padding-top: var(--padding-section);
   padding-bottom: var(--padding-section);
-  background-color: #f9f9fa;
+  background-color: var(--bg-two);
 }
 @media (min-width: 678px) {
   .profile-page {
@@ -41,7 +41,7 @@
   justify-content: center;
   padding: 20px;
   flex-wrap: wrap;
-  align-content: flex-start;
+  align-content: space-between;
   background: -webkit-gradient(
     linear,
     left top,
@@ -89,12 +89,23 @@
   font-size: 16px;
   color: #ffffffed;
 }
-
 .profile-page .content-left .full-name {
   width: 100%;
   text-align: center;
 }
 
+/* sin out */
+.sin-out button {
+  box-shadow: none;
+  color: var(--color-white);
+  background-color: var(--color-blue);
+  border-color: var(--color-blue);
+}
+.sin-out button:hover {
+  color: var(--color-white);
+  background-color: var(--hover-blue);
+  border-color: var(--hover-blue);
+}
 
 /* information Personalize data */
 .profile-page .content-right {

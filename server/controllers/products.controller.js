@@ -44,14 +44,23 @@ const getProduct = asyncWrapper(async (req, res, next) => {
 });
 
 const getSearchProduct = asyncWrapper(async (req, res, next) => {
-  const searchProduct = req.params.searchProduct;
-  const products = await Product.aggregate().search({ title: searchProduct });
+  const {searchQuery} = req.body.query;
+  console.log("searchQuery =>", searchQuery);
+  let products = await Product.find().lean();
+  // const products = await Product.find({ title: { $search: searchQuery } });
+  // console.log("products =>", products);
+  
+  if (searchQuery) {
+    products = products.filter((product) =>
+    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+  console.log("products after =>", products);
 
-  console.log(products);
-  // res.status(200).json({
-  //   status: httpStatusText.SUCCESS,
-  //   data: { product },
-  // });
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
+    data: { products },
+  });
 });
 
 module.exports = {

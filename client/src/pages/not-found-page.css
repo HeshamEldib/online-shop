@@ -92,7 +92,7 @@
   display: inline-block;
   padding: 15px 30px;
   border-radius: 40px;
-  color: #fff;
+  color: var(--color-white);
   font-weight: 700;
   -webkit-box-shadow: 0px 4px 15px -5px #0046d5;
   box-shadow: 0px 4px 15px -5px #0046d5;

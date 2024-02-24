@@ -17,8 +17,8 @@ router
 
 
 router
-  .route("/search/:searchProduct")
-  .get(productsController.getSearchProduct)
+  .route("/search")
+  .post(productsController.getSearchProduct)
 
 
   router

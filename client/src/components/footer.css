@@ -1,6 +1,6 @@
 footer {
   background-color: #232f3e;
-  color: #fff;
+  color: var(--color-white);
 }
 
 footer .back-to-top {
@@ -11,7 +11,7 @@ footer .back-to-top button {
   background-color: #37475a;
   border: none;
   font-size: 13px;
-  color: #fff;
+  color: var(--color-white);
   padding: 10px 0;
   transition: var(--main-transition);
 }
@@ -55,7 +55,7 @@ footer .footer-end {
 }
 
 .developer-links ul a {
-  color: #fff;
+  color: var(--color-white);
   transition: var(--main-transition);
 }
 .developer-links ul a.my-website:hover {

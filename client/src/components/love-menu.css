@@ -75,7 +75,7 @@
 .love-menu .product-love a:hover + .text + a .but-go {
   background-color: var(--main-color);
   border-color: var(--hover-color);
-  color: #fff;
+  color: var(--color-white);
 }
 
 /* button love */

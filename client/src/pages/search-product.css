@@ -1,0 +1,17 @@
+.search-product {
+  padding-top: var(--padding-section);
+  padding-bottom: var(--padding-section);
+}
+
+.search-product .search-value {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f08804;
+}
+.search-product .search-value p {
+  margin: 0;
+  color: #0a58ca;
+  font-size: 18px;
+}
+.search-product .search-value p span {
+  font-size: 20px;
+}
