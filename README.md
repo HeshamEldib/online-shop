@@ -27,7 +27,7 @@ Enter shipping details and complete the payment process.
 View order history and past purchases.
 
 ## Contributors
-Hesham Eldib (@johndoe): Full Stack Developer
+Hesham Eldib (@HeshamEldib): Full Stack Developer
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
