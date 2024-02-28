@@ -6,7 +6,7 @@ export default function Signin() {
   return (
     <section className="signin register">
       <Logo />
-      <RegisterCard title="Sign in">
+      {/* <RegisterCard title="Sign in">
         <Form>
           <FormInput
             type="email"
@@ -21,7 +21,7 @@ export default function Signin() {
             placeholder="At least 6 characters"
           />
         </Form>
-      </RegisterCard>
+      </RegisterCard> */}
 
       <ButCreateAccount />
     </section>

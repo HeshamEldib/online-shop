@@ -30,10 +30,11 @@ const getUser = asyncWrapper(async (req, res, next) => {
 const register = asyncWrapper(async (req, res, next) => {
   const { userName, email, password, role, mobile, address } = req.body;
 
+  // find user
   const oldUser = await User.findOne({ email });
   if (oldUser) {
     const error = appError.create(
-      "user already exists",
+      "wrong email or password",
       400,
       httpStatusText.FAIL
     );
@@ -47,8 +48,6 @@ const register = asyncWrapper(async (req, res, next) => {
     email,
     password: hashPassword,
     role,
-    mobile,
-    address,
   });
 
   const token = await generateJWT({

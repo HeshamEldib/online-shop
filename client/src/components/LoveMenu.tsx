@@ -13,7 +13,7 @@ import {
   fetchGetLove,
 } from "../redux/slices/loveProductsSlice";
 import { ProductIdProps, ProductProps } from "../interface";
-import { MainURL, UserToken } from "../constant";
+import { CheckUserToken, MainURL } from "../constant";
 
 import "./love-menu.css";
 
@@ -44,7 +44,7 @@ function ProductsLove() {
   );
 
   useEffect(() => {
-    if (!UserToken) {
+    if (CheckUserToken) {
       dispatch(fetchGetLove());
     }
   }, []);
@@ -96,9 +96,7 @@ function ButLoveContent({ productId, active }: ButLoveContentProps) {
   const dispatch = useDispatch();
 
   const handelClick = (productId: any) => {
-    if (UserToken) {
-      location.href = "/signin";
-    } else {
+    if (CheckUserToken) {
       let findProduct: Boolean = false;
       products?.forEach((product: any) => {
         if (product._id === productId) {
@@ -110,6 +108,8 @@ function ButLoveContent({ productId, active }: ButLoveContentProps) {
       if (!findProduct) {
         return dispatch(fetchAddLove(productId));
       }
+    } else {
+      location.href = "/signin";
     }
   };
 

@@ -19,7 +19,7 @@ import {
 } from "../redux/slices/targetMenu";
 import { RootState } from "../redux/store";
 import { fetchGetAllFromCart } from "../redux/slices/cartSlice";
-import { Authorization, MainURL, UserToken } from "../constant";
+import { CheckUserToken, MainURL, UserToken } from "../constant";
 
 import "./navbar.css";
 import { fetchUser } from "../redux/slices/userSlice";
@@ -152,13 +152,13 @@ function CardLink() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!UserToken) {
+    if (CheckUserToken) {
       dispatch(fetchGetAllFromCart());
     }
   }, []);
   return (
     <Link
-      to={UserToken ? "/register" : "/cart"}
+      to={CheckUserToken ? "/cart" : "/register"}
       className="nav-link main-link person-link"
     >
       <div className="person-icon-container">
@@ -189,21 +189,10 @@ function LoveLink() {
 }
 
 export function ProfileIcon() {
-  // console.log(UserToken);
-
   const user: any = useSelector((state: RootState) => state.user.user);
   return (
     <>
-      {UserToken ? (
-        <>
-          <Link to="/signin" className="nav-link main-link person-link">
-            sign in
-          </Link>
-          <Link to="/register" className="nav-link main-link person-link">
-            log in
-          </Link>
-        </>
-      ) : (
+      {CheckUserToken ? (
         <Link to="/account" className="nav-link main-link person-link">
           <div className="person-icon-container">
             {user?.avatar ? (
@@ -217,6 +206,15 @@ export function ProfileIcon() {
             )}
           </div>
         </Link>
+      ) : (
+        <>
+          <Link to="/signin" className="nav-link main-link person-link">
+            sign in
+          </Link>
+          <Link to="/register" className="nav-link main-link person-link">
+            log in
+          </Link>
+        </>
       )}
     </>
   );

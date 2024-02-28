@@ -3,19 +3,25 @@ import { MainURL } from "../../constant";
 
 export const fetchRegister: any = createAsyncThunk(
   "registerSlice/fetchRegister",
-  async () => {
-    const res = await fetch(`${MainURL}api/products/`);
+  async (userData: any) => {
+    const res = await fetch(`${MainURL}api/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify({ ...userData }),
+    });
     const data = await res.json();
-    return data.data.products;
+    return data;
   }
 );
 
-export interface ProductsSlice {
-  products: any[];
+export interface UserSlice {
+  message: string;
 }
 
-const initialState: ProductsSlice = {
-  products: [],
+const initialState: UserSlice = {
+  message: "",
 };
 
 export const registerSlice = createSlice({
@@ -27,8 +33,14 @@ export const registerSlice = createSlice({
     builder.addCase(
       fetchRegister.fulfilled,
       (state, action: PayloadAction<any>) => {
-        // Add user to the state array
-        state.products.push(action.payload);
+        if (!action.payload.data) {
+          state.message = action.payload.message;
+          console.log("action =>", action.payload);
+        } else {
+          state.message = "";
+          localStorage.setItem("userToken", action.payload.data.userToken);
+          location.href = "/";
+        }
       }
     );
   },

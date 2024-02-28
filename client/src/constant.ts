@@ -5,6 +5,7 @@ export const Authorization: string = `Berarer ${localStorage.getItem(
 )}`;
 
 export const UserToken: string = `${localStorage.getItem("userToken")}`;
+export const CheckUserToken: boolean = UserToken !== "null";
 
 export const categoryList: string[] = [
   "electronics",

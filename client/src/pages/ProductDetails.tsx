@@ -21,7 +21,7 @@ import {
   ProductProps,
 } from "../interface";
 import { ButLove } from "../components/LoveMenu";
-import { MainURL, UserToken } from "../constant";
+import { CheckUserToken, MainURL, UserToken } from "../constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -67,8 +67,6 @@ function ProductImages({ product }: ProductProps) {
 }
 
 function ProductContent({ product }: ProductProps) {
-  const dispatch = useDispatch();
-
   return (
     <div className="product-content">
       <h3 className="title">{product.title}</h3>
@@ -99,10 +97,10 @@ function AddCart({ productId }: ProductIdProps) {
   const dispatch = useDispatch();
 
   const addCartMethod = () => {
-    if (UserToken) {
-      location.href = "/signin";
-    } else {
+    if (CheckUserToken) {
       dispatch(fetchAddToCart(productId));
+    } else {
+      location.href = "/signin";
     }
   };
   return (
@@ -177,10 +175,10 @@ function Ratings() {
   };
 
   const submitRating = (rating: number) => {
-    if (UserToken) {
-      location.href = "/signin";
-    } else {
+    if (CheckUserToken) {
       dispatch(fetchAddAndUpdateRatings({ productId, rating }));
+    } else {
+      location.href = "/signin";
     }
   };
 
@@ -237,10 +235,10 @@ function AddComment() {
     e.preventDefault();
   };
   const submitComment = async () => {
-    if (UserToken) {
-      location.href = "/signin";
-    } else {
+    if (CheckUserToken) {
       dispatch(fetchAddComment({ productId, comment: content }));
+    } else {
+      location.href = "/signin";
     }
   };
 

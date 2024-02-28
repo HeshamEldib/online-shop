@@ -61,11 +61,11 @@ const userSchema = mongoose.Schema({
   },
   mobile: {
     type: Number,
-    required: true,
+    // required: true,
   },
   address: {
     type: String,
-    required: true,
+    // required: true,
   },
   products: {
     type: [String],
