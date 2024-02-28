@@ -2,7 +2,7 @@
 Welcome to our E-Commerce project! This project aims to create a fully functional online shopping platform where users can browse products, add them to their cart, and make purchases.
 
 ## Features
-User authentication: Users can sign up and log in to their accounts.
+  User authentication: Users can sign up and log in to their accounts.
 <br>
 Product browsing: Browse through a variety of products categorized by type, brand, or price.
 <br>
