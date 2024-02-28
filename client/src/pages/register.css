@@ -65,13 +65,16 @@
 .register button {
   font-size: 15px;
   font-weight: 500;
-  width: calc(50% - 10px);
+  width: 100%;
   border-radius: 15px;
   padding: 3px 7px;
-  margin-top: 15px;
+  margin-top: 20px;
   background-color: var(--main-color);
   border: 1px solid var(--border-color);
   transition: var(--main-transition);
+}
+.register .buttons button {
+  width: calc(50% - 10px);
 }
 .register button.back {
   background-color: var(--color-red);

@@ -93,12 +93,6 @@ function Category() {
 export function Products() {
   const products = useSelector((state: RootState) => state.products.products);
 
-  // const dispatch = useDispatch();
-  // const categoryFromURL = useParams()["*"];
-  // useEffect(() => {
-  //   dispatch(fetchProducts({ category: categoryFromURL }));
-  // }, []);
-
   return (
     <div className="products">
       <div className="row">

@@ -94,14 +94,9 @@ const signin = asyncWrapper(async (req, res, next) => {
     return next(error);
   }
 
-  const token = await generateJWT({
-    email: user.email,
-    id: user._id,
-    roles: user.roles,
-  });
   res.json({
     status: httpStatusText.SUCCESS,
-    data: { token },
+    data: { userToken: user.token },
   });
 });
 

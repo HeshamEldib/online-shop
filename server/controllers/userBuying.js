@@ -110,10 +110,6 @@ const addAllBuying = asyncWrapper(async (req, res, next) => {
   });
 
   await user.save();
-  // res.json({
-  //   status: httpStatusText.SUCCESS,
-  //   data: { buying },
-  // });
   getAllBuying(req, res, next);
 });
 

@@ -176,52 +176,12 @@ export function Form({ method, data, setData }: RoleFormProps) {
 
         <div className="buttons d-flex justify-content-between">
           <button type="submit">Continue</button>
-          <button onClick={method} className="back">Back</button>
+          <button onClick={method} className="back">
+            Back
+          </button>
         </div>
       </form>
     </div>
-  );
-}
-
-interface FormInputProps {
-  type: string;
-  name: string;
-  label: string;
-  placeholder: string;
-}
-export function FormInput({ type, name, label, placeholder }: FormInputProps) {
-  return (
-    <>
-      <label htmlFor={name}>{label}</label>
-      <input
-        type={type}
-        id={name}
-        name={name}
-        placeholder={placeholder}
-        required
-      />
-    </>
-  );
-}
-
-export function InputPassword({
-  type,
-  name,
-  label,
-  placeholder,
-}: FormInputProps) {
-  return (
-    <>
-      <label htmlFor={name}>{label}</label>
-      <input
-        type={type}
-        id={name}
-        name={name}
-        placeholder={placeholder}
-        required
-        min={6}
-      />
-    </>
   );
 }
 

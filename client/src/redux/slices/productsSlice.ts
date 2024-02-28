@@ -29,7 +29,6 @@ export const fetchSearchProduct: any = createAsyncThunk(
       }),
     });
     const data = await res.json();
-    console.log(data);
     return data.data;
   }
 );

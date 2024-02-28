@@ -103,7 +103,7 @@ export function NavLinks() {
     <div className="align-items-center links me-md-1 me-lg-2">
       <NavLink title="Home" pathName="" />
       <NavLink title="Products" pathName="Products" />
-      {user?.role !== "USER" && !UserToken && (
+      {user?.role !== "USER" && CheckUserToken && (
         <>
           <NavLink title="Add Product" pathName="add-product" />
           <NavLink title="My Products" pathName="my-products" />

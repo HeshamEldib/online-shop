@@ -16,6 +16,21 @@ export const fetchRegister: any = createAsyncThunk(
   }
 );
 
+export const fetchSignin: any = createAsyncThunk(
+  "registerSlice/fetchSignin",
+  async (userData: any) => {
+    const res = await fetch(`${MainURL}api/users/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify({ ...userData }),
+    });
+    const data = await res.json();
+    return data;
+  }
+);
+
 export interface UserSlice {
   message: string;
 }
@@ -35,10 +50,24 @@ export const registerSlice = createSlice({
       (state, action: PayloadAction<any>) => {
         if (!action.payload.data) {
           state.message = action.payload.message;
-          console.log("action =>", action.payload);
         } else {
           state.message = "";
           localStorage.setItem("userToken", action.payload.data.userToken);
+
+          location.href = "/";
+        }
+      }
+    );
+
+    builder.addCase(
+      fetchSignin.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        if (!action.payload.data) {
+          state.message = action.payload.message;
+        } else {
+          state.message = "";
+          localStorage.setItem("userToken", action.payload.data.userToken);
+
           location.href = "/";
         }
       }
