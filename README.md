@@ -15,7 +15,7 @@ Payment processing: Stripe API
 Deployment: Heroku
 
 ## Installation
-Clone the repository: git clone https://git@github.com:HeshamEldib/amazon.git
+Clone the repository: git clone git@github.com:HeshamEldib/amazon.git
 Install dependencies: npm install
 Set up environment variables for backend (e.g., MongoDB connection string, JWT secret key, Stripe API key).
 Start the development server: npm start
