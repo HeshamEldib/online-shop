@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -14,11 +15,11 @@ import ProductDetails from "./pages/ProductDetails";
 import AlterationProfile from "./pages/AlterationProfile";
 import SearchProduct from "./pages/SearchProduct";
 import AddProduct from "./pages/AddProduct";
-
-import "./App.css";
 import MyProducts from "./pages/MyProducts";
 import UpdateProduct from "./pages/UpdateProduct";
 import NotFoundPage from "./pages/NotFoundPage";
+
+import "./App.css";
 
 function App() {
   const pathName = useLocation().pathname;

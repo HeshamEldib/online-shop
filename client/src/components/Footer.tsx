@@ -50,7 +50,7 @@ function DeveloperLinks() {
       <ul>
         <li>
           <a
-            href="https://hesham-eldib.netlify.app/"
+            href="https://heshameldib.github.io/Portfolio-Website/"
             className="my-website"
             target="_break"
           >
