@@ -1,4 +1,4 @@
-export const MainURL: string = "http://localhost:3000/";
+export const MainURL: string = "https://online-shop-api-zeta.vercel.app";
 
 export const Authorization: string = `Berarer ${localStorage.getItem(
   "userToken"
