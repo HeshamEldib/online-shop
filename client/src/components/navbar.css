@@ -1,7 +1,7 @@
 .main-navbar {
   background-color: var(--bg-main) !important;
   color: var(--color-white);
-  height: 60px;
+  height: 66px;
   padding: 0;
 }
 /* 768 */
@@ -13,7 +13,7 @@
 }
 
 .logo {
-  width: 100px;
+  width: 150px;
 }
 
 /* menu button */
@@ -44,7 +44,7 @@
 
 /* main link */
 .main-link {
-  font-size: 16px;
+  font-size: 20px;
   color: var(--color-white);
   padding: 10px;
   position: relative;
@@ -78,7 +78,7 @@
 .search {
   border-radius: 10px;
   overflow: hidden;
-  height: 40px;
+  height: 48px;
   flex: 1;
 }
 /* 768 */
@@ -91,7 +91,7 @@
 }
 .search .search-input {
   border-radius: 0;
-  font-size: 16px;
+  font-size: 19px;
 }
 .search .but-search {
   border-radius: 0;
@@ -123,7 +123,7 @@
   position: relative;
 }
 .person-icon-container .person-icon {
-  font-size: 21px;
+  font-size: 28px;
   color: var(--color-white);
 }
 .person-icon-container .person-count {

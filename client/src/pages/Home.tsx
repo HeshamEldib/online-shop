@@ -23,7 +23,7 @@ function ControlledCarousel() {
       </Carousel.Item>
       <Carousel.Item>
         <Link to={"/products/" + "men's clothing"}>
-          <img src="../public/home-2.jpeg" alt="" />
+          <img src="../public/home-2.jpg" alt="" />
         </Link>
       </Carousel.Item>
       <Carousel.Item>
@@ -51,37 +51,37 @@ function Layout() {
             category="electronics"
           />
           <CardLayout
-            title="Gaming accessories"
+            title="Men's Clothing"
             image="card-2.jpg"
             category="men's clothing"
           />
           <CardLayout
-            title="Gaming accessories"
+            title="jewelery"
             image="card-3.jpeg"
             category="jewelery"
           />
           <CardLayout
-            title="Gaming accessories"
+            title="Women's Clothing"
             image="card-4.jpg"
             category="women's clothing"
           />
           <CardLayout
-            title="Gaming accessories"
+            title="A whole new way to work"
             image="card-5.jpg"
             category="electronics"
           />
           <CardLayout
-            title="Gaming accessories"
+            title="Men's clothing"
             image="card-6.jpg"
             category="men's clothing"
           />
           <CardLayout
-            title="Gaming accessories"
+            title="Fashion trends you like"
             image="card-7.jpg"
             category="women's clothing"
           />
           <CardLayout
-            title="Gaming accessories"
+            title="Jewelery"
             image="card-8.jpeg"
             category="jewelery"
           />
@@ -98,7 +98,7 @@ interface CardLayoutProps {
 }
 function CardLayout({ title, image, category }: CardLayoutProps) {
   return (
-    <div className="col-sm-6 col-md-4 col-lg-3 card-parent">
+    <div className="col-sm-6 col-lg-4 col-xl-3 card-parent">
       <Card>
         <Card.Title>{title}</Card.Title>
         <Link to={"/products/" + category}>

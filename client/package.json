@@ -1,5 +1,6 @@
 {
-  "name": "ShopO",
+  "name": "online-shop",
+  "author": "Hesham-Eldib",
   "private": true,
   "version": "0.0.0",
   "type": "module",

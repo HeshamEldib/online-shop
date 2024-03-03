@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index"
+    "start": "node index"
   },
-  "author": "",
+  "author": "Hesham-Eldib",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

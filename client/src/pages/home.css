@@ -74,10 +74,10 @@
   height: 320px;
 }
 .layout .card-layout .card .card-title {
-  font-size: 19px;
+  font-size: 20px;
 }
 .layout .card-layout .card a {
-  font-size: 11px;
+  font-size: 14px;
   transition: var(--main-transition);
   height: 210px;
   display: block;
