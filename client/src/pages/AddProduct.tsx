@@ -2,8 +2,6 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { fetchAddProduct } from "../redux/slices/myProductsSlice";
 
-import "./add-product.css";
-
 export default function AddProduct() {
   const dispatch = useDispatch();
 

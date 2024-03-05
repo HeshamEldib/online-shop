@@ -3,7 +3,7 @@ const usersController = require("../controllers/users.controller");
 const cartController = require("../controllers/userCart");
 const buyingController = require("../controllers/userBuying");
 const loveController = require("../controllers/userLove");
-const { upload } = require("../middleware/uploadsAvatar");
+const { upload } = require("../middleware/uploadsImages");
 const verifyToken = require("../middleware/verifyToken");
 
 const router = express.Router();
@@ -13,7 +13,7 @@ router.route("/").get(usersController.getAllUsers);
 router
   .route("/:userToken")
   .get(usersController.getUser)
-  .patch(upload.single("avatar"), usersController.updateUser)
+   .patch(upload.single("avatar"), usersController.updateUser)
   .delete(usersController.deleteUser);
 
 router.route("/register").post(usersController.register);

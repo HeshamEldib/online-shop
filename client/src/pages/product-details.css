@@ -9,7 +9,7 @@
   top: 15px;
 }
 .product-details .images img {
-  max-width: 300px;
+  max-width: 370px;
   width: 100%;
   border-radius: 2px;
 }
@@ -19,14 +19,14 @@
   padding-left: 20px;
 }
 .product-details .title {
-  font-size: 22px;
-  margin-left: -20px;
+  font-size: 26px;
+  margin: 0 0 30px -20px;
 }
 
 .product-details .ratings {
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: 22px;
 }
 .product-details .ratings .rating-rate {
   margin-right: 7px;
@@ -40,7 +40,7 @@
 
 /* price */
 .product-details .price {
-  margin: 8px 10px;
+  margin: 13px 10px;
 }
 
 /* buttons */
@@ -49,21 +49,21 @@
   align-items: center;
 }
 .product-details .buttons .main-button {
-  margin-right: 15px;
+  margin-right: 27px;
 }
 
 /* about */
 .product-details .about {
   border-top: 1px solid;
   margin-top: 22px;
-  padding-top: 13px;
+  padding-top: 25px;
 }
 .product-details .about h5 {
-  font-size: 15px;
+  font-size: 21px;
   margin-bottom: 3px;
 }
 .product-details .about p {
-  font-size: 14px;
+  font-size: 18px;
   padding-left: 20px;
   margin: 0;
 }
@@ -84,15 +84,16 @@
   background-color: #111;
 }
 .add-ratings h6 {
-  font-size: 14px;
+  font-size: 21px;
   margin: 0;
 }
 .add-ratings form {
-  margin-left: 12px;
+  margin: 2px 0 0 20px;
 }
 .add-ratings button {
   border: none;
   background-color: transparent;
+  font-size: 26px;
 }
 .add-ratings button:hover,
 .add-ratings button.active {
@@ -119,9 +120,9 @@
   align-items: flex-end;
 }
 .comments .add-comment textarea {
-  width: 400px;
+  width: 450px;
   max-width: 100%;
-  height: 90px;
+  height: 100px;
   resize: none;
   border-radius: 5px;
   font-size: 17px;
@@ -153,19 +154,19 @@
 }
 .comments .view-comment h5 {
   margin: 0;
-  font-size: 20px;
+  font-size: 23px;
   color: #555;
 }
 
 .comments .view-comment p.date {
-  font-size: 13px;
+  font-size: 15px;
   color: #565959d9;
   margin-bottom: 0;
   font-style: oblique;
 }
 .comments .view-comment p.content {
-  padding-left: 5px;
-  font-size: 15px;
+  padding-left: 10px;
+  font-size: 19px;
   color: var(--main-font-col);
   margin-bottom: 10px;
 }

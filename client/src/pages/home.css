@@ -71,7 +71,7 @@
 
 .layout .card-layout .card {
   padding: 20px;
-  height: 320px;
+  height: 350px;
 }
 .layout .card-layout .card .card-title {
   font-size: 20px;
@@ -79,7 +79,7 @@
 .layout .card-layout .card a {
   font-size: 14px;
   transition: var(--main-transition);
-  height: 210px;
+  height: 240px;
   display: block;
 }
 .layout .card-layout .card img {

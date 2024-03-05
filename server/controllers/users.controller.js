@@ -5,6 +5,15 @@ const appError = require("../utils/appError");
 const httpStatusText = require("../utils/httpStatusText");
 const generateJWT = require("../utils/generateJWT");
 
+const AWS = require('aws-sdk');
+
+// Configure AWS S3
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
+
+
 const getAllUsers = asyncWrapper(async (req, res, next) => {
   const users = await User.find({}, { __v: false });
 
@@ -102,13 +111,34 @@ const signin = asyncWrapper(async (req, res, next) => {
 
 const updateUser = asyncWrapper(async (req, res, next) => {
   const userToken = req.params.userToken;
-  const { userName, role, mobile, address } = req.body;
+  const { userName, mobile, address } = req.body;
   const user = await User.findOne({ token: userToken }, { __v: false });
 
   userName !== undefined && (user.userName = userName);
   mobile !== undefined && (user.mobile = mobile);
   address !== undefined && (user.address = address);
   // role !== undefined && (user.role = role);
+
+
+
+  const params = {
+    Bucket: 'your-s3-bucket-name',
+    Key: req.file.originalname, // Use the original filename
+    Body: req.file.buffer, // Image data
+  };
+
+  s3.upload(params, (err, data) => {
+    if (err) {
+      console.error('Error uploading to S3:', err);
+      res.status(500).json({ error: 'Image upload failed' });
+    } else {
+      console.log('Image uploaded to S3:', data.Location);
+      res.status(200).json({ message: 'Image uploaded to S3 successfully!' });
+    }})
+
+
+
+
 
   req.file !== undefined && (user.avatar = `uploads/${req.file.filename}`);
 

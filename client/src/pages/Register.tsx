@@ -158,6 +158,7 @@ export function Form({ method, data, setData }: RoleFormProps) {
           name="password"
           placeholder="At least 6 characters"
           required
+          minLength={6}
           onChange={(e: any) => handleUserInput(e.target.name, e.target.value)}
         />
 
@@ -168,6 +169,7 @@ export function Form({ method, data, setData }: RoleFormProps) {
           name="confirm-password"
           placeholder="enter confirm password"
           required
+          minLength={6}
           onChange={(e: any) => setConfirmPassword(e.target.value)}
         />
         <p className="error-message">{confirmPasswordError}</p>
@@ -175,8 +177,8 @@ export function Form({ method, data, setData }: RoleFormProps) {
         <p className="error-message">{user.message}</p>
 
         <div className="buttons d-flex justify-content-between">
-          <button type="submit">Continue</button>
-          <button onClick={method} className="back">
+          <button type="submit" className="main-button">Continue</button>
+          <button onClick={method} className="main-button back">
             Back
           </button>
         </div>

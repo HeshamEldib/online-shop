@@ -11,9 +11,10 @@
 }
 .product-page .category ul {
   display: flex;
+  flex-wrap: wrap;
 }
 .product-page .category li {
-  margin-right: 10px;
+  margin: 0 0 10px 10px;
 }
 .product-page .category button {
   font-size: 20px;
@@ -35,17 +36,21 @@
 .products {
   padding: 0 5px;
 }
+.products .product-item {
+  max-width: 230px;
+  margin: 0 auto;
+}
 .products .product-parent {
   padding: 10px;
 }
 .products .image {
-  height: 200px;
+  height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .products .image img {
-  max-height: 200px;
+  max-height: 250px;
 }
 .products .info {
   margin-top: 10px;
@@ -59,7 +64,7 @@
 
 .products .title {
   color: #0f1111;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 /* price */
@@ -68,11 +73,11 @@
   color: #111;
 }
 .price .price-currency {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 500;
 }
 .price .price-value {
-  font-size: 23px;
+  font-size: 26px;
   font-weight: 500;
 }
 

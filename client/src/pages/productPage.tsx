@@ -120,7 +120,7 @@ export function Products() {
 
 export function ProductItem({ children }: ChildrenProps) {
   return (
-    <div className="col-6 col-sm-4 col-md-3 col-xl-2 product-parent">
+    <div className=" col-sm-4 col-md-4 col-xl-3 product-parent">
       <div className="product-item">{children}</div>
     </div>
   );

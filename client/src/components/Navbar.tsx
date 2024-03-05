@@ -208,10 +208,10 @@ export function ProfileIcon() {
         </Link>
       ) : (
         <>
-          <Link to="/signin" className="nav-link main-link person-link">
+          <Link to="/signin" className="nav-link main-link person-link sinin-link">
             sign in
           </Link>
-          <Link to="/register" className="nav-link main-link person-link">
+          <Link to="/register" className="nav-link main-link person-link register-link">
             log in
           </Link>
         </>

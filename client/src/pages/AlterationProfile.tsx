@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { fetchUpdateUser } from "../redux/slices/userSlice";
-import "./alteration-profile.css";
 import { UserToken } from "../constant";
 
 export default function AlterationProfile() {

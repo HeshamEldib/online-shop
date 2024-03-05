@@ -39,7 +39,7 @@
   height: 100vh;
   overflow-y: auto;
   overflow-x: visible;
-  max-width: 300px;
+  max-width: 340px;
   width: calc(100% - 50px);
   background-color: var(--color-white);
 }
@@ -49,9 +49,10 @@
   padding: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .main-menu .content .main-menu-top .logo {
-  width: 140px;
+  width: 200px;
 }
 .main-menu .content .main-menu-top a svg {
   font-size: 28px;

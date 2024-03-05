@@ -45,11 +45,11 @@ export default function ProductDetails() {
     <section className="product-details">
       <div className="container">
         <div className="row justify-content-around">
-          <div className="col-sm-5 col-lg-4 col-xl-3 text-center">
+          <div className="col-md-5 col-lg-4 text-center">
             <ProductImages product={product} />
           </div>
 
-          <div className="col-sm-6 col-lg-7 col-xl-8 mt-4 mt-sm-0">
+          <div className="col-md-6 col-lg-7 mt-4 mt-md-0">
             <ProductContent product={product} />
           </div>
         </div>

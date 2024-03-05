@@ -11,9 +11,18 @@
     padding-bottom: 5px;
   }
 }
+.container-fluid{
+  padding: 0 20px;
+}
 
 .logo {
   width: 150px;
+}
+@media (max-width: 576px) {
+  .logo {
+    width: 130px;
+    margin: 0 10px 0 0;
+  }
 }
 
 /* menu button */
@@ -122,22 +131,43 @@
 .person-icon-container {
   position: relative;
 }
+@media (max-width: 576px) {
+  .person-link {
+    font-size: 17px;
+    padding: 10px 7px;
+  }
+  .person-link.register-link {
+    display: none;
+  }
+}
 .person-icon-container .person-icon {
   font-size: 28px;
   color: var(--color-white);
+}
+@media (max-width: 576px) {
+  .person-icon-container .person-icon {
+    font-size: 24px;
+  }
 }
 .person-icon-container .person-count {
   position: absolute;
   top: -4px;
   left: 50%;
-  width: 18px;
-  height: 18px;
+  width: 21px;
+  height: 21px;
   border-radius: 50%;
   text-align: center;
-  line-height: 1.4;
+  line-height: 1.3;
   background-color: #f08804;
   z-index: 5;
   color: var(--color-white);
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
+}
+@media (max-width: 576px) {
+  .person-icon-container .person-count {
+    font-size: 15px;
+    width: 18px;
+    height: 18px;
+  }
 }

@@ -56,7 +56,7 @@ function Layout() {
             category="men's clothing"
           />
           <CardLayout
-            title="jewelery"
+            title="Jewelery"
             image="card-3.jpeg"
             category="jewelery"
           />

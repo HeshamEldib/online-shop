@@ -81,7 +81,7 @@
 /* button love */
 .but-love {
   border: none;
-  font-size: 27px;
+  font-size: 40px;
   background-color: transparent;
   color: #565959;
   transition: var(--main-transition);

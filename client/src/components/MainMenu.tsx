@@ -46,7 +46,9 @@ export function HeaderMenu() {
   return (
     <div className="main-menu-top">
       <Logo />
+      <div className="prof">
       <ProfileIcon />
+      </div>
     </div>
   );
 }

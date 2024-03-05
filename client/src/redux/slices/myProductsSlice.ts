@@ -18,6 +18,8 @@ export const fetchGetMyProducts: any = createAsyncThunk(
 export const fetchAddProduct: any = createAsyncThunk(
   "myProductsSlice/fetchAddProduct",
   async (dataInfo: any = {}) => {
+    console.log(dataInfo);
+    
     const formData = new FormData();
 
     formData.append("title", dataInfo.title);
