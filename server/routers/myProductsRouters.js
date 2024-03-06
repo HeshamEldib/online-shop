@@ -24,7 +24,6 @@ router
     myProductsController.addProduct
   );
 
-
 router
   .route("/:productId")
   .patch(

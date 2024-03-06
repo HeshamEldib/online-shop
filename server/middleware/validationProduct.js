@@ -10,7 +10,7 @@ const validationProduct = () => {
     body("price").notEmpty().withMessage("price is required"),
     body("description").notEmpty().withMessage("description is required"),
     body("category").notEmpty().withMessage("category is required"),
-    body("image").notEmpty().withMessage("image is required"),
+    // body("image").notEmpty().withMessage("image is required"),
   ];
 };
 
