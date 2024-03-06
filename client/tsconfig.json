@@ -23,6 +23,10 @@
     "outDir": "dist",
     "sourceMap": true,
     "preserveConstEnums": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    }
   },
   "include": ["src"],
   // "include": ["src/**/*", "tests/**/*.ts"],
