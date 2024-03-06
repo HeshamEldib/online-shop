@@ -92,7 +92,7 @@ export const commentsSlice = createSlice({
     builder.addCase(
       fetchDeleteComment.fulfilled,
       (state, action: PayloadAction<any>) => {
-        // state.comments = action.payload;
+        state.comments = action.payload;
       }
     );
   },

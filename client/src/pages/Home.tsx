@@ -1,8 +1,8 @@
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
-import "./home.css";
 import { Card } from "react-bootstrap";
-import { categoryList } from "../constant";
+import "./home.css";
+// import { categoryList } from "../constant";
 
 export default function Home() {
   return (
