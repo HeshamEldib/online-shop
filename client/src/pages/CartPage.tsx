@@ -17,9 +17,9 @@ import {
   fetchGetAllBuying,
 } from "../redux/slices/buyingSlice";
 import { Dropdown, DropdownButton, Form } from "react-bootstrap";
-import "./cart-page.css";
 import { MainURL } from "../constant";
 import { UploadButton } from "./ProductDetails";
+import "./cart-page.css";
 
 export default function Cart() {
   return (
