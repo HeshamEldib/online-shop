@@ -4,7 +4,7 @@ const { validationProduct } = require("../middleware/validationProduct");
 const verifyToken = require("../middleware/verifyToken");
 const allowedTo = require("../middleware/allowedTo");
 const userRoles = require("../utils/userRoles");
-const { upload } = require("../middleware/uploadsAvatar");
+const { upload } = require("../middleware/uploadsImages");
 
 const router = express.Router();
 
