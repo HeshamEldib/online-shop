@@ -1,5 +1,5 @@
-export const MainURL: string = "https://online-shop-api-zeta.vercel.app/";
- 
+export const MainURL: string = "https://online-shop-api-raxj.onrender.com/";
+
 export const Authorization: string = `Berarer ${localStorage.getItem(
   "userToken"
 )}`;

@@ -72,7 +72,7 @@ function Form() {
 
         <p className="error-message">{user.message}</p>
 
-        <button type="submit">Continue</button>
+        <button className="main-button" type="submit">Continue</button>
       </form>
     </div>
   );

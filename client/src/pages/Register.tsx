@@ -87,7 +87,7 @@ function RoleForm({ method, data, setData }: RoleFormProps) {
           <label htmlFor="ADMIN">Merchant</label>
         </div>
 
-        <button>Next</button>
+        <button className="main-button">Next</button>
       </form>
     </div>
   );

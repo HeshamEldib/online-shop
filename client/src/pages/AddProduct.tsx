@@ -11,10 +11,12 @@ export default function AddProduct() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState();
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    dispatch(fetchAddProduct({ title, price, category, description, image }));
+    await dispatch(
+      fetchAddProduct({ title, price, category, description, image })
+    );
     location.href = "/my-products";
   };
 
@@ -51,55 +53,6 @@ export default function AddProduct() {
             name="product-image"
             setValue={(e) => setImage(e.target.files[0])}
           />
-          {/* <label htmlFor="product-title">Product Title</label>
-          <input
-            type="text"
-            name="product-title"
-            id="product-title"
-            required
-            value={title}
-            onChange={(e: any) => setTitle(e.target.value)}
-          /> */}
-
-          {/* <label htmlFor="product-price">Product Price</label>
-          <input
-            type="number"
-            name="product-price"
-            id="product-price"
-            required
-            value={price}
-            onChange={(e: any) => setPrice(e.target.value)}
-          /> */}
-
-          {/* <label htmlFor="product-category">Product Category</label>
-          <input
-            type="text"
-            name="product-category"
-            id="product-category"
-            required
-            value={category}
-            onChange={(e: any) => setCategory(e.target.value)}
-          /> */}
-
-          {/* <label htmlFor="product-description">Product Description</label>
-          <textarea
-            name="product-description"
-            id="product-description"
-            required
-            minLength={50}
-            value={description}
-            onChange={(e: any) => setDescription(e.target.value)}
-          ></textarea> */}
-
-          {/* <label htmlFor="product-image">Product Image</label>
-          <input
-            type="file"
-            name="product-image"
-            id="product-image"
-            required
-            accept="image/*"
-            onChange={(e: any) => setImage(e.target.files[0])}
-          /> */}
 
           <div className="submit">
             <button className="main-button" type="submit">

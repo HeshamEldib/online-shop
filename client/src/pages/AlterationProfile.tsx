@@ -12,10 +12,10 @@ export default function AlterationProfile() {
   const [mobile, setMobile] = useState(user?.mobile);
   const [address, setAddress] = useState(user?.address);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    dispatch(
+    await dispatch(
       fetchUpdateUser({ userToken: UserToken, userName, mobile, address })
     );
     location.href = "/account";

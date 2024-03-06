@@ -39,10 +39,10 @@ function UpdateForm({ product }: ProductProps) {
   const [image, setImage] = useState();
   const [file, setFile] = useState("");
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    dispatch(
+    await dispatch(
       fetchUpdateProduct({
         title,
         price,
