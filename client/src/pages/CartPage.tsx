@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { ButLove } from "../components/LoveMenu";
-import { Price } from "./ProductPage";
+import { Price } from "./ProductsPage";
 import { ProductIdProps } from "../interface";
 import {
   fetchCountProduct,

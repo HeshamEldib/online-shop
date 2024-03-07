@@ -6,7 +6,7 @@ import { showAndHiddenLove } from "../redux/slices/targetMenu";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
-import { Price } from "../pages/ProductPage";
+import { Price } from "../pages/ProductsPage";
 import {
   fetchAddLove,
   fetchDeleteLove,
@@ -14,8 +14,12 @@ import {
 } from "../redux/slices/loveProductsSlice";
 import { ProductIdProps, ProductProps } from "../interface";
 import { CheckUserToken, MainURL } from "../constant";
+import { findIconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 import "./love-menu.css";
+
+const heartSolid = findIconDefinition({ prefix: "fas", iconName: "heart" });
+const heartRegular = findIconDefinition({ prefix: "far", iconName: "heart" });
 
 export default function LoveMenu() {
   const showMenu = useSelector((state: RootState) => state.targetMenu.showLove);
@@ -48,6 +52,7 @@ function ProductsLove() {
       dispatch(fetchGetLove());
     }
   }, []);
+
   return (
     <div className="products-love">
       {products?.map((product: any, index: number) => (
@@ -119,9 +124,9 @@ function ButLoveContent({ productId, active }: ButLoveContentProps) {
       onClick={() => handelClick(productId)}
     >
       {active !== "" ? (
-        <FontAwesomeIcon icon="fa-solid fa-heart" />
+        <FontAwesomeIcon icon={heartSolid} />
       ) : (
-        <FontAwesomeIcon icon="fa-regular fa-heart" />
+        <FontAwesomeIcon icon={heartRegular} />
       )}
     </button>
   );

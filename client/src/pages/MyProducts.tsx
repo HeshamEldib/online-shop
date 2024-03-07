@@ -9,7 +9,7 @@ import {
   ProductItem,
   ProductItemInfo,
   ProductTitle,
-} from "./ProductPage";
+} from "./ProductsPage";
 import { ButDelete, ButUpdate } from "./ProductDetails";
 import {
   fetchDeleteProduct,

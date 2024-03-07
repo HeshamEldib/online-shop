@@ -10,7 +10,7 @@ import Signin from "./pages/Signin";
 import ProfilePage from "./pages/ProfilePage";
 import LoveMenu from "./components/LoveMenu";
 import Cart from "./pages/CartPage";
-import ProductPage from "./pages/ProductPage";
+import ProductPage from "./pages/ProductsPage";
 import ProductDetails from "./pages/ProductDetails";
 import AlterationProfile from "./pages/AlterationProfile";
 import SearchProduct from "./pages/SearchProduct";

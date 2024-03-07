@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchSearchProduct } from "../redux/slices/productsSlice";
-import { Products } from "./ProductPage";
+import { Products } from "./ProductsPage";
 
 import "./search-product.css";
 
