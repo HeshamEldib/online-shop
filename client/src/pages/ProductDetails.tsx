@@ -13,7 +13,7 @@ import {
   fetchDeleteComment,
   fetchUpdateComment,
 } from "../redux/slices/commentsSlice";
-import { Price } from "../pages/ProductPage";
+import { Price } from "./ProductPage";
 import {
   ButtonActionProps,
   CommentProps,

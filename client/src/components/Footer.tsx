@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Logo } from "./Navbar";
-import "./footer.css";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
+import image_H1 from "../../public/H1.png";
+
+import "./footer.css";
 
 export default function Footer() {
   return (
@@ -54,7 +56,7 @@ function DeveloperLinks() {
             className="my-website"
             target="_break"
           >
-            <img src="../public/H1.png" alt="" />
+            <img src={image_H1} alt="" />
             <span>My Website</span>
           </a>
         </li>

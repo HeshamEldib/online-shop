@@ -20,9 +20,10 @@ import {
 import { RootState } from "../redux/store";
 import { fetchGetAllFromCart } from "../redux/slices/cartSlice";
 import { CheckUserToken, MainURL, UserToken } from "../constant";
+import { fetchUser } from "../redux/slices/userSlice";
+import image_logo from "../../public/logo.png";
 
 import "./navbar.css";
-import { fetchUser } from "../redux/slices/userSlice";
 
 export default function MainNavbar() {
   return (
@@ -63,7 +64,7 @@ function NavLeft() {
 export function Logo() {
   return (
     <Link to="/" className="navbar-brand logo">
-      <img src="../public/logo.png" alt="" />
+      <img src={image_logo} alt="" />
     </Link>
   );
 }
