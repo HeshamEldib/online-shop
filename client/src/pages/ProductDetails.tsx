@@ -27,9 +27,11 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import Swal from "sweetalert2";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import "./product-details.css";
-
+// const f = findIconDefinition()
+{/* <FontAwesomeIcon icon="fa-regular fa-star" /> */}
 library.add(fas, far);
 
 export default function ProductDetails() {
@@ -144,7 +146,7 @@ function RatingStars({ rate }: RatingStarsProps) {
         if (star === "false") {
           return (
             <span key={index}>
-              <FontAwesomeIcon icon="fa-regular fa-star" />
+               <FontAwesomeIcon icon={"fa-regular fa-star" as IconProp} />
             </span>
           );
         } else if (star === "true") {
