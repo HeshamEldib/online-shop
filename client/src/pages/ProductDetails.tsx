@@ -27,7 +27,6 @@ import { findIconDefinition, library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import Swal from "sweetalert2";
-// import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import "./product-details.css";
 
@@ -39,10 +38,6 @@ const starHalf = findIconDefinition({
   iconName: "star-half-stroke",
 });
 const paper = findIconDefinition({ prefix: "far", iconName: "paper-plane" });
-// const f = findIconDefinition()
-{
-  /* <FontAwesomeIcon icon="fa-regular fa-star" /> */
-}
 
 export default function ProductDetails() {
   const product = useSelector((state: RootState) => state.productById.product);
@@ -157,14 +152,12 @@ function RatingStars({ rate }: RatingStarsProps) {
           return (
             <span key={index}>
               <FontAwesomeIcon icon={starRegular} />
-              {/* <FontAwesomeIcon icon={"fa-regular fa-star" as IconProp} /> */}
             </span>
           );
         } else if (star === "true") {
           return (
             <span key={index}>
               <FontAwesomeIcon icon={starSolid} />
-              {/* <FontAwesomeIcon icon="fa-solid fa-star" /> */}
             </span>
           );
         } else {
@@ -215,7 +208,6 @@ function Ratings() {
               className="active"
             >
               <FontAwesomeIcon icon={starSolid} />
-              {/* <FontAwesomeIcon icon="fa-solid fa-star" /> */}
             </button>
           ) : (
             <button
@@ -224,7 +216,6 @@ function Ratings() {
               data-count={num}
             >
               <FontAwesomeIcon icon={starRegular} />
-              {/* <FontAwesomeIcon icon="fa-regular fa-star" /> */}
             </button>
           );
         })}
@@ -439,7 +430,6 @@ export function UploadButton({ buttonAction }: ButtonActionProps) {
   return (
     <button className="main-button" onClick={() => buttonAction()}>
       <FontAwesomeIcon icon={paper} />
-      {/* <FontAwesomeIcon icon="fa-solid fa-paper-plane" /> */}
     </button>
   );
 }
