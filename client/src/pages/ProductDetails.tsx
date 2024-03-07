@@ -23,16 +23,26 @@ import {
 import { ButLove } from "../components/LoveMenu";
 import { CheckUserToken, MainURL, UserToken } from "../constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { findIconDefinition, library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import Swal from "sweetalert2";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+// import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 import "./product-details.css";
-// const f = findIconDefinition()
-{/* <FontAwesomeIcon icon="fa-regular fa-star" /> */}
+
 library.add(fas, far);
+const starSolid = findIconDefinition({ prefix: "fas", iconName: "star" });
+const starRegular = findIconDefinition({ prefix: "far", iconName: "star" });
+const starHalf = findIconDefinition({
+  prefix: "far",
+  iconName: "star-half-stroke",
+});
+const paper = findIconDefinition({ prefix: "far", iconName: "paper-plane" });
+// const f = findIconDefinition()
+{
+  /* <FontAwesomeIcon icon="fa-regular fa-star" /> */
+}
 
 export default function ProductDetails() {
   const product = useSelector((state: RootState) => state.productById.product);
@@ -146,19 +156,21 @@ function RatingStars({ rate }: RatingStarsProps) {
         if (star === "false") {
           return (
             <span key={index}>
-               <FontAwesomeIcon icon={"fa-regular fa-star" as IconProp} />
+              <FontAwesomeIcon icon={starRegular} />
+              {/* <FontAwesomeIcon icon={"fa-regular fa-star" as IconProp} /> */}
             </span>
           );
         } else if (star === "true") {
           return (
             <span key={index}>
-              <FontAwesomeIcon icon="fa-solid fa-star" />
+              <FontAwesomeIcon icon={starSolid} />
+              {/* <FontAwesomeIcon icon="fa-solid fa-star" /> */}
             </span>
           );
         } else {
           return (
             <span key={index}>
-              <FontAwesomeIcon icon="fa-regular fa-star-half-stroke" />
+              <FontAwesomeIcon icon={starHalf} />
             </span>
           );
         }
@@ -202,7 +214,8 @@ function Ratings() {
               data-count={num}
               className="active"
             >
-              <FontAwesomeIcon icon="fa-solid fa-star" />
+              <FontAwesomeIcon icon={starSolid} />
+              {/* <FontAwesomeIcon icon="fa-solid fa-star" /> */}
             </button>
           ) : (
             <button
@@ -210,7 +223,8 @@ function Ratings() {
               onClick={() => submitRating(num)}
               data-count={num}
             >
-              <FontAwesomeIcon icon="fa-regular fa-star" />
+              <FontAwesomeIcon icon={starRegular} />
+              {/* <FontAwesomeIcon icon="fa-regular fa-star" /> */}
             </button>
           );
         })}
@@ -424,7 +438,8 @@ export function ButDelete({ buttonAction }: ButtonActionProps) {
 export function UploadButton({ buttonAction }: ButtonActionProps) {
   return (
     <button className="main-button" onClick={() => buttonAction()}>
-      <FontAwesomeIcon icon="fa-solid fa-paper-plane" />
+      <FontAwesomeIcon icon={paper} />
+      {/* <FontAwesomeIcon icon="fa-solid fa-paper-plane" /> */}
     </button>
   );
 }
